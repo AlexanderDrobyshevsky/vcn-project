@@ -1,0 +1,49 @@
+<project name="VermilionCascadeNotebook" default="Make VCN Client" basedir=".">
+	
+	<target name="Make VCN Client">  
+		<mkdir dir="../application" />
+		<mkdir dir="../application/xcclasses" />
+		<mkdir dir="../application/libs" />
+		
+		<path id="general.classpath">
+			<fileset dir="./libs/swt" includes="**/*.jar" />
+		</path>
+		
+		<javac destdir="../application/xcclasses" debug="on" debuglevel="lines,vars,source" 
+			encoding="utf-8" includeantruntime="false" source="1.6" target="1.6">
+			<src path="./src" />
+			<classpath refid="general.classpath" />
+		</javac>
+				
+		<pathconvert property="xc.manifest.classpath" pathsep=" ">
+			<path refid="general.classpath" />
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*.jar" to="libs/*.jar" />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+		
+		<path id="resources.classpath">
+			<fileset dir="./resources/images" includes="**/*.*" />
+		</path>
+		
+		<copy todir="../application/xcclasses/images">
+			<path refid="resources.classpath" />
+		</copy>
+		
+		<jar jarfile="../application/vcn.jar" basedir="../application/xcclasses">
+			<manifest>
+				<attribute name="Class-Path" value="${xc.manifest.classpath}" />
+				<attribute name="Main-Class" value="com.vermilion.xc.app.ApplicationStart"/>
+			</manifest>
+		</jar>
+		
+		<copy todir="../application/libs">
+			<path refid="general.classpath" />
+		</copy>
+	</target>
+	
+	
+</project>
