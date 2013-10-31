@@ -46,14 +46,14 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  * + 23. Help
  * + 24. Word wrap for text
  * + 25. Cypher sign
- * 25. Increase/Decrease font size
- * 26. Search in document
+ *   25. Increase/Decrease font size
+ *   26. Search in document
  * + 28. Put version of xml to file for new versions
- * 29. Search inside editor
- * 30. Comb listeners with exceptions
- * 31. ~Copy qualified name
- * 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboad - but have selected text instead of text from clipboard 
- * 33. Live Copy Of Nodes (One live node for many parents)
+ *   29. Search inside editor
+ *   30. Comb listeners with exceptions
+ *   31. ~Copy qualified name
+ * * 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboad - but have selected text (in clipboard) instead of text your really want to put 
+ *   33. Live Copy Of Nodes (One live node for many parents)
  * 
  * Bugs:
  * 1. + Press cancel than creating new sub-node - save * appear
