@@ -8,10 +8,10 @@ import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 
 public class EditorVerifyListener implements VerifyListener {
 
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 
-	public EditorVerifyListener(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
+	public EditorVerifyListener(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
 
 	public void verifyText(VerifyEvent e) {
@@ -19,9 +19,9 @@ public class EditorVerifyListener implements VerifyListener {
 		buffer.replace(e.start, e.end, e.text);
 		String newText = buffer.toString().trim();
 
-		if (vermilionCascadeEditor.getEditor().getText() != null
-				&& !vermilionCascadeEditor.getEditor().equals(newText)) {
-			vermilionCascadeEditor.setModified();
+		if (vermilionCascadeNotebook.getEditor().getText() != null
+				&& !vermilionCascadeNotebook.getEditor().equals(newText)) {
+			vermilionCascadeNotebook.setModified();
 		}
 	}
 

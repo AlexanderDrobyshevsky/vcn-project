@@ -14,14 +14,14 @@ import ru.vermilion.vcn.app.dialogs.HelpDialog;
 
 public class ApplicationMenu {
 
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 	private Shell shell;
 	
 	private MenuItem wrapItem;
 	
-	public ApplicationMenu(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
-		this.shell = vermilionCascadeEditor.getShell();
+	public ApplicationMenu(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
+		this.shell = vermilionCascadeNotebook.getShell();
 	}
 	
 	public void createMenu() {
@@ -42,7 +42,7 @@ public class ApplicationMenu {
 
 		saveMenuItem.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
-				vermilionCascadeEditor.save();
+				vermilionCascadeNotebook.save();
 			}
 		});
 		
@@ -60,8 +60,8 @@ public class ApplicationMenu {
 		exitMenuItem.setText ("E&xit");
 		exitMenuItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent (Event e) {
-				vermilionCascadeEditor.save();
-				vermilionCascadeEditor.unlockProgrammProcess();
+				vermilionCascadeNotebook.save();
+				vermilionCascadeNotebook.unlockProgrammProcess();
 				System.exit(0);
 			}
 		});
@@ -76,10 +76,10 @@ public class ApplicationMenu {
 		MenuItem item = new MenuItem (submenu, SWT.PUSH);
 		item.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				vermilionCascadeEditor.getEditor().selectAll();
-				Point selection = vermilionCascadeEditor.getEditor().getSelection();
+				vermilionCascadeNotebook.getEditor().selectAll();
+				Point selection = vermilionCascadeNotebook.getEditor().getSelection();
 				if (selection.x < selection.y) {
-					vermilionCascadeEditor.getEditor().copy();
+					vermilionCascadeNotebook.getEditor().copy();
 				}
 			}
 		});
@@ -92,8 +92,8 @@ public class ApplicationMenu {
 		wrapItem.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
 				System.out.println("wrapItem Selection Event!!!");
-				vermilionCascadeEditor.setWrapEditor(wrapItem.getSelection(), false);
-				vermilionCascadeEditor.setModified();
+				vermilionCascadeNotebook.setWrapEditor(wrapItem.getSelection(), false);
+				vermilionCascadeNotebook.setModified();
 			}
 		});
 		wrapItem.setText ("Word Wrap");
@@ -111,7 +111,7 @@ public class ApplicationMenu {
 		MenuItem aboutItem = new MenuItem (submenu, SWT.PUSH);
 		aboutItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				AboutDialog aboutDialog = new AboutDialog(vermilionCascadeEditor.getShell());
+				AboutDialog aboutDialog = new AboutDialog(vermilionCascadeNotebook.getShell());
 				aboutDialog.open();
 			}
 		});

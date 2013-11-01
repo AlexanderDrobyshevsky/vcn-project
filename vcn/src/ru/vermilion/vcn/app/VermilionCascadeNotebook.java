@@ -47,18 +47,21 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  * + 24. Word wrap for text
  * + 25. Cypher sign
  *   25. Increase/Decrease font size
- *   26. Search in document
+ * * 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
- *   29. Search inside editor
+ *   29. Search through whole editor
  *   30. Comb listeners with exceptions
  *   31. ~Copy qualified name
- * * 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboad - but have selected text (in clipboard) instead of text your really want to put 
+ * + 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboad - but have selected text (in clipboard) instead of text your really want to put 
  *   33. Live Copy Of Nodes (One live node for many parents)
+ *   34. Make auto backups
+ *   35. Crypto possibilities with password access;
+ *   36. Node sharing possibilities (through server)
  * 
  * Bugs:
  * 1. + Press cancel than creating new sub-node - save * appear
  * 2. + Empty node possible
- * 3. Opens and closes node - does not saves
+ * 3. Opens and closes of node - are not saved
  * 
  * @author Alexander Drobyshevsky
  */
@@ -75,7 +78,7 @@ public class VermilionCascadeNotebook {
 	
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
-	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.0";
+	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.1";
 	
 	private static final String TITLE_MODIFIED = " * " + TITLE_WITH_VERSION;
 	

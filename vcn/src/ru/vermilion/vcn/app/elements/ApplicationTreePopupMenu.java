@@ -17,16 +17,16 @@ import ru.vermilion.vcn.auxiliar.StringRequestOKCancelDialog;
 
 public class ApplicationTreePopupMenu {
 
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 	
 	private Tree tree;
 	
 	private Shell shell;
 	
-	public ApplicationTreePopupMenu(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
-		this.tree = vermilionCascadeEditor.getTree();
-		this.shell = vermilionCascadeEditor.getShell();
+	public ApplicationTreePopupMenu(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
+		this.tree = vermilionCascadeNotebook.getTree();
+		this.shell = vermilionCascadeNotebook.getShell();
 	}
 	
 	public void addTreePopupMenu() {
@@ -51,7 +51,7 @@ public class ApplicationTreePopupMenu {
 	    			TreeItem jItem = new VCNTreeItem(selectedItem, 0);
 	    			jItem.setText(s);
 	    			selectedItem.setExpanded(true);
-	    			vermilionCascadeEditor.setModified();
+	    			vermilionCascadeNotebook.setModified();
 	    		}
 	    	}
 	    });
@@ -84,7 +84,7 @@ public class ApplicationTreePopupMenu {
 
 	    			jItem.setText(s);
 	    			
-	    			vermilionCascadeEditor.setModified();
+	    			vermilionCascadeNotebook.setModified();
 	    		}
 	    	}
 	    });
@@ -110,7 +110,7 @@ public class ApplicationTreePopupMenu {
 	    		if (s != null) {
 	    			selectedItem.setText(s);
 	    			
-	    			vermilionCascadeEditor.setModified();
+	    			vermilionCascadeNotebook.setModified();
 	    		}
 	    	}
 	    });
@@ -145,7 +145,7 @@ public class ApplicationTreePopupMenu {
 						iItem.setText("root");
 					}
 
-					vermilionCascadeEditor.setModified();
+					vermilionCascadeNotebook.setModified();
 				}
 	    	}
 	    });

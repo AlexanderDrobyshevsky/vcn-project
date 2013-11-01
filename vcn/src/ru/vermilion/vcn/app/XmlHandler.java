@@ -24,10 +24,10 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
 
 public class XmlHandler {
 
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 
-	public XmlHandler(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
+	public XmlHandler(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
 
 	private Document constructXml(Document xml) {
@@ -35,7 +35,7 @@ public class XmlHandler {
 		rootElement.setAttribute(VCNConstants.XML_FORMAT_VERSION_ATTR_NAME, VCNConstants.XML_FORMAT_VERSION);
 		xml.appendChild(rootElement);
 
-		TreeItem[] treeItems = vermilionCascadeEditor.getTree().getItems();
+		TreeItem[] treeItems = vermilionCascadeNotebook.getTree().getItems();
 		for (TreeItem treeItem : treeItems) {
 			addNode(rootElement, treeItem, xml);
 		}
@@ -84,18 +84,18 @@ public class XmlHandler {
 	}
 
 	public void initXML() {
-		vermilionCascadeEditor.initDataDir();
+		vermilionCascadeNotebook.initDataDir();
 
 		File dataFile = new File(VCNConstants.WORK_FILE_PATH);
 
 		boolean isExistDataFile = dataFile.isFile();
 
 		if (!isExistDataFile) {
-			GeneralUtils.clearTree(vermilionCascadeEditor.getTree());
+			GeneralUtils.clearTree(vermilionCascadeNotebook.getTree());
 
-			TreeItem iItem = new VCNTreeItem(vermilionCascadeEditor.getTree(), 0);
+			TreeItem iItem = new VCNTreeItem(vermilionCascadeNotebook.getTree(), 0);
 			iItem.setText(VCNConstants.ROOT);
-			vermilionCascadeEditor.setModified();
+			vermilionCascadeNotebook.setModified();
 			saveXml();
 		}
 	}
@@ -104,7 +104,7 @@ public class XmlHandler {
 		Document xml = getDocument();
 
 		System.out.println("Begin load xml");
-		GeneralUtils.clearTree(vermilionCascadeEditor.getTree());
+		GeneralUtils.clearTree(vermilionCascadeNotebook.getTree());
 
 		if (xml != null) {
 			Element root = xml.getDocumentElement();
@@ -123,7 +123,7 @@ public class XmlHandler {
 						String nodeNameAttr = childElement.getAttribute(VCNConstants.NAME);
 						boolean isExpanded = new Boolean(childElement.getAttribute(VCNConstants.EXPANDED));
 
-						VCNTreeItem item = new VCNTreeItem(vermilionCascadeEditor.getTree(), 0);
+						VCNTreeItem item = new VCNTreeItem(vermilionCascadeNotebook.getTree(), 0);
 						item.setText(nodeNameAttr);
 
 						fillNode(childElement, item);
@@ -134,15 +134,15 @@ public class XmlHandler {
 			}
 		}
 
-		vermilionCascadeEditor.getTree().select(vermilionCascadeEditor.getTree().getItem(0));
-		vermilionCascadeEditor.getEditor()
-			.setText((String) ((VCNTreeItem)vermilionCascadeEditor.getTree().getItem(0)).getContent());
-		vermilionCascadeEditor.getEditor()
-			.setTreeItem((VCNTreeItem)vermilionCascadeEditor.getTree().getItem(0));
+		vermilionCascadeNotebook.getTree().select(vermilionCascadeNotebook.getTree().getItem(0));
+		vermilionCascadeNotebook.getEditor()
+			.setText((String) ((VCNTreeItem)vermilionCascadeNotebook.getTree().getItem(0)).getContent());
+		vermilionCascadeNotebook.getEditor()
+			.setTreeItem((VCNTreeItem)vermilionCascadeNotebook.getTree().getItem(0));
 		
-		vermilionCascadeEditor.setWrapEditor(vermilionCascadeEditor.getEditor().getTreeItem().isWrap());
+		vermilionCascadeNotebook.setWrapEditor(vermilionCascadeNotebook.getEditor().getTreeItem().isWrap());
 
-		vermilionCascadeEditor.setInModified();
+		vermilionCascadeNotebook.setInModified();
 
 		System.out.println("Load finished");
 	}
@@ -188,7 +188,7 @@ public class XmlHandler {
 	}
 
 	public void saveXml() {
-		if (!vermilionCascadeEditor.getModified()) {
+		if (!vermilionCascadeNotebook.getModified()) {
 			return;
 		}
 
@@ -206,9 +206,9 @@ public class XmlHandler {
 
 		Document xml = builder.newDocument();
 
-		VCNTreeItem item = vermilionCascadeEditor.getEditor().getTreeItem();
+		VCNTreeItem item = vermilionCascadeNotebook.getEditor().getTreeItem();
 		if (item != null && !item.isDisposed()) {
-			item.setContent(vermilionCascadeEditor.getEditor().getText());
+			item.setContent(vermilionCascadeNotebook.getEditor().getText());
 		}
 
 		constructXml(xml);
@@ -237,6 +237,6 @@ public class XmlHandler {
 			ex.printStackTrace();
 		}
 
-		vermilionCascadeEditor.setInModified();
+		vermilionCascadeNotebook.setInModified();
 	}
 }

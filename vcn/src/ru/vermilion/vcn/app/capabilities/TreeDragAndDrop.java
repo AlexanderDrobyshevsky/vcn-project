@@ -22,11 +22,11 @@ public class TreeDragAndDrop implements ICapability {
 
 	private Tree tree;
 	
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 
-	public TreeDragAndDrop(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.tree = vermilionCascadeEditor.getTree();
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
+	public TreeDragAndDrop(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.tree = vermilionCascadeNotebook.getTree();
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 
 		addDNDCapability();
 	}
@@ -57,7 +57,7 @@ public class TreeDragAndDrop implements ICapability {
 				if (event.detail == DND.DROP_MOVE)
 					dragSourceItem[0].dispose();
 				dragSourceItem[0] = null;
-				vermilionCascadeEditor.setModified();
+				vermilionCascadeNotebook.setModified();
 			}
 		});
 

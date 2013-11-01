@@ -36,7 +36,7 @@
 		<jar jarfile="../application/vcn.jar" basedir="../application/xcclasses">
 			<manifest>
 				<attribute name="Class-Path" value="${xc.manifest.classpath}" />
-				<attribute name="Main-Class" value="com.vermilion.xc.app.ApplicationStart"/>
+				<attribute name="Main-Class" value="ru.vermilion.vcn.app.ApplicationStart"/>
 			</manifest>
 		</jar>
 		

@@ -9,9 +9,9 @@ public class ProgramAutoSave implements ICapability {
 	
 	private Timer autoSaveTimer;
 	
-	public ProgramAutoSave(VermilionCascadeNotebook vermilionCascadeEditor) {
+	public ProgramAutoSave(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		autoSaveTimer = new Timer(true);
-		autoSaveTimer.schedule(new AutoSaveTimerTask(vermilionCascadeEditor), 10000, 10000);
+		autoSaveTimer.schedule(new AutoSaveTimerTask(vermilionCascadeNotebook), 10000, 10000);
 	}
 
 }

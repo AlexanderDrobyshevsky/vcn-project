@@ -9,16 +9,16 @@ import ru.vermilion.vcn.app.staff.VCNTreeItem;
 
 public class TreeSelectionListener implements Listener {
 
-	private VermilionCascadeNotebook vermilionCascadeEditor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 	
-	public TreeSelectionListener(VermilionCascadeNotebook vermilionCascadeEditor) {
-		this.vermilionCascadeEditor = vermilionCascadeEditor;
+	public TreeSelectionListener(VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
 	
 	public void handleEvent (Event event) {
 		assert event.item != null;
 		
-		Editor editor = vermilionCascadeEditor.getEditor();
+		Editor editor = vermilionCascadeNotebook.getEditor();
 		
 		VCNTreeItem item = editor.getTreeItem();
 		if (!item.isDisposed()) {
@@ -30,11 +30,11 @@ public class TreeSelectionListener implements Listener {
 			itemText = "";
 		}
 		
-		editor.removeVerifyListener(vermilionCascadeEditor.getEditorVerifyListener());
+		editor.removeVerifyListener(vermilionCascadeNotebook.getEditorVerifyListener());
 		editor.setText(itemText);
-		editor.addVerifyListener(vermilionCascadeEditor.getEditorVerifyListener());
+		editor.addVerifyListener(vermilionCascadeNotebook.getEditorVerifyListener());
 		editor.setTreeItem((VCNTreeItem)event.item);
 		
-		vermilionCascadeEditor.setWrapEditor(((VCNTreeItem)event.item).isWrap());
+		vermilionCascadeNotebook.setWrapEditor(((VCNTreeItem)event.item).isWrap());
 	}
 }
