@@ -23,6 +23,7 @@ import ru.vermilion.vcn.app.capabilities.EditorAutoSelectedTextCopy;
 import ru.vermilion.vcn.app.capabilities.ICapability;
 import ru.vermilion.vcn.app.capabilities.ProgramAutoSave;
 import ru.vermilion.vcn.app.capabilities.TreeDragAndDrop;
+import ru.vermilion.vcn.app.dialogs.DocumentSearchDialog;
 import ru.vermilion.vcn.app.elements.ApplicationMenu;
 import ru.vermilion.vcn.app.elements.ApplicationTreePopupMenu;
 import ru.vermilion.vcn.app.listeners.EditorVerifyListener;
@@ -107,6 +108,9 @@ public class VermilionCascadeNotebook {
 		lockProgrammProcess(shell);
 		
 		shell.setImage(new Image(display, VermilionCascadeNotebook.class.getResourceAsStream("/images/logo.png")));
+		
+		new DocumentSearchDialog(shell).open();
+		System.exit(0);
 		
 		createContent();
 		
