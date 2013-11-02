@@ -44,6 +44,8 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 		});
 		
 		editor.addKeyListener(new KeyListener() {
+			
+			// TODO CTRL+C Should reset counters!!!
 			public void keyPressed(KeyEvent e) {
 				// keyPressedKeyEvent{Editor {} time=26882185 data=null 
 				//character=''=0x16 keyCode=0x76 keyLocation=0x0 stateMask=0x40000 doit=true}

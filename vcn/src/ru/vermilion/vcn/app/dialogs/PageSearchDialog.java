@@ -1,6 +1,8 @@
 package ru.vermilion.vcn.app.dialogs;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -16,15 +18,15 @@ import org.eclipse.swt.widgets.Text;
 
 import ru.vermilion.vcn.auxiliar.UI;
 
-public class DocumentSearchDialog extends Dialog {
-	private Object result;
+public class PageSearchDialog extends Dialog {
+	private DialogResult result;
 	private Shell shell;
 
-	public DocumentSearchDialog(Shell parent, int style) {
+	public PageSearchDialog(Shell parent, int style) {
 		super(parent, style);
 	}
 
-	public DocumentSearchDialog(Shell parent) {
+	public PageSearchDialog(Shell parent) {
 		this(parent, SWT.NONE);
 	}
 
@@ -47,12 +49,11 @@ public class DocumentSearchDialog extends Dialog {
 
 	protected void createContents() {
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-		shell.setText("Document Search");
+		shell.setText("Page Search");
 		Color backgroundColor = shell.getDisplay().getSystemColor(SWT.COLOR_WHITE);
 		shell.setBackground(backgroundColor);
 
 		GridLayout gl = new GridLayout(1, false);
-		//gl.horizontalSpacing = 1;
 		gl.verticalSpacing = 5;
 		gl.marginHeight = 0;
 		gl.marginWidth = 0;
@@ -81,9 +82,9 @@ public class DocumentSearchDialog extends Dialog {
 		messageLabel.setLayoutData(gd);
 		
 		
-		Text searchPhrase = new Text(contentClient, SWT.BORDER);
+		final Text searchPhrase = new Text(contentClient, SWT.BORDER);
+		searchPhrase.setFocus();
 		gd = new GridData(GridData.FILL_HORIZONTAL);
-//		gd.minimumHeight = 50;
 		gd.minimumWidth = 200;
 		gd.horizontalAlignment = SWT.CENTER;
 		searchPhrase.setLayoutData(gd);	
@@ -102,7 +103,7 @@ public class DocumentSearchDialog extends Dialog {
 		gd.horizontalAlignment = SWT.RIGHT;
 		buttonsClient.setLayoutData(gd);
 		
-		Button OK = new Button(buttonsClient, SWT.PUSH);
+		final Button OK = new Button(buttonsClient, SWT.PUSH);
 		OK.setText("     OK     ");
 		OK.setBackground(backgroundColor);
 
@@ -117,8 +118,24 @@ public class DocumentSearchDialog extends Dialog {
 		cancel.setLayoutData(cancelGridData);
 		
 		
-		OK.setFocus();
 		OK.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				result = new DialogResult();
+				result.searchText = searchPhrase.getText();
+				
+				shell.close();
+			}
+		});
+		
+		OK.setEnabled(!searchPhrase.getText().trim().isEmpty());
+		searchPhrase.addModifyListener(new ModifyListener() {
+			@Override
+			public void modifyText(ModifyEvent e) {
+				OK.setEnabled(!searchPhrase.getText().trim().isEmpty());
+			}
+		});
+		
+		cancel.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				shell.close();
 			}
@@ -127,5 +144,13 @@ public class DocumentSearchDialog extends Dialog {
 		shell.setDefaultButton(OK);
 
 		shell.pack();
+	}
+	
+	public static class DialogResult {
+		public String searchText;
+	} 
+	
+	public DialogResult getResult() {
+		return result;
 	}
 }
