@@ -3,8 +3,10 @@ package ru.vermilion.vcn.app.capabilities;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 import ru.vermilion.vcn.app.dialogs.GlobalSearchDialog;
+import ru.vermilion.vcn.app.staff.VCNTreeItem;
 
 public class GlobalSearch implements ICapability {
 
@@ -29,6 +31,8 @@ public class GlobalSearch implements ICapability {
 					documentSearchDialog.open();
 					GlobalSearchDialog.DialogResult dr = documentSearchDialog.getResult();
 					
+					
+					
 
 				}
 				
@@ -41,10 +45,69 @@ public class GlobalSearch implements ICapability {
 			public void keyReleased(KeyEvent e) { }
 		});
 
-		
-		
-		
-		
 	}
 	
+	
+	private boolean lastItemAlreadyFound;
+	private TreeItem search(TreeItem lastFoundItem, String searchString) {
+		
+		lastItemAlreadyFound = lastFoundItem == null;
+		
+		TreeItem[] treeItems = tree.getItems();
+		for (TreeItem treeItem : treeItems) {
+			TreeItem itemFound = realSearch(treeItem, searchString, lastFoundItem);
+			
+			if (itemFound != null) {
+				return itemFound;
+			}
+		}	
+		
+		return null;
+	}
+	
+	private TreeItem realSearch(TreeItem investigatingItem, String searchString, TreeItem lastFoundItem) {
+	    
+		if (lastItemAlreadyFound) {
+			String itemContent = (String) ((VCNTreeItem)investigatingItem).getContent();
+			if (itemContent.indexOf(searchString) > 0) {
+				return investigatingItem;
+			}
+			
+			TreeItem[] childrenItems = investigatingItem.getItems();
+			for (TreeItem treeItem : childrenItems) {
+				TreeItem itemFound = realSearch(treeItem, searchString, null);
+				
+				if (itemFound != null) {
+					return itemFound;
+				}
+			}
+		} else {
+			if (lastFoundItem == investigatingItem) {
+				lastItemAlreadyFound = true;
+				
+				TreeItem[] childrenItems = investigatingItem.getItems();
+				for (TreeItem treeItem : childrenItems) {
+					TreeItem itemFound = realSearch(treeItem, searchString, null);
+					
+					if (itemFound != null) {
+						return itemFound;
+					}					
+				}
+			} else {
+				TreeItem[] childrenItems = investigatingItem.getItems();
+				for (TreeItem treeItem : childrenItems) {
+					TreeItem itemFound = realSearch(treeItem, searchString, lastFoundItem);
+					
+					if (itemFound != null) {
+						return itemFound;
+					}
+				}				
+			}
+			
+		}
+		
+	    return null;
+	}
+	
+
 }
