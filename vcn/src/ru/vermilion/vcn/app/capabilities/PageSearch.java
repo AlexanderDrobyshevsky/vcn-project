@@ -18,17 +18,17 @@ public class PageSearch implements ICapability {
 	public PageSearch(Text text) {
 		this.editor = text;
 		
-		addDocumetFindKeyListener();
+		addPageSearchKeyListener();
 	}
 	
-	private void addDocumetFindKeyListener() {
+	private void addPageSearchKeyListener() {
 		editor.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				// Ctrl+F pressed
 				if (e.character == 0x6 && e.keyCode == 0x66 && e.stateMask == 0x40000) {
-					PageSearchDialog documentSearchDialog = new PageSearchDialog(editor.getShell());
-					documentSearchDialog.open();
-					PageSearchDialog.DialogResult dr = documentSearchDialog.getResult();
+					PageSearchDialog pageSearchDialog = new PageSearchDialog(editor.getShell());
+					pageSearchDialog.open();
+					PageSearchDialog.DialogResult dr = pageSearchDialog.getResult();
 					
 					if (dr != null) {
 						searchingText = dr.searchText;

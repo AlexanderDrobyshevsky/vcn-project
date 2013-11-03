@@ -19,9 +19,10 @@ import org.eclipse.swt.widgets.Sash;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 
-import ru.vermilion.vcn.app.capabilities.PageSearch;
 import ru.vermilion.vcn.app.capabilities.EditorAutoSelectedTextCopy;
+import ru.vermilion.vcn.app.capabilities.GlobalSearch;
 import ru.vermilion.vcn.app.capabilities.ICapability;
+import ru.vermilion.vcn.app.capabilities.PageSearch;
 import ru.vermilion.vcn.app.capabilities.ProgramAutoSave;
 import ru.vermilion.vcn.app.capabilities.TreeDragAndDrop;
 import ru.vermilion.vcn.app.elements.ApplicationMenu;
@@ -62,6 +63,8 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  *   38! Add to the help page search possibilities;
  *   39! Add case sensitive option to page search dialog; 
  *   40. Node import/export
+ *   41. Page Search: CTRL-F - must activate page search at tree too;  
+ *   42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS) 
  * 
  * Bugs:
  * 1. + Press cancel than creating new sub-node - save * appear
@@ -197,7 +200,7 @@ public class VermilionCascadeNotebook {
 		
 		xmlHandler.initXML();
 		
-		addSelectionListener(tree);
+		addSelectionListeners(tree);
 		
 		ApplicationTreePopupMenu treePopupMenu = new ApplicationTreePopupMenu(this);
 		treePopupMenu.addTreePopupMenu();
@@ -352,8 +355,9 @@ public class VermilionCascadeNotebook {
 		});
 	}
 	
-	private void addSelectionListener(Tree tree) {
+	private void addSelectionListeners(Tree tree) {
 		tree.addListener(SWT.Selection, new TreeSelectionListener(this));
+		addCapability(new GlobalSearch(tree));
 	}
 	
 	public VerifyListener getEditorVerifyListener() {
