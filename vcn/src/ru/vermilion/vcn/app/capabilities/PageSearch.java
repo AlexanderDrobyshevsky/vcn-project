@@ -21,6 +21,24 @@ public class PageSearch implements ICapability {
 		addPageSearchKeyListener();
 	}
 	
+//	public void pageSearchAction() {
+//		PageSearchDialog pageSearchDialog = new PageSearchDialog(editor.getShell());
+//		pageSearchDialog.open();
+//		PageSearchDialog.DialogResult dr = pageSearchDialog.getResult();
+//		
+//		if (dr != null) {
+//			searchingText = dr.searchText;
+//			
+//			String editorText = editor.getText();
+//			int searchIndex = editorText.indexOf(searchingText);
+//			lastSearchingPosition = searchIndex;
+//			
+//			if (searchIndex >= 0) {
+//				editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
+//			}
+//		}
+//	}
+	
 	private void addPageSearchKeyListener() {
 		editor.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
@@ -37,7 +55,7 @@ public class PageSearch implements ICapability {
 						int searchIndex = editorText.indexOf(searchingText);
 						lastSearchingPosition = searchIndex;
 						
-						if (searchIndex > 0) {
+						if (searchIndex >= 0) {
 							editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
 						}
 					}
@@ -45,15 +63,15 @@ public class PageSearch implements ICapability {
 				}
 				
 				// F3 - Pressed
-				if (e.character == 0x00 && e.keyCode == 0x100000c && e.stateMask == 0x0) {
+				if (e.character == 0x00 && e.keyCode == 0x100000c && e.stateMask == 0x0 && !searchingText.isEmpty()) {
 					int searchIndex = -1;
-					if (lastSearchingPosition > 0) {
+					if (lastSearchingPosition >= 0) {
 						String editorText = editor.getText();
 						searchIndex = editorText.indexOf(searchingText, lastSearchingPosition + 1);
 						lastSearchingPosition = searchIndex;
 					}
 					
-					if (searchIndex > 0) {
+					if (searchIndex >= 0) {
 						editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
 					}
 				}

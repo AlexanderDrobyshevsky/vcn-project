@@ -99,6 +99,15 @@ public class ApplicationMenu {
 		wrapItem.setText ("Word Wrap");
 		//wrapItem.setAccelerator (SWT.MOD1 | 'W');
 		
+		MenuItem pageSerchItem = new MenuItem (submenu, SWT.PUSH);
+		pageSerchItem.addListener (SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+
+			}
+		});
+		pageSerchItem.setText ("Page Search \tCtrl + F");
+		pageSerchItem.setAccelerator (SWT.MOD1 | 'F');
+		
 		///////////
 		
 		
@@ -123,8 +132,9 @@ public class ApplicationMenu {
 				new HelpDialog(shell).openHelpDialog();
 			}
 		});
-		helpSubsectionItem.setText ("VCN Help \tCtrl + H");
-		helpSubsectionItem.setAccelerator (SWT.MOD1 | 'H');
+		helpSubsectionItem.setText ("VCN Help \tF1");
+		//helpSubsectionItem.setAccelerator (SWT.MOD1 | 'H');
+		helpSubsectionItem.setAccelerator (SWT.F1);
 	}
 
 	public void setMenuWrapItem(boolean wrap) {

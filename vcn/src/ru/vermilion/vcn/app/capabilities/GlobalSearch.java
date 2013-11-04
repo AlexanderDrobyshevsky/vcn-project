@@ -1,7 +1,9 @@
 package ru.vermilion.vcn.app.capabilities;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -12,6 +14,9 @@ public class GlobalSearch implements ICapability {
 
 	private Tree tree;
 	
+	private String lastSearchText;
+	private TreeItem lastFoundItem;
+	
 	public GlobalSearch(Tree tree) {
 		this.tree = tree;
 		
@@ -19,8 +24,6 @@ public class GlobalSearch implements ICapability {
 	}
 
 	private void addGlobalSearchKeyListener() {
-		
-		
 		tree.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				
@@ -31,15 +34,33 @@ public class GlobalSearch implements ICapability {
 					documentSearchDialog.open();
 					GlobalSearchDialog.DialogResult dr = documentSearchDialog.getResult();
 					
-					
-					
-
+					searchAction(null, dr.searchText);
 				}
 				
-				// F3 - Pressed
-				if (e.character == 0x00 && e.keyCode == 0x100000c && e.stateMask == 0x0) {
+				// F4 - Pressed
+				if (e.character == 0x00 && e.keyCode == 0x100000d && e.stateMask == 0x0 && lastSearchText != null) {
+					System.out.println("F4 - At Global Search");
 
+					searchAction(lastFoundItem, lastSearchText);
 				}
+			}
+			
+			private void searchAction(TreeItem lastFoundItem, String searchText) {
+				if (searchText == null || searchText.isEmpty()) {
+					return;
+				}
+				
+				TreeItem foundItem = search(lastFoundItem, searchText);
+				
+				if (foundItem != null) {
+					tree.setSelection(foundItem);
+					Event treeSelectionEvent = new Event();
+					treeSelectionEvent.item = foundItem;
+					tree.notifyListeners(SWT.Selection, treeSelectionEvent);
+				}
+				
+				GlobalSearch.this.lastFoundItem = foundItem;
+				lastSearchText = searchText;
 			}
 
 			public void keyReleased(KeyEvent e) { }
@@ -66,10 +87,16 @@ public class GlobalSearch implements ICapability {
 	}
 	
 	private TreeItem realSearch(TreeItem investigatingItem, String searchString, TreeItem lastFoundItem) {
-	    
+	   
+		
+		
 		if (lastItemAlreadyFound) {
+			// System.out.println("investigatingItem = " + investigatingItem.getText());
+			 
 			String itemContent = (String) ((VCNTreeItem)investigatingItem).getContent();
-			if (itemContent.indexOf(searchString) > 0) {
+			
+			//System.out.println("itemContent.indexOf(searchString)" + itemContent.indexOf(searchString));
+			if (itemContent.indexOf(searchString) >= 0) {
 				return investigatingItem;
 			}
 			

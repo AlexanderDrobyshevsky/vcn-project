@@ -15,8 +15,9 @@ public class TreeSelectionListener implements Listener {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
 	
+	// Self-made Events are possible. Just event.item may be set! 
 	public void handleEvent (Event event) {
-		assert event.item != null;
+		assert event != null && event.item != null;
 		
 		Editor editor = vermilionCascadeNotebook.getEditor();
 		
