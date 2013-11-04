@@ -77,7 +77,7 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
 
 /**
  */
-public class VermilionCascadeNotebook {
+public final class VermilionCascadeNotebook {
 
 	private Editor editor = null;
 	
@@ -215,7 +215,7 @@ public class VermilionCascadeNotebook {
 
 	private void addEditorListeners(Editor editor) {
 		addCapability(new EditorAutoSelectedTextCopy(editor));
-		addCapability(new PageSearch(editor));
+		//addCapability(new PageSearch(editor));
 		editor.addVerifyListener(editorVerifyListener);
 	}
 
@@ -357,14 +357,14 @@ public class VermilionCascadeNotebook {
 	
 	private void addSelectionListeners(Tree tree) {
 		tree.addListener(SWT.Selection, new TreeSelectionListener(this));
-		addCapability(new GlobalSearch(tree));
+		//addCapability(new GlobalSearch(tree));
 	}
 	
 	public VerifyListener getEditorVerifyListener() {
 		return editorVerifyListener;
 	}
 	
-	protected void addCapability(ICapability capability) {
+	public void addCapability(ICapability capability) {
 		
 	}
 	

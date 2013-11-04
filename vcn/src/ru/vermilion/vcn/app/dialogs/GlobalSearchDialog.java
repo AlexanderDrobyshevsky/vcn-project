@@ -147,6 +147,8 @@ public class GlobalSearchDialog extends Dialog {
 	}
 	
 	public static class DialogResult {
+		public static final Object CANCEL = null;
+		
 		public String searchText;
 	} 
 	

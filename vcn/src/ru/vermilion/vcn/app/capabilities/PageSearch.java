@@ -1,85 +1,80 @@
 package ru.vermilion.vcn.app.capabilities;
 
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 
+import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.dialogs.PageSearchDialog;
 
 public class PageSearch implements ICapability {
 	
-	private Text editor;
+	private VermilionCascadeNotebook vermilionCascadeNotebook;
 	
 	private int lastSearchingPosition = 0;
 	
 	private String searchingText = "";
 	
-	public PageSearch(Text text) {
-		this.editor = text;
+	public PageSearch(Menu submenu, VermilionCascadeNotebook vermilionCascadeNotebook) {
+		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 		
-		addPageSearchKeyListener();
+		addMenuItems(submenu);
 	}
 	
-//	public void pageSearchAction() {
-//		PageSearchDialog pageSearchDialog = new PageSearchDialog(editor.getShell());
-//		pageSearchDialog.open();
-//		PageSearchDialog.DialogResult dr = pageSearchDialog.getResult();
-//		
-//		if (dr != null) {
-//			searchingText = dr.searchText;
-//			
-//			String editorText = editor.getText();
-//			int searchIndex = editorText.indexOf(searchingText);
-//			lastSearchingPosition = searchIndex;
-//			
-//			if (searchIndex >= 0) {
-//				editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
-//			}
-//		}
-//	}
-	
-	private void addPageSearchKeyListener() {
-		editor.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e) {
-				// Ctrl+F pressed
-				if (e.character == 0x6 && e.keyCode == 0x66 && e.stateMask == 0x40000) {
-					PageSearchDialog pageSearchDialog = new PageSearchDialog(editor.getShell());
-					pageSearchDialog.open();
-					PageSearchDialog.DialogResult dr = pageSearchDialog.getResult();
-					
-					if (dr != null) {
-						searchingText = dr.searchText;
-						
-						String editorText = editor.getText();
-						int searchIndex = editorText.indexOf(searchingText);
-						lastSearchingPosition = searchIndex;
-						
-						if (searchIndex >= 0) {
-							editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
-						}
-					}
-					
-				}
-				
-				// F3 - Pressed
-				if (e.character == 0x00 && e.keyCode == 0x100000c && e.stateMask == 0x0 && !searchingText.isEmpty()) {
-					int searchIndex = -1;
-					if (lastSearchingPosition >= 0) {
-						String editorText = editor.getText();
-						searchIndex = editorText.indexOf(searchingText, lastSearchingPosition + 1);
-						lastSearchingPosition = searchIndex;
-					}
-					
-					if (searchIndex >= 0) {
-						editor.setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
-					}
-				}
+	private void addMenuItems(Menu submenu) {
+		MenuItem pageSearchItem = new MenuItem (submenu, SWT.PUSH);
+		pageSearchItem.addListener (SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+				pageSearchAction();
 			}
-
-			public void keyReleased(KeyEvent e) { }
 		});
+		pageSearchItem.setText ("Page Find.. \tCtrl + F");
+		pageSearchItem.setAccelerator(SWT.MOD1 | 'F');
 		
+		MenuItem pageReSearchItem = new MenuItem (submenu, SWT.PUSH);
+		pageReSearchItem.addListener (SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+				pageReSearchAction();
+			}
+		});
+		pageReSearchItem.setText ("Page Find Next\tF3");
+		pageReSearchItem.setAccelerator(SWT.F3);
 	}
-
+	
+	private void pageSearchAction() {
+		PageSearchDialog pageSearchDialog = new PageSearchDialog(vermilionCascadeNotebook.getEditor().getShell());
+		pageSearchDialog.open();
+		PageSearchDialog.DialogResult dr = pageSearchDialog.getResult();
+		
+		if (dr != null) {
+			searchingText = dr.searchText;
+			
+			String editorText = vermilionCascadeNotebook.getEditor().getText();
+			int searchIndex = editorText.indexOf(searchingText);
+			lastSearchingPosition = searchIndex;
+			
+			if (searchIndex >= 0) {
+				vermilionCascadeNotebook.getEditor()
+				   .setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
+			}
+		}
+	}
+	
+	private void pageReSearchAction() {
+		int searchIndex = -1;
+		if (lastSearchingPosition >= 0) {
+			String editorText = vermilionCascadeNotebook.getEditor().getText();
+			searchIndex = editorText.indexOf(searchingText, lastSearchingPosition + 1);
+			lastSearchingPosition = searchIndex;
+		}
+		
+		if (searchIndex >= 0) {
+			vermilionCascadeNotebook.getEditor()
+			    .setSelection(new Point(searchIndex, searchIndex + searchingText.length()));
+		}		
+	}
+	
 }

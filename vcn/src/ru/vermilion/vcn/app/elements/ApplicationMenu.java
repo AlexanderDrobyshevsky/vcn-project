@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
+import ru.vermilion.vcn.app.capabilities.GlobalSearch;
+import ru.vermilion.vcn.app.capabilities.PageSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
 
@@ -99,15 +101,8 @@ public class ApplicationMenu {
 		wrapItem.setText ("Word Wrap");
 		//wrapItem.setAccelerator (SWT.MOD1 | 'W');
 		
-		MenuItem pageSerchItem = new MenuItem (submenu, SWT.PUSH);
-		pageSerchItem.addListener (SWT.Selection, new Listener () {
-			public void handleEvent(Event e) {
-
-			}
-		});
-		pageSerchItem.setText ("Page Search \tCtrl + F");
-		pageSerchItem.setAccelerator (SWT.MOD1 | 'F');
-		
+		vermilionCascadeNotebook.addCapability(new PageSearch(submenu, vermilionCascadeNotebook));
+		vermilionCascadeNotebook.addCapability(new GlobalSearch(submenu, vermilionCascadeNotebook));
 		///////////
 		
 		
