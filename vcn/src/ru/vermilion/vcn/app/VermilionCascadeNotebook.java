@@ -20,9 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 
 import ru.vermilion.vcn.app.capabilities.EditorAutoSelectedTextCopy;
-import ru.vermilion.vcn.app.capabilities.GlobalSearch;
 import ru.vermilion.vcn.app.capabilities.ICapability;
-import ru.vermilion.vcn.app.capabilities.PageSearch;
 import ru.vermilion.vcn.app.capabilities.ProgramAutoSave;
 import ru.vermilion.vcn.app.capabilities.TreeDragAndDrop;
 import ru.vermilion.vcn.app.elements.ApplicationMenu;
@@ -64,13 +62,17 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  *   39! Add case sensitive option to page search dialog; 
  *   40. Node import/export
  *   41. Page Search: CTRL-F - must activate page search at tree too;  
- *   42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS) 
+ *   42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
+ *   43. Add possibility choose node color!!
+ *   44. Add possibility choose node size!! 
+ *   45. High Light Current Tree Item
+ *   
  * 
  * Bugs:
  * 1. + Press cancel than creating new sub-node - save * appear
  * 2. + Empty node possible
  * 3. Opens and closes of node - are not saved
- * 4. [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character.
+ * 4. [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
  * 
  * @author Alexander Drobyshevsky
  */
@@ -196,6 +198,9 @@ public final class VermilionCascadeNotebook {
 		appMenu.createMenu();
 
 		tree = new Tree(shell, SWT.BORDER);
+		tree.setLinesVisible(true);
+		//tree.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
+		//tree.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		editor = new Editor(shell, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
