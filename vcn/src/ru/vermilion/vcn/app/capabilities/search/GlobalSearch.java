@@ -17,6 +17,8 @@ public class GlobalSearch implements ICapability {
 	
 	private TreeItem lastFoundItem;
 	
+	boolean isCaseSensitive = false;
+	
 	public GlobalSearch(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
@@ -28,20 +30,24 @@ public class GlobalSearch implements ICapability {
 		GlobalSearchDialog.DialogResult dr = documentSearchDialog.getResult();
 
 		if (dr != GlobalSearchDialog.DialogResult.CANCEL) {
-			searchAction(null, dr.searchText);
+			lastFoundItem = null;
+			lastSearchText = dr.searchText;
+			isCaseSensitive = dr.isCaseSensitive;
+			
+			searchAction();
 		}
 	}
 	
 	public void globalReSearchAction() {
-		searchAction(lastFoundItem, lastSearchText);
+		searchAction();
 	}
 
-	private void searchAction(TreeItem lastFoundItem, String searchText) {
-		if (searchText == null || searchText.isEmpty()) {
+	private void searchAction() {
+		if (lastSearchText == null || lastSearchText.isEmpty()) {
 			return;
 		}
 		
-		TreeItem foundItem = search(lastFoundItem, searchText);
+		TreeItem foundItem = search();
 		
 		if (foundItem != null) {
 			vermilionCascadeNotebook.getTree().setSelection(foundItem);
@@ -51,16 +57,15 @@ public class GlobalSearch implements ICapability {
 		}
 		
 		GlobalSearch.this.lastFoundItem = foundItem;
-		lastSearchText = searchText;
 	}
 	
 	private boolean lastItemAlreadyFound;
-	private TreeItem search(TreeItem lastFoundItem, String searchString) {
+	private TreeItem search() {
 		lastItemAlreadyFound = lastFoundItem == null;
 		
 		TreeItem[] treeItems = vermilionCascadeNotebook.getTree().getItems();
 		for (TreeItem treeItem : treeItems) {
-			TreeItem itemFound = realSearch(treeItem, searchString, lastFoundItem);
+			TreeItem itemFound = realSearch(treeItem, lastSearchText, lastFoundItem);
 			
 			if (itemFound != null) {
 				return itemFound;
@@ -74,7 +79,8 @@ public class GlobalSearch implements ICapability {
 		if (lastItemAlreadyFound) {
 			String itemContent = (String) ((VCNTreeItem)investigatingItem).getContent();
 			
-			if (itemContent.indexOf(searchString) >= 0) {
+			if (isCaseSensitive && itemContent.indexOf(searchString) >= 0 ||
+					!isCaseSensitive && itemContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0) {
 				return investigatingItem;
 			}
 			
@@ -116,6 +122,10 @@ public class GlobalSearch implements ICapability {
 
 	public String getLastSearchText() {
 		return lastSearchText;
+	}
+
+	public boolean isCaseSensitive() {
+		return isCaseSensitive;
 	}
 	
 	

@@ -51,7 +51,7 @@ public class ApplicationSearch implements ICapability {
 		pageSearchItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				globalSearch.globalSearchAction();
-				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1);
+				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
 				pageSearch.pageReSearchAction();
 			}
 		});
@@ -62,7 +62,7 @@ public class ApplicationSearch implements ICapability {
 		pageReSearchItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				globalSearch.globalReSearchAction();
-				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1);
+				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
 				pageSearch.pageReSearchAction();
 			}
 		});

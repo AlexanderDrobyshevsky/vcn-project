@@ -14,6 +14,8 @@ public class PageSearch implements ICapability {
 	
 	private String searchingText = "Vermilion";
 	
+	boolean isCaseSensitive = false;
+	
 	public PageSearch(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
@@ -25,10 +27,16 @@ public class PageSearch implements ICapability {
 		
 		if (dr != null) {
 			searchingText = dr.searchText;
+			isCaseSensitive = dr.isCaseSensitive;
 			
 			String editorText = vermilionCascadeNotebook.getEditor().getText();
 			lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition();
-			lastSearchingPosition = editorText.indexOf(searchingText, lastSearchingPosition);
+			
+			if (isCaseSensitive) {
+			   lastSearchingPosition = editorText.indexOf(searchingText, lastSearchingPosition);
+		    } else {
+		       lastSearchingPosition = editorText.toLowerCase().indexOf(searchingText.toLowerCase(), lastSearchingPosition);
+		    }
 			
 			if (lastSearchingPosition >= 0) {
 				vermilionCascadeNotebook.getEditor()
@@ -43,7 +51,12 @@ public class PageSearch implements ICapability {
 		vermilionCascadeNotebook.getEditor().setFocus();
 		String editorText = vermilionCascadeNotebook.getEditor().getText();
 		lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition() - 1;
-		lastSearchingPosition = editorText.indexOf(searchingText, lastSearchingPosition + 1);
+		
+		if (isCaseSensitive) {
+			lastSearchingPosition = editorText.indexOf(searchingText, lastSearchingPosition + 1);
+		} else {
+			lastSearchingPosition = editorText.toLowerCase().indexOf(searchingText.toLowerCase(), lastSearchingPosition + 1);
+		}	
 		
 		if (lastSearchingPosition >= 0) {
 			vermilionCascadeNotebook.getEditor()
@@ -51,9 +64,10 @@ public class PageSearch implements ICapability {
 		}	
 	}
 
-    public void setSearchParameters(String searchingText, int lastSearchingPosition) {
+    public void setSearchParameters(String searchingText, int lastSearchingPosition, boolean isCaseSensitive) {
     	this.searchingText = searchingText;
     	this.lastSearchingPosition = lastSearchingPosition;
+    	this.isCaseSensitive = isCaseSensitive;
     }
 
 }

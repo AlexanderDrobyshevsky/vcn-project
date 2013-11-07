@@ -86,7 +86,7 @@ public class GlobalSearchDialog extends Dialog {
 		
 		// Handle Node Names
 		final Button isHandleNodeNames = new Button(contentClient, SWT.CHECK);
-		isHandleNodeNames.setText("Also check node names");
+		isHandleNodeNames.setText("Also check &node names");
 		isHandleNodeNames.setBackground(UI.getGeneralBackgroudColor(shell));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.minimumWidth = 150;
@@ -97,7 +97,7 @@ public class GlobalSearchDialog extends Dialog {
 		
 		// Start over
 		final Button isStartOver = new Button(contentClient, SWT.CHECK);
-		isStartOver.setText("Start over (otherwise start from current node)");
+		isStartOver.setText("&Start over (otherwise start from current node)");
 		isStartOver.setBackground(UI.getGeneralBackgroudColor(shell));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.minimumWidth = 150;
@@ -115,7 +115,7 @@ public class GlobalSearchDialog extends Dialog {
 		buttonsClient.setLayoutData(gd);
 		
 		final Button OK = new Button(buttonsClient, SWT.PUSH);
-		OK.setText("     Find     ");
+		OK.setText("     FIND     ");
 		OK.setBackground(UI.getGeneralBackgroudColor(shell));
 
 		GridData okGridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
