@@ -1,10 +1,11 @@
-package ru.vermilion.vcn.app.capabilities;
+package ru.vermilion.vcn.app.capabilities.search;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.TreeItem;
 
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
+import ru.vermilion.vcn.app.capabilities.ICapability;
 import ru.vermilion.vcn.app.dialogs.GlobalSearchDialog;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
 
@@ -16,8 +17,6 @@ public class GlobalSearch implements ICapability {
 	
 	private TreeItem lastFoundItem;
 	
-	// TODO Названия в меню карявые
-	// TODO Внести в журнал пункты что еще не сделано по глобальному поиску: разбить по Issue.
 	public GlobalSearch(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}

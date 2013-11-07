@@ -7,6 +7,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
+import ru.vermilion.vcn.app.capabilities.search.GlobalSearch;
+import ru.vermilion.vcn.app.capabilities.search.PageSearch;
 
 public class ApplicationSearch implements ICapability {
 	

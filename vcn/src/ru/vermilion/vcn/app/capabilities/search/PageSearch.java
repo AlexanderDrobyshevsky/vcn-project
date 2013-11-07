@@ -1,8 +1,9 @@
-package ru.vermilion.vcn.app.capabilities;
+package ru.vermilion.vcn.app.capabilities.search;
 
 import org.eclipse.swt.graphics.Point;
 
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
+import ru.vermilion.vcn.app.capabilities.ICapability;
 import ru.vermilion.vcn.app.dialogs.PageSearchDialog;
 
 public class PageSearch implements ICapability {

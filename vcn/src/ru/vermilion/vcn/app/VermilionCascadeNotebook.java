@@ -34,51 +34,9 @@ import ru.vermilion.vcn.auxiliar.UI;
 import ru.vermilion.vcn.auxiliar.VCNConstants;
 
 /**
- * JIRA:
- * 
- * + 16. Message dialog for new program lock
- * + 17. Logo
- * + 18. Help menu with About Window
- * + 19. Help window with help
- * + 20. Global Refactoring
- * + 21. Nodes moving possibility
- * + 22. Dialog windows all adjustment, center main win, open on last.
- * + 23. Help
- * + 24. Word wrap for text
- * + 25. Cypher sign
- *   25! Increase/Decrease font size
- * + 26. Search in current document/page
- * + 28. Put version of xml to file for new versions
- * * 29! Search through whole editor
- *   30. Comb listeners with exceptions
- *   31. ~Copy qualified name
- * + 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboad - but have selected text (in clipboard) instead of text your really want to put 
- *   33. Live Copy Of Nodes (One live node for many parents)
- *   34. Make auto backups
- *   35. Crypto possibilities with password access;
- *   36. Node sharing possibilities (through server)
- *   37! Document Search Monitor: like "3/16 Found" in the bottom of main window;
- *   38! Add to the help page search possibilities;
- *   39! Add case sensitive option to page search dialog; 
- *   40. Node import/export
- *   41. Page Search: CTRL-F - must activate page search at tree too;  
- *   42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
- *   43. Add possibility choose node color!!
- *   44. Add possibility choose node size!! 
- *   45. High Light Current Tree Item
- *   
- * 
- * Bugs:
- * 1. + Press cancel than creating new sub-node - save * appear
- * 2. + Empty node possible
- * 3. Opens and closes of node - are not saved
- * 4. [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
- * 
  * @author Alexander Drobyshevsky
  */
 
-/**
- */
 public final class VermilionCascadeNotebook {
 
 	private Editor editor = null;
