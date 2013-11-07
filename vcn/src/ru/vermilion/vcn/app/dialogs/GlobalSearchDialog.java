@@ -5,9 +5,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Dialog;
@@ -50,38 +48,24 @@ public class GlobalSearchDialog extends Dialog {
 	protected void createContents() {
 		shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		shell.setText("Global Search");
-		Color backgroundColor = shell.getDisplay().getSystemColor(SWT.COLOR_WHITE);
-		shell.setBackground(backgroundColor);
 
-		GridLayout gl = new GridLayout(1, false);
-		gl.verticalSpacing = 5;
-		gl.marginHeight = 0;
-		gl.marginWidth = 0;
-		shell.setLayout(gl);
+		UI.prepareComposite(shell, 1, 5, 5, 0, 0);
 
 		final Composite contentClient = new Composite(shell, SWT.NONE);
+		UI.prepareComposite(contentClient, 2, 5, 5, 5, 5);
 
-		gl = new GridLayout(2, false);
-		gl.horizontalSpacing = 5;
-		gl.verticalSpacing = 0;
-		gl.marginHeight = 5;
-		gl.marginWidth = 5;
-		contentClient.setLayout(gl);
-
-		contentClient.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.minimumHeight = 50;
 		gd.minimumWidth = 200;
 		contentClient.setLayoutData(gd);
 
 		Label messageLabel = new Label(contentClient, SWT.BOLD);
-		messageLabel.setBackground(backgroundColor);
+		messageLabel.setBackground(UI.getGeneralBackgroudColor(shell));
 		messageLabel.setText("Text to search: ");
 
-		gd = new GridData(SWT.CENTER, SWT.CENTER, true, true);
+		gd = new GridData(SWT.CENTER, SWT.CENTER, false, false);
 		messageLabel.setLayoutData(gd);
-		
-		
+	
 		final Text searchPhrase = new Text(contentClient, SWT.BORDER);
 		searchPhrase.setFocus();
 		gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -89,30 +73,57 @@ public class GlobalSearchDialog extends Dialog {
 		gd.horizontalAlignment = SWT.CENTER;
 		searchPhrase.setLayoutData(gd);	
 		
+		// Case sensitive check box
+		final Button isCaseSens = new Button(contentClient, SWT.CHECK);
+		isCaseSens.setText("&Case sensitive");
+		isCaseSens.setBackground(UI.getGeneralBackgroudColor(shell));
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.minimumWidth = 150;
+		gd.horizontalAlignment = SWT.LEFT;
+		gd.horizontalSpan = 2;
+		gd.horizontalIndent = 25;
+		isCaseSens.setLayoutData(gd);	
+		
+		// Handle Node Names
+		final Button isHandleNodeNames = new Button(contentClient, SWT.CHECK);
+		isHandleNodeNames.setText("Also check node names");
+		isHandleNodeNames.setBackground(UI.getGeneralBackgroudColor(shell));
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.minimumWidth = 150;
+		gd.horizontalAlignment = SWT.LEFT;
+		gd.horizontalSpan = 2;
+		gd.horizontalIndent = 25;
+		isHandleNodeNames.setLayoutData(gd);
+		
+		// Start over
+		final Button isStartOver = new Button(contentClient, SWT.CHECK);
+		isStartOver.setText("Start over (otherwise start from current node)");
+		isStartOver.setBackground(UI.getGeneralBackgroudColor(shell));
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.minimumWidth = 150;
+		gd.horizontalAlignment = SWT.LEFT;
+		gd.horizontalSpan = 2;
+		gd.horizontalIndent = 25;
+		isStartOver.setLayoutData(gd);
+		
+		
 		Composite buttonsClient = new Composite(shell, SWT.NONE);
-		buttonsClient.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-
-		gl = new GridLayout(2, false);
-		gl.horizontalSpacing = 10;
-		gl.verticalSpacing = 10;
-		gl.marginHeight = 5;
-		gl.marginWidth = 5;
-		buttonsClient.setLayout(gl);
+		UI.prepareComposite(buttonsClient, 2, 10, 10, 5, 5);
 		
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		gd.horizontalAlignment = SWT.RIGHT;
 		buttonsClient.setLayoutData(gd);
 		
 		final Button OK = new Button(buttonsClient, SWT.PUSH);
-		OK.setText("     OK     ");
-		OK.setBackground(backgroundColor);
+		OK.setText("     Find     ");
+		OK.setBackground(UI.getGeneralBackgroudColor(shell));
 
 		GridData okGridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		OK.setLayoutData(okGridData);
 		
 		Button cancel = new Button(buttonsClient, SWT.PUSH);
 		cancel.setText("     Cancel     ");
-		cancel.setBackground(backgroundColor);
+		cancel.setBackground(UI.getGeneralBackgroudColor(shell));
 
 		GridData cancelGridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		cancel.setLayoutData(cancelGridData);
@@ -122,6 +133,10 @@ public class GlobalSearchDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				result = new DialogResult();
 				result.searchText = searchPhrase.getText();
+				
+				result.isCaseSensitive = isCaseSens.getSelection();
+				result.isCheckNodes = isHandleNodeNames.getSelection();
+				result.isStartOver = isStartOver.getSelection();
 				
 				shell.close();
 			}
@@ -140,6 +155,16 @@ public class GlobalSearchDialog extends Dialog {
 				shell.close();
 			}
 		});
+		
+		Composite podol = new Composite(shell, SWT.NONE);
+		UI.prepareComposite(podol, 1, 0, 0, 5, 5);
+		
+		messageLabel = new Label(podol, SWT.BOLD);
+		messageLabel.setBackground(UI.getGeneralBackgroudColor(shell));
+		messageLabel.setText("Shortcut: you can use F4 to repeat the search");
+
+		gd = new GridData(SWT.LEFT, SWT.CENTER, true, true);
+		messageLabel.setLayoutData(gd);
 
 		shell.setDefaultButton(OK);
 
@@ -150,6 +175,10 @@ public class GlobalSearchDialog extends Dialog {
 		public static final Object CANCEL = null;
 		
 		public String searchText;
+		
+		public boolean isCaseSensitive;
+		public boolean isCheckNodes;
+		public boolean isStartOver;
 	} 
 	
 	public DialogResult getResult() {

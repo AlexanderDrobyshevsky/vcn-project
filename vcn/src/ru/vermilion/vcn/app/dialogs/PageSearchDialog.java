@@ -63,7 +63,7 @@ public class PageSearchDialog extends Dialog {
 
 		gl = new GridLayout(2, false);
 		gl.horizontalSpacing = 5;
-		gl.verticalSpacing = 0;
+		gl.verticalSpacing = 5;
 		gl.marginHeight = 5;
 		gl.marginWidth = 5;
 		contentClient.setLayout(gl);
@@ -89,6 +89,28 @@ public class PageSearchDialog extends Dialog {
 		gd.horizontalAlignment = SWT.CENTER;
 		searchPhrase.setLayoutData(gd);	
 		
+		// Case sensitive check box
+		final Button isCaseSens = new Button(contentClient, SWT.CHECK);
+		isCaseSens.setText("&Case sensitive");
+		isCaseSens.setBackground(UI.getGeneralBackgroudColor(shell));
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.minimumWidth = 150;
+		gd.horizontalAlignment = SWT.LEFT;
+		gd.horizontalSpan = 2;
+		gd.horizontalIndent = 25;
+		isCaseSens.setLayoutData(gd);
+		
+		// Start over
+		final Button isStartOver = new Button(contentClient, SWT.CHECK);
+		isStartOver.setText("Start over (otherwise start from cursor)");
+		isStartOver.setBackground(UI.getGeneralBackgroudColor(shell));
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.minimumWidth = 150;
+		gd.horizontalAlignment = SWT.LEFT;
+		gd.horizontalSpan = 2;
+		gd.horizontalIndent = 25;
+		isStartOver.setLayoutData(gd);
+	
 		Composite buttonsClient = new Composite(shell, SWT.NONE);
 		buttonsClient.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
@@ -123,6 +145,9 @@ public class PageSearchDialog extends Dialog {
 				result = new DialogResult();
 				result.searchText = searchPhrase.getText();
 				
+				result.isCaseSensitive = isCaseSens.getSelection();
+				result.isStartOver = isStartOver.getSelection();
+				
 				shell.close();
 			}
 		});
@@ -141,6 +166,17 @@ public class PageSearchDialog extends Dialog {
 			}
 		});
 
+		Composite podol = new Composite(shell, SWT.NONE);
+		UI.prepareComposite(podol, 1, 0, 0, 5, 5);
+		
+		messageLabel = new Label(podol, SWT.BOLD);
+		messageLabel.setBackground(backgroundColor);
+		messageLabel.setText("Shortcut: you can use F3 to repeat the search");
+
+		gd = new GridData(SWT.LEFT, SWT.CENTER, true, true);
+		messageLabel.setLayoutData(gd);
+		
+		
 		shell.setDefaultButton(OK);
 
 		shell.pack();
@@ -148,6 +184,10 @@ public class PageSearchDialog extends Dialog {
 	
 	public static class DialogResult {
 		public String searchText;
+		
+		public boolean isCaseSensitive;
+		public boolean isCheckNodes;
+		public boolean isStartOver;
 	} 
 	
 	public DialogResult getResult() {
