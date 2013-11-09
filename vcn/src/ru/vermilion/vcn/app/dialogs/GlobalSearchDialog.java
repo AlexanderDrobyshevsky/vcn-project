@@ -86,7 +86,7 @@ public class GlobalSearchDialog extends Dialog {
 		
 		// Handle Node Names
 		final Button isHandleNodeNames = new Button(contentClient, SWT.CHECK);
-		isHandleNodeNames.setText("Also check &node names");
+		isHandleNodeNames.setText("Check just &node names");
 		isHandleNodeNames.setBackground(UI.getGeneralBackgroudColor(shell));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.minimumWidth = 150;

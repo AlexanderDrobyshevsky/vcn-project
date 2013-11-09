@@ -19,11 +19,13 @@ public class GlobalSearch implements ICapability {
 	
 	boolean isCaseSensitive = false;
 	
+	boolean isCheckNodes = false;
+	
 	public GlobalSearch(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 	}
 	
-	public void globalSearchAction() {
+	public boolean globalSearchAction() {
 		GlobalSearchDialog documentSearchDialog = new GlobalSearchDialog(
 				vermilionCascadeNotebook.getTree().getShell());
 		documentSearchDialog.open();
@@ -33,18 +35,22 @@ public class GlobalSearch implements ICapability {
 			lastFoundItem = null;
 			lastSearchText = dr.searchText;
 			isCaseSensitive = dr.isCaseSensitive;
+			isCheckNodes = dr.isCheckNodes;
 			
-			searchAction();
+			return searchAction();
 		}
+		
+		return false;
 	}
 	
-	public void globalReSearchAction() {
-		searchAction();
+	public boolean globalReSearchAction() {
+		return searchAction();
 	}
 
-	private void searchAction() {
+	// is to be rechecked the page
+	private boolean searchAction() {
 		if (lastSearchText == null || lastSearchText.isEmpty()) {
-			return;
+			return false;
 		}
 		
 		TreeItem foundItem = search();
@@ -57,6 +63,8 @@ public class GlobalSearch implements ICapability {
 		}
 		
 		GlobalSearch.this.lastFoundItem = foundItem;
+		
+		return !isCheckNodes;
 	}
 	
 	private boolean lastItemAlreadyFound;
@@ -78,9 +86,17 @@ public class GlobalSearch implements ICapability {
 	private TreeItem realSearch(TreeItem investigatingItem, String searchString, TreeItem lastFoundItem) {
 		if (lastItemAlreadyFound) {
 			String itemContent = (String) ((VCNTreeItem)investigatingItem).getContent();
+			String itemName = investigatingItem.getText();
 			
-			if (isCaseSensitive && itemContent.indexOf(searchString) >= 0 ||
-					!isCaseSensitive && itemContent.toLowerCase().indexOf(searchString.toLowerCase()) >= 0) {
+		    String checkingString;
+		    if (isCheckNodes) {
+		    	checkingString = itemName; 
+		    } else {
+		    	checkingString = itemContent;
+		    }
+			
+			if (isCaseSensitive && checkingString.indexOf(searchString) >= 0 ||
+					!isCaseSensitive && checkingString.toLowerCase().indexOf(searchString.toLowerCase()) >= 0) {
 				return investigatingItem;
 			}
 			

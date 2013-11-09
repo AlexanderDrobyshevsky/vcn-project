@@ -157,8 +157,6 @@ public final class VermilionCascadeNotebook {
 
 		tree = new Tree(shell, SWT.BORDER);
 		tree.setLinesVisible(true);
-		//tree.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
-		//tree.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		editor = new Editor(shell, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
@@ -178,7 +176,6 @@ public final class VermilionCascadeNotebook {
 
 	private void addEditorListeners(Editor editor) {
 		addCapability(new EditorAutoSelectedTextCopy(editor));
-		//addCapability(new PageSearch(editor));
 		editor.addVerifyListener(editorVerifyListener);
 	}
 
@@ -261,10 +258,6 @@ public final class VermilionCascadeNotebook {
 		setWrapEditor(wrap, true);
 	}
 	
-//	public void updateMenu() {
-//		appMenu.setMenuWrapItem(editor.getTreeItem().isWrap());
-//	}
-	
 	public void setModified() {
 		System.out.println("set modified");
 		isModified = true;
@@ -296,10 +289,6 @@ public final class VermilionCascadeNotebook {
 		return shell;
 	}
 	
-//    public ApplicationMenu getAppMenu() {
-//		return appMenu;
-//	}
-
 	public void save() {
     	xmlHandler.saveXml();
     }
@@ -320,7 +309,6 @@ public final class VermilionCascadeNotebook {
 	
 	private void addSelectionListeners(Tree tree) {
 		tree.addListener(SWT.Selection, new TreeSelectionListener(this));
-		//addCapability(new GlobalSearch(tree));
 	}
 	
 	public VerifyListener getEditorVerifyListener() {

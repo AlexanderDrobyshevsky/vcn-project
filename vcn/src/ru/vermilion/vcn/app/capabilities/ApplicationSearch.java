@@ -50,9 +50,10 @@ public class ApplicationSearch implements ICapability {
 		MenuItem pageSearchItem = new MenuItem (submenu, SWT.PUSH);
 		pageSearchItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				globalSearch.globalSearchAction();
-				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
-				pageSearch.pageReSearchAction();
+				if (globalSearch.globalSearchAction()) {
+					pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
+					pageSearch.pageReSearchAction();
+				}
 			}
 		});
 		pageSearchItem.setText ("Global Find.. \tCtrl + H");
@@ -61,9 +62,10 @@ public class ApplicationSearch implements ICapability {
 		MenuItem pageReSearchItem = new MenuItem (submenu, SWT.PUSH);
 		pageReSearchItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				globalSearch.globalReSearchAction();
-				pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
-				pageSearch.pageReSearchAction();
+				if (globalSearch.globalReSearchAction()) {
+					pageSearch.setSearchParameters(globalSearch.getLastSearchText(), -1, globalSearch.isCaseSensitive());
+					pageSearch.pageReSearchAction();
+				}
 			}
 		});
 		pageReSearchItem.setText ("Global Find Next\tF4");
