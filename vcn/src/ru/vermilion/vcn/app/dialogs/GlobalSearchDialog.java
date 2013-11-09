@@ -97,7 +97,7 @@ public class GlobalSearchDialog extends Dialog {
 		
 		// Start over
 		final Button isStartOver = new Button(contentClient, SWT.CHECK);
-		isStartOver.setText("&Start over (otherwise start from current node)");
+		isStartOver.setText("&Start over (otherwise starts at current node)");
 		isStartOver.setBackground(UI.getGeneralBackgroudColor(shell));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.minimumWidth = 150;

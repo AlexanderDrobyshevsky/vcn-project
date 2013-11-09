@@ -19,18 +19,18 @@ Project Simple Management
  * + 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
  * + 29. Search through whole editor
- *   30. Comb listeners with exceptions
+ *   30? Comb listeners with exceptions
  *   31. ~Copy qualified name
  * + 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboard - but have selected text (in clipboard) instead of text your really want to put 
  *   33. Live Copy Of Nodes (One live node for many parents)
  *   34. Make auto backups
  *   35. Crypto possibilities with password access;
  *   36. Node sharing possibilities (through server)
- *   37! Document Search Monitor: like "3/16 Found" in the bottom of main window;
+ * * 37! Document Search Monitor: like "3/16 Found" in the bottom of main window;
  *   38! Add to the help page search possibilities;
  *   40. Node import/export
- *   41. Page Search: CTRL-F - must activate page search at tree too;  
- *   42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
+ * + 41. Page Search: CTRL-F - must activate page search at tree too;  
+ * + 42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
  *   43. Add possibility choose node color!!
  *   44. Add possibility choose node size!! 
  *   45. High Light Current Tree Item
@@ -38,9 +38,8 @@ Project Simple Management
  * + 47. Global Search: add option 'Handle just node names'
  * + 48. Global Search: add option 'Start over (otherwise starts at current node)'
  * + 49. Local Search: add option 'Case sensitive'
- * * 50! Local Search: add option 'Search start over the page'
+ * + 50. Local Search: add option 'Search start over the page'
  *   51. Prepare Git README Project
- *   52. Highlihgt curent node
  *   
  * 
  * Bugs:

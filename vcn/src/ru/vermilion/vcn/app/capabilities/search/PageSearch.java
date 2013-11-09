@@ -30,7 +30,11 @@ public class PageSearch implements ICapability {
 			isCaseSensitive = dr.isCaseSensitive;
 			
 			String editorText = vermilionCascadeNotebook.getEditor().getText();
-			lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition();
+			if (!dr.isStartOver) {
+			   lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition();
+			} else {
+				lastSearchingPosition = 0;
+			}
 			
 			if (isCaseSensitive) {
 			   lastSearchingPosition = editorText.indexOf(searchingText, lastSearchingPosition);
