@@ -35,16 +35,16 @@ Project Simple Management
  *   44. Add possibility choose node size!! 
  *   45. High Light Current Tree Item
  * + 46. Global Search: add option 'Case sensitive'
- * * 47! Global Search: add option 'Handle node names'
- *   48! Global Search: Start from begin (otherwise from current position)
+ * + 47. Global Search: add option 'Handle just node names'
+ * + 48. Global Search: add option 'Start over (otherwise starts at current node)'
  * + 49. Local Search: add option 'Case sensitive'
- *   50! Local Search: add option 'Search start over the page'
+ * * 50! Local Search: add option 'Search start over the page'
  *   51. Prepare Git README Project
  *   52. Highlihgt curent node
  *   
  * 
  * Bugs:
- * 1. + Press cancel than creating new sub-node - save * appear
+ * 1. + Press cancel when creating new sub-node - save * appear
  * 2. + Empty node possible
  * 3. Opens and closes of node - are not saved
  * 4! [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).

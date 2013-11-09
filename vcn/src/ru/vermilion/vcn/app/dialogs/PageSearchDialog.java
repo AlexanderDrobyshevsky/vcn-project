@@ -102,7 +102,7 @@ public class PageSearchDialog extends Dialog {
 		
 		// Start over
 		final Button isStartOver = new Button(contentClient, SWT.CHECK);
-		isStartOver.setText("&Start over (otherwise start from cursor)");
+		isStartOver.setText("&Start over (otherwise starts at cursor)");
 		isStartOver.setBackground(UI.getGeneralBackgroudColor(shell));
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.minimumWidth = 150;

@@ -37,6 +37,11 @@ public class GlobalSearch implements ICapability {
 			isCaseSensitive = dr.isCaseSensitive;
 			isCheckNodes = dr.isCheckNodes;
 			
+			TreeItem[] selection = vermilionCascadeNotebook.getTree().getSelection();
+			if (!dr.isStartOver && selection.length == 1) {
+				lastFoundItem = (VCNTreeItem)selection[0];
+			}
+			
 			return searchAction();
 		}
 		
