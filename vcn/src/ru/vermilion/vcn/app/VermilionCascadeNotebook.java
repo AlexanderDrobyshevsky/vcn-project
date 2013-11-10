@@ -12,8 +12,12 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Sash;
 import org.eclipse.swt.widgets.Shell;
@@ -43,7 +47,7 @@ public final class VermilionCascadeNotebook {
 	
 	private Tree tree = null;
 	
-	private Shell shell = null;
+	private Composite mainComposite = null;
 	
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
@@ -70,17 +74,62 @@ public final class VermilionCascadeNotebook {
 	
 	void init() {
 		Display display = new Display();
-		shell = new Shell (display);
+		Shell shell = new Shell (display);
 		shell.setText(TITLE_WITH_VERSION);
 		
 		lockProgrammProcess(shell);
 		
 		shell.setImage(new Image(display, VermilionCascadeNotebook.class.getResourceAsStream("/images/logo.png")));
 		
+		
+		GridLayout gl = new GridLayout(1, false);
+		gl.horizontalSpacing = 0;
+		gl.verticalSpacing = 1;
+		gl.marginHeight = 0;
+		gl.marginWidth = 1;
+
+		shell.setLayout(gl);
+		
+		Composite upComposite = new Composite(shell, SWT.BORDER);
+		gl = new GridLayout(1, false);
+//		gl.horizontalSpacing = 0;
+//		gl.verticalSpacing = 0;
+		gl.marginHeight = 0;
+		gl.marginWidth = 2;
+		upComposite.setLayout(gl);
+		//upComposite.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_RED));
+		upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Label l = new Label(upComposite, SWT.BOLD);
+		l.setText("/jcr:root/content/foxsports/en");
+		//l.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		//gd.minimumHeight = 50;
+		//gd.minimumWidth = 200;
+		l.setLayoutData(gd);
+		
+		
+		Composite midComposite = new Composite(shell, SWT.NONE);
+		midComposite.setBackground(midComposite.getDisplay().getSystemColor(SWT.COLOR_GREEN));
+		midComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		
+		Composite botComposite = new Composite(shell, SWT.BORDER);
+		gl = new GridLayout(1, false);
+		gl.marginHeight = 0;
+		gl.marginWidth = 4;
+		botComposite.setLayout(gl);
+		//botComposite.setBackground(botComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		new Label(botComposite, SWT.BOLD).setText("Status String");
+		
+		this.mainComposite = midComposite;
+		
 		createContent();
 		
 		addCapability(new ProgramAutoSave(this));
 		addCapability(new TreeDragAndDrop(this));
+		
+		upComposite.pack();
+		botComposite.pack();
 		
 		shell.pack();
 		shell.setSize (700, 500);
@@ -155,9 +204,9 @@ public final class VermilionCascadeNotebook {
 		appMenu = new ApplicationMenu(this);
 		appMenu.createMenu();
 
-		tree = new Tree(shell, SWT.BORDER);
+		tree = new Tree(mainComposite, SWT.BORDER);
 		tree.setLinesVisible(true);
-		editor = new Editor(shell, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
 		
@@ -180,10 +229,10 @@ public final class VermilionCascadeNotebook {
 	}
 
 	private void createSashFormContent() {
-		sash = new Sash (shell, SWT.VERTICAL);
+		sash = new Sash (mainComposite, SWT.VERTICAL);
 		
-		final FormLayout formLayout = new FormLayout ();
-		shell.setLayout (formLayout);
+		final FormLayout formLayout = new FormLayout();
+		mainComposite.setLayout(formLayout);
 		
 		FormData treeLayoutFormData = new FormData ();
 		treeLayoutFormData.left = new FormAttachment (0, 0);
@@ -201,12 +250,12 @@ public final class VermilionCascadeNotebook {
 		sash.addListener (SWT.Selection, new Listener () {
 			public void handleEvent (Event e) {
 				Rectangle sashRect = sash.getBounds ();
-				Rectangle shellRect = shell.getClientArea ();
+				Rectangle shellRect = mainComposite.getClientArea ();
 				int right = shellRect.width - sashRect.width - limit;
 				e.x = Math.max (Math.min (e.x, right), limit);
 				if (e.x != sashRect.x)  {
 					sashData.left = new FormAttachment (0, e.x);
-					shell.layout ();
+					mainComposite.layout ();
 				}
 			}
 		});
@@ -224,9 +273,9 @@ public final class VermilionCascadeNotebook {
 		
 		Editor editor;
 		if (wrap) {
-			editor = new Editor(shell, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP);
+			editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP);
 		} else {
-			editor = new Editor(shell, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
+			editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
 		}
 		
 		VCNTreeItem treeItem = oldEditor.getTreeItem();
@@ -247,7 +296,7 @@ public final class VermilionCascadeNotebook {
 		editor.setLayoutData(editorLayoutFormData);
 		
 		
-		this.getShell().layout();
+		this.getMainComposite().layout();
 		
 		if (updateMenu) {
 			appMenu.setMenuWrapItem(wrap);
@@ -261,12 +310,12 @@ public final class VermilionCascadeNotebook {
 	public void setModified() {
 		System.out.println("set modified");
 		isModified = true;
-		shell.setText(TITLE_MODIFIED);
+		mainComposite.getShell().setText(TITLE_MODIFIED);
 	}
 	
 	public void setInModified() {
 		isModified = false;
-		shell.setText(TITLE_WITH_VERSION);
+		mainComposite.getShell().setText(TITLE_WITH_VERSION);
 	}
 	
 	public boolean getModified() {
@@ -285,8 +334,8 @@ public final class VermilionCascadeNotebook {
 		editor = newEditor;
 	}
 	
-	public Shell getShell() {
-		return shell;
+	public Composite getMainComposite() {
+		return mainComposite;
 	}
 	
 	public void save() {
@@ -294,7 +343,7 @@ public final class VermilionCascadeNotebook {
     }
 	
 	private void addShellDisposeListener() {
-		shell.addDisposeListener(new DisposeListener() {
+		mainComposite.addDisposeListener(new DisposeListener() {
 
 			@Override
 			public void widgetDisposed(DisposeEvent e) {

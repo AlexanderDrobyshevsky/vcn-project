@@ -40,6 +40,7 @@ Project Simple Management
  * + 49. Local Search: add option 'Case sensitive'
  * + 50. Local Search: add option 'Search start over the page'
  *   51. Prepare Git README Project
+ *   52. Make header composite/line with node path 
  *   
  * 
  * Bugs:

@@ -26,7 +26,7 @@ public class ApplicationTreePopupMenu {
 	public ApplicationTreePopupMenu(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 		this.tree = vermilionCascadeNotebook.getTree();
-		this.shell = vermilionCascadeNotebook.getShell();
+		this.shell = vermilionCascadeNotebook.getMainComposite().getShell();
 	}
 	
 	public void addTreePopupMenu() {
