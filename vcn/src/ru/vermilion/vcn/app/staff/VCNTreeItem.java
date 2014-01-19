@@ -47,5 +47,15 @@ public class VCNTreeItem extends TreeItem {
 		this.isWrap = isWrap;
 	}
 	
+	public String getPath() {
+		String path = this.getText();
+		TreeItem parent = this;
+		while ((parent = parent.getParentItem()) != null) {
+			path = parent.getText() + "/" + path;
+		}
+		
+		return "/" + path;
+	}
+	
 
 }

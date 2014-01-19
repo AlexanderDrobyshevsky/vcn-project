@@ -67,7 +67,11 @@ public final class VermilionCascadeNotebook {
     
 	public Sash sash;
 	
+	private Label topLabel;
 	
+	private Label statusLabel;
+	
+		
 	VermilionCascadeNotebook() {
 		
 	}
@@ -99,13 +103,13 @@ public final class VermilionCascadeNotebook {
 		upComposite.setLayout(gl);
 		//upComposite.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_RED));
 		upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		Label l = new Label(upComposite, SWT.BOLD);
-		l.setText("/jcr:root/content/foxsports/en");
+		topLabel = new Label(upComposite, SWT.BOLD);
+		topLabel.setText("/");
 		//l.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		//gd.minimumHeight = 50;
 		//gd.minimumWidth = 200;
-		l.setLayoutData(gd);
+		topLabel.setLayoutData(gd);
 		
 		
 		Composite midComposite = new Composite(shell, SWT.NONE);
@@ -119,7 +123,9 @@ public final class VermilionCascadeNotebook {
 		botComposite.setLayout(gl);
 		//botComposite.setBackground(botComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		new Label(botComposite, SWT.BOLD).setText("Status String");
+		statusLabel = new Label(botComposite, SWT.BOLD);
+		statusLabel.setText("Status");
+		
 		
 		this.mainComposite = midComposite;
 		
@@ -313,6 +319,7 @@ public final class VermilionCascadeNotebook {
 		mainComposite.getShell().setText(TITLE_MODIFIED);
 	}
 	
+	// clears modified status
 	public void setInModified() {
 		isModified = false;
 		mainComposite.getShell().setText(TITLE_WITH_VERSION);
@@ -342,6 +349,16 @@ public final class VermilionCascadeNotebook {
     	xmlHandler.saveXml();
     }
 	
+	public void setTopLabel(String text) {
+		System.out.println("set label = " + text);
+		topLabel.setText(text);
+		topLabel.getParent().layout();
+	}
+	
+	public void setStatusLabel(String text) {
+		statusLabel.setText(text);
+	}
+
 	private void addShellDisposeListener() {
 		mainComposite.addDisposeListener(new DisposeListener() {
 

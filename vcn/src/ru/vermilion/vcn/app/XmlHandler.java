@@ -143,6 +143,8 @@ public class XmlHandler {
 		vermilionCascadeNotebook.setWrapEditor(vermilionCascadeNotebook.getEditor().getTreeItem().isWrap());
 
 		vermilionCascadeNotebook.setInModified();
+		
+		vermilionCascadeNotebook.setTopLabel(vermilionCascadeNotebook.getEditor().getTreeItem().getPath());
 
 		System.out.println("Load finished");
 	}
