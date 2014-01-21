@@ -104,12 +104,13 @@ public final class VermilionCascadeNotebook {
 		//upComposite.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_RED));
 		upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		topLabel = new Label(upComposite, SWT.BOLD);
+		topLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		topLabel.setText("/");
 		//l.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		//GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 		//gd.minimumHeight = 50;
 		//gd.minimumWidth = 200;
-		topLabel.setLayoutData(gd);
+		
 		
 		
 		Composite midComposite = new Composite(shell, SWT.NONE);
@@ -124,7 +125,8 @@ public final class VermilionCascadeNotebook {
 		//botComposite.setBackground(botComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		statusLabel = new Label(botComposite, SWT.BOLD);
-		statusLabel.setText("Status");
+		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		statusLabel.setText("Status Line");
 		
 		
 		this.mainComposite = midComposite;

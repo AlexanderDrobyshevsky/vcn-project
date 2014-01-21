@@ -14,7 +14,7 @@ public class PageSearch implements ICapability {
 	
 	private String searchingText = "Vermilion";
 	
-	boolean isCaseSensitive = false;
+	private boolean isCaseSensitive = false;
 	
 	public PageSearch(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
@@ -33,7 +33,7 @@ public class PageSearch implements ICapability {
 			if (!dr.isStartOver) {
 			   lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition();
 			} else {
-				lastSearchingPosition = 0;
+			   lastSearchingPosition = 0;
 			}
 			
 			if (isCaseSensitive) {
@@ -45,12 +45,60 @@ public class PageSearch implements ICapability {
 			if (lastSearchingPosition >= 0) {
 				vermilionCascadeNotebook.getEditor()
 				   .setSelection(new Point(lastSearchingPosition, lastSearchingPosition + searchingText.length()));
+				
+				OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
+				
+				vermilionCascadeNotebook.setStatusLabel("Found " + report + " occurrence " + "of '" + searchingText + "'");
+			} else {
+				OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
+				
+				if (report.total == 0) {
+				    vermilionCascadeNotebook.setStatusLabel("Not found occurrence of '" + searchingText + "'");
+				} else {
+					vermilionCascadeNotebook.setStatusLabel("Not found occurrence of '" + searchingText + "' after cursor, but ["
+							+ report.total + "] occurrence(s) found on the page");	
+				}
 			}
 			
-			vermilionCascadeNotebook.getEditor().setFocus();
+			vermilionCascadeNotebook.getEditor().setFocus();			
 		}
 	}
 	
+	private OccurrenceReport getTotalOccurencesOnPage(String editorText, 
+			boolean isCaseSensitive, String searchingText, int currentSearchingPosition) {
+		int lastSearchingPosition = -1;
+		int cnt = 0;
+		OccurrenceReport report = new OccurrenceReport();
+		
+		if (!isCaseSensitive) {
+			editorText = editorText.toLowerCase();
+			searchingText = searchingText.toLowerCase();
+		}
+		
+		while ((lastSearchingPosition = editorText.indexOf(searchingText, 
+				lastSearchingPosition + searchingText.length())) != -1 && cnt < 9999) {
+			cnt++;
+			
+			if (lastSearchingPosition == currentSearchingPosition) {
+				report.current = cnt;
+			}
+		}
+		
+		report.total = cnt;
+
+		return report;
+	}
+	
+	private class OccurrenceReport {
+		int current = -1;
+		int total;
+
+		public String toString() {
+			return "[" + current + "/" + total + "]";
+		}
+	}
+	
+	// TODO refactor status line output
 	public void pageReSearchAction() {
 		vermilionCascadeNotebook.getEditor().setFocus();
 		String editorText = vermilionCascadeNotebook.getEditor().getText();
@@ -65,7 +113,21 @@ public class PageSearch implements ICapability {
 		if (lastSearchingPosition >= 0) {
 			vermilionCascadeNotebook.getEditor()
 			    .setSelection(new Point(lastSearchingPosition, lastSearchingPosition + searchingText.length()));
-		}	
+			
+			OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
+			
+			vermilionCascadeNotebook.setStatusLabel("Found " + report + " occurrence " +
+					"of '" + searchingText + "'");
+		} else {
+			OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
+			
+			if (report.total == 0) {
+			    vermilionCascadeNotebook.setStatusLabel("Not found occurrence of '" + searchingText + "'");
+			} else {
+				vermilionCascadeNotebook.setStatusLabel("Not found occurrence of '" + searchingText + "' after cursor, but ["
+						+ report.total + "] occurrence(s) found on the page");	
+			}
+		}
 	}
 
     public void setSearchParameters(String searchingText, int lastSearchingPosition, boolean isCaseSensitive) {
