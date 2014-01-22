@@ -26,8 +26,7 @@ public class GlobalSearch implements ICapability {
 	}
 	
 	public boolean globalSearchAction() {
-		GlobalSearchDialog documentSearchDialog = new GlobalSearchDialog(
-				vermilionCascadeNotebook.getTree().getShell());
+		GlobalSearchDialog documentSearchDialog = new GlobalSearchDialog(vermilionCascadeNotebook.getTree().getShell());
 		documentSearchDialog.open();
 		GlobalSearchDialog.DialogResult dr = documentSearchDialog.getResult();
 
