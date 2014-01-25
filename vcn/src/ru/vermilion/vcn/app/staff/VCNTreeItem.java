@@ -5,12 +5,14 @@ import org.eclipse.swt.widgets.TreeItem;
 
 public class VCNTreeItem extends TreeItem {
 
+	private static int idGenerator = 0;
+	
 	private String content;
 	
 	private boolean isWrap = true;
 	
-	
-	
+	private int id = idGenerator++;
+
 	
 	public VCNTreeItem(Tree parent, int style) {
 		super(parent, style);
@@ -56,6 +58,30 @@ public class VCNTreeItem extends TreeItem {
 		
 		return "/" + path;
 	}
-	
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VCNTreeItem other = (VCNTreeItem) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+
+
+	
 }

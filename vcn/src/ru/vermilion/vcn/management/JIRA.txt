@@ -2,7 +2,7 @@ Project Simple Management
 
 /**
  * JIRA:
- * 
+ * Manual Build: 1
  *
  *
  * + 16. Message dialog for new program lock
@@ -41,6 +41,7 @@ Project Simple Management
  * + 50. Local Search: add option 'Search start over the page'
  *   51. Prepare Git README Project
  *   52. Make header composite/line with node path 
+ *   53. Save program configuration to xml (window size, sash position, font etc)
  *   
  * 
  * Bugs:

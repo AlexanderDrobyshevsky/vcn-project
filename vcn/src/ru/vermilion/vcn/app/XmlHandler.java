@@ -208,10 +208,7 @@ public class XmlHandler {
 
 		Document xml = builder.newDocument();
 
-		VCNTreeItem item = vermilionCascadeNotebook.getEditor().getTreeItem();
-		if (item != null && !item.isDisposed()) {
-			item.setContent(vermilionCascadeNotebook.getEditor().getText());
-		}
+		vermilionCascadeNotebook.flushEditor();
 
 		constructXml(xml);
 

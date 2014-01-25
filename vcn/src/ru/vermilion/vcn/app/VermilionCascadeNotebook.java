@@ -351,6 +351,15 @@ public final class VermilionCascadeNotebook {
     	xmlHandler.saveXml();
     }
 	
+	public void flushEditor() {
+		Editor editor = getEditor();
+		
+		VCNTreeItem item = editor.getTreeItem();
+		if (item != null && !item.isDisposed()) {
+			item.setContent(editor.getText());
+		}
+	}
+	
 	public void setTopLabel(String text) {
 		System.out.println("set label = " + text);
 		topLabel.setText(text);

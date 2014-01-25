@@ -42,7 +42,7 @@ public class PageSearch implements ICapability {
 		       lastSearchingPosition = editorText.toLowerCase().indexOf(searchingText.toLowerCase(), lastSearchingPosition);
 		    }
 			
-			statusLineStuff(editorText);
+			statusLineStuff(editorText, true);
 			
 			vermilionCascadeNotebook.getEditor().setFocus();			
 		}
@@ -73,7 +73,7 @@ public class PageSearch implements ICapability {
 		return report;
 	}
 
-	public void pageReSearchAction() {
+	public void pageReSearchAction(boolean isCanChangeStatusLine) {
 		vermilionCascadeNotebook.getEditor().setFocus();
 		String editorText = vermilionCascadeNotebook.getEditor().getText();
 		lastSearchingPosition = vermilionCascadeNotebook.getEditor().getCaretPosition() - 1;
@@ -84,18 +84,26 @@ public class PageSearch implements ICapability {
 			lastSearchingPosition = editorText.toLowerCase().indexOf(searchingText.toLowerCase(), lastSearchingPosition + 1);
 		}	
 		
-		statusLineStuff(editorText);
+		statusLineStuff(editorText, isCanChangeStatusLine);
+
 	}
 	
-	private void statusLineStuff(String editorText) {
+	private void statusLineStuff(String editorText, boolean isCanChangeStatusLine) {
 		if (lastSearchingPosition >= 0) {
 			vermilionCascadeNotebook.getEditor()
 			   .setSelection(new Point(lastSearchingPosition, lastSearchingPosition + searchingText.length()));
 			
-			OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
+			if (isCanChangeStatusLine) {
+			    OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
 			
-			vermilionCascadeNotebook.setStatusLabel("Found " + report + " occurrence " + "of '" + searchingText + "'");
+			
+				vermilionCascadeNotebook.setStatusLabel("Found " + report + " occurrence " + "of '" + searchingText + "'");
+			}
 		} else {
+			if (!isCanChangeStatusLine) {
+				return;
+			}
+			
 			OccurrenceReport report = getTotalOccurencesOnPage(editorText, isCaseSensitive, searchingText, lastSearchingPosition);
 			
 			if (report.total == 0) {

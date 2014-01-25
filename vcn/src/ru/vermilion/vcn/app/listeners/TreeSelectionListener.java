@@ -37,8 +37,7 @@ public class TreeSelectionListener implements Listener {
 		editor.setTreeItem((VCNTreeItem)event.item);
 		
 		vermilionCascadeNotebook.setWrapEditor(((VCNTreeItem)event.item).isWrap());
-		
-		System.out.println("event .. " + ((VCNTreeItem)event.item).getPath());
+
 		vermilionCascadeNotebook.setTopLabel(((VCNTreeItem)event.item).getPath());
 	}
 }
