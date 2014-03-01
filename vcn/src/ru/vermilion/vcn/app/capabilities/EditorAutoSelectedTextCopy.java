@@ -17,7 +17,7 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 	private String lastClipboardText;
 	
 	private long lastClipboardTime;
-
+	
 	public EditorAutoSelectedTextCopy(Text text) {
 		this.editor = text;
 		clipboard = new Clipboard(editor.getDisplay());
@@ -44,7 +44,6 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 		});
 		
 		editor.addKeyListener(new KeyListener() {
-			
 			// TODO CTRL+C Should reset counters!!!
 			public void keyPressed(KeyEvent e) {
 				// keyPressedKeyEvent{Editor {} time=26882185 data=null 
@@ -54,14 +53,52 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 					
 					System.out.println("Ctrl + V pressed ");
 					
-					System.out.println("time = " + (System.currentTimeMillis() - lastClipboardTime));
-					if (System.currentTimeMillis() - lastClipboardTime < 4000 && lastClipboardText != null) {
-						System.out.println("#### : " + lastClipboardText);
+					System.out.println("time delta = " + (System.currentTimeMillis() - lastClipboardTime));
+					Point selection = editor.getSelection();
+					if (System.currentTimeMillis() - lastClipboardTime < 4000 && lastClipboardText != null && selection.x < selection.y) {
+						System.out.println("clipboard modification from '" + (String)clipboard.getContents(TextTransfer.getInstance()) + "' -> '" + lastClipboardText + "'");
 					    TextTransfer textTransfer = TextTransfer.getInstance();
 					    clipboard.setContents(new Object[] { lastClipboardText }, new Transfer[] { textTransfer });
+					} else {
+						System.out.println("No clipboard modification");
 					}
-						
 				}
+
+				// KeyEvent{Editor {} time=42263837 data=null character=''=0x3 keyCode=0x63 keyLocation=0x0 stateMask=0x40000 doit=true}
+				if (e.character == 0x3 && e.keyCode == 0x63 && e.stateMask == 0x40000) {
+					// Ctrl+C pressed;
+					
+					lastClipboardTime = 0;
+					
+					System.out.println("Explicit Ctrl + C");
+				}
+				
+				// KeyEvent{Editor {} time=42289141 data=null character=''=0x18 keyCode=0x78 keyLocation=0x0 stateMask=0x40000 doit=true}
+				if (e.character == 0x18 && e.keyCode == 0x78 && e.stateMask == 0x40000) {
+					// Ctrl+X pressed;
+					
+					lastClipboardTime = 0;
+					
+					System.out.println("Explicit Ctrl + X");
+				}	
+				
+				// TODO Ctrl + Delete functionality
+//				// KeyEvent{Editor {} time=43841569 data=null character=''=0x7f keyCode=0x7f keyLocation=0x0 stateMask=0x20000 doit=true}
+//				if (e.character == 0x18 && e.keyCode == 0x78 && e.stateMask == 0x40000) {
+//					// Ctrl+Delete pressed;
+//					
+//					lastClipboardTime = 0;
+//					
+//					KeyEvent keyEvent = new KeyEvent(new Event());
+//					keyEvent.character = 0x18;
+//					keyEvent.keyCode= 0x78;
+//					keyEvent.stateMask = 0x40000;
+//					
+//					editor.notifyListeners(SWT.KeyDown, keyEvent);
+//					
+//					System.out.println("Explicit Ctrl + Delete Pressed");
+//				}
+			
 			}
 
 			public void keyReleased(KeyEvent e) {
@@ -80,9 +117,13 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 	        lastClipboardText = (String)clipboard.getContents(TextTransfer.getInstance());
 	        lastClipboardTime = System.currentTimeMillis();
 
-	        System.out.println("prev clipboard: " + lastClipboardText);
+	        System.out.println("get clipboard before copy: '" + lastClipboardText + "'");
+	        System.out.println("save last clipboard time");
 			
 			editor.copy();
+			
+			String currClipboard = (String)clipboard.getContents(TextTransfer.getInstance());
+			System.out.println("get clipboard after copy: '" + currClipboard + "'");
 		}
 	}
 }
