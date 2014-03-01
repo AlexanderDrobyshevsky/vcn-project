@@ -51,9 +51,17 @@ public class VCNTreeItem extends TreeItem {
 	
 	public String getPath() {
 		String path = this.getText();
+		if (path.contains("/") || path.contains("\\")) {
+			path = "'" + path + "'";
+		}
 		TreeItem parent = this;
 		while ((parent = parent.getParentItem()) != null) {
-			path = parent.getText() + "/" + path;
+			String parentPath = parent.getText();
+			if (parentPath.contains("/") || parentPath.contains("\\")) {
+				parentPath = "'" + parentPath + "'";
+			}
+			
+			path = parentPath + "/" + path;
 		}
 		
 		return "/" + path;
