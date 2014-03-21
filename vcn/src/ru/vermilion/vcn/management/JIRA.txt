@@ -48,5 +48,5 @@ Project Simple Management
  * 1. + Press cancel when creating new sub-node - save * appear
  * 2. + Empty node possible
  * 3. Opens and closes of node - are not saved
- * 4! [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
+ * 4. + [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
  * 
