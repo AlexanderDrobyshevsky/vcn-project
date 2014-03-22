@@ -109,6 +109,7 @@ public class ApplicationTreePopupMenu {
 	    		
 	    		if (s != null) {
 	    			selectedItem.setText(s);
+	    			vermilionCascadeNotebook.setTopLabel(vermilionCascadeNotebook.getEditor().getTreeItem().getPath());
 	    			
 	    			vermilionCascadeNotebook.setModified();
 	    		}
