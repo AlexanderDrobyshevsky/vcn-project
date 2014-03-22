@@ -18,14 +18,15 @@ public class HelpDialog extends MessageOKDialog {
 			"  (You should not press CTRL+S every time you have changes) \r\n" +
 			"- Auto copy selected text to clipboard just after selection \r\n" +
 			"- You can move any nodes to any other nodes by mouse \r\n" +
-			"  gragging (drag and drop)\r\n\r\n" +
-	
+			"  gragging (drag and drop)\r\n" +
+			"- Use CTRL+H to search throughout whole tree \r\n" + 
+			"- Use CTRL+F to search on current page \r\n\r\n" +
 	        "You can create and evolve your own, convenient for you hierarchical \r\n" +
 	        "structure by popup menu on the left side bar, accessible by \r\n" +
 	        "clicking right mouse button. You available to create new nodes, \r\n" +
 	        "create new subnodes, delete nodes and rename nodes.\r\n\r\n" +
 
-	         "Farther interesting possibilities will be presented in new \r\n" +
+	         "Further interesting possibilities will be presented in new \r\n" +
 	         "program versions. \r\n" +
 	         "Keep in touch.\r\n" +
 	         "Have a good one.\r\n";
