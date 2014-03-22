@@ -22,7 +22,7 @@ public class ApplicationMenu {
 	
 	public ApplicationMenu(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
-		this.shell = vermilionCascadeNotebook.getShell();
+		this.shell = vermilionCascadeNotebook.getMainComposite().getShell();
 	}
 	
 	public void createMenu() {
@@ -114,7 +114,7 @@ public class ApplicationMenu {
 		MenuItem aboutItem = new MenuItem (submenu, SWT.PUSH);
 		aboutItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				AboutDialog aboutDialog = new AboutDialog(vermilionCascadeNotebook.getShell());
+				AboutDialog aboutDialog = new AboutDialog(vermilionCascadeNotebook.getMainComposite().getShell());
 				aboutDialog.open();
 			}
 		});

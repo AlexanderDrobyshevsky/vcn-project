@@ -190,7 +190,7 @@ public class TreeDragAndDrop implements ICapability {
 			}			
 		}
 		newItem.setText(sourceItem.getText());
-		newItem.setContent( sourceItem.getContent());
+		newItem.setContent(sourceItem.getContent());
 		
 		for (TreeItem childItem : sourceItem.getItems()) {
 			copyTree((VCNTreeItem)childItem, newItem, null);

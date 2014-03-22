@@ -12,10 +12,10 @@ public class AutoSaveTimerTask extends TimerTask {
 
 	public void run() {
 		try {
-			app.getShell().getDisplay().asyncExec(new Runnable() {
+			app.getMainComposite().getDisplay().asyncExec(new Runnable() {
 				@Override
 				public void run() {
-					if (!app.getShell().isDisposed()) {
+					if (!app.getMainComposite().isDisposed()) {
 						app.save();
 					}
 				}

@@ -93,10 +93,11 @@ public class AboutDialog extends Dialog {
 		textClient.setLayout(gl);
 
 		styledText(backgroundColor, textClient, VermilionCascadeNotebook.TITLE_WITH_VERSION);
-		styledText(backgroundColor, textClient, "Copyright ©2013 by Alexander Drobyshevsky");
+		styledText(backgroundColor, textClient, "Copyright ©2013-2014 by Alexander Drobyshevsky");
 		String email = "drobyshevsky@gmail.com";
 		StyledText mailText = styledText(backgroundColor, textClient, "E-mail: " + email);
 		styledText(backgroundColor, textClient, "Program is free of any restrictions");
+		styledText(backgroundColor, textClient, "Created with great respect to Java technologies");
 		
 		StyleRange styleRange = new StyleRange();
 		styleRange.start = 8;

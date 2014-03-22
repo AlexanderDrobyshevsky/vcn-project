@@ -8,7 +8,7 @@ public class ApplicationStart {
 		VermilionCascadeNotebook vermilionCascadeNotebook = new VermilionCascadeNotebook();
 		vermilionCascadeNotebook.init();
 
-		Shell vcnShell = vermilionCascadeNotebook.getShell();
+		Shell vcnShell = vermilionCascadeNotebook.getMainComposite().getShell();
 		vcnShell.open();
 		while (!vcnShell.isDisposed()) {
 			if (!vcnShell.getDisplay().readAndDispatch ()) vcnShell.getDisplay().sleep ();

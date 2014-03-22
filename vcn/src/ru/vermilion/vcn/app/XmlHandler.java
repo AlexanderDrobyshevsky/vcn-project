@@ -17,6 +17,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
 import ru.vermilion.vcn.auxiliar.GeneralUtils;
@@ -64,6 +67,24 @@ public class XmlHandler {
 			addNode(childElement, ti, xml);
 		}
 	}
+	
+	private ErrorHandler errorHandler = new ErrorHandler() {
+
+		@Override
+		public void warning(SAXParseException exception) throws SAXException {
+			System.out.println("# warning " + exception.getMessage());
+		}
+		
+		@Override
+		public void error(SAXParseException exception) throws SAXException {
+			System.out.println("# error " + exception.getMessage());
+		}
+		
+		@Override
+		public void fatalError(SAXParseException exception) throws SAXException {
+			System.out.println("# fatalError " + exception.getMessage());
+		}
+	};
 
 	private Document getDocument() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -72,17 +93,21 @@ public class XmlHandler {
 		Document doc = null;
 
 		try {
+			factory.setFeature("http://apache.org/xml/features/continue-after-fatal-error", true);
 			builder = factory.newDocumentBuilder();
+			builder.setErrorHandler(errorHandler);
 
 			doc = builder.parse(new File(VCNConstants.WORK_FILE_PATH));
 			doc.setXmlStandalone(false);
+		} catch (SAXParseException ex) {
+			ex.printStackTrace();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 		return doc;
 	}
-
+	
 	public void initXML() {
 		vermilionCascadeNotebook.initDataDir();
 
@@ -103,7 +128,7 @@ public class XmlHandler {
 	public void loadXmlToTree() {
 		Document xml = getDocument();
 
-		System.out.println("Begin load xml");
+		System.out.println("Begin load xml = " + xml);
 		GeneralUtils.clearTree(vermilionCascadeNotebook.getTree());
 
 		if (xml != null) {
@@ -132,6 +157,9 @@ public class XmlHandler {
 					}
 				}
 			}
+		} else {
+			// TODO Show Error Message;
+			System.exit(1);
 		}
 
 		vermilionCascadeNotebook.getTree().select(vermilionCascadeNotebook.getTree().getItem(0));
@@ -143,6 +171,8 @@ public class XmlHandler {
 		vermilionCascadeNotebook.setWrapEditor(vermilionCascadeNotebook.getEditor().getTreeItem().isWrap());
 
 		vermilionCascadeNotebook.setInModified();
+		
+		vermilionCascadeNotebook.setTopLabel(vermilionCascadeNotebook.getEditor().getTreeItem().getPath());
 
 		System.out.println("Load finished");
 	}
@@ -206,10 +236,7 @@ public class XmlHandler {
 
 		Document xml = builder.newDocument();
 
-		VCNTreeItem item = vermilionCascadeNotebook.getEditor().getTreeItem();
-		if (item != null && !item.isDisposed()) {
-			item.setContent(vermilionCascadeNotebook.getEditor().getText());
-		}
+		vermilionCascadeNotebook.flushEditor();
 
 		constructXml(xml);
 

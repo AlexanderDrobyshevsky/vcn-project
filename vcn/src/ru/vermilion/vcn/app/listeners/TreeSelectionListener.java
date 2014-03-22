@@ -16,20 +16,20 @@ public class TreeSelectionListener implements Listener {
 	}
 	
 	// Self-made Events are possible. Just event.item may be set! 
-	public void handleEvent (Event event) {
+	public void handleEvent(Event event) {
 		assert event != null && event.item != null;
+		System.out.println("triggered TreeSelectionListener.handleEvent. Event = " + event.item);
 		
 		Editor editor = vermilionCascadeNotebook.getEditor();
 		
 		VCNTreeItem item = editor.getTreeItem();
+		System.out.println("editor item = " + item);
 		if (!item.isDisposed()) {
+			System.out.println("For item = '" + item + "' set content = '" + editor.getText() + "'");
 			item.setContent(editor.getText());
 		}
 		
 		String itemText = ((VCNTreeItem)event.item).getContent();
-		if (itemText == null) {
-			itemText = "";
-		}
 		
 		editor.removeVerifyListener(vermilionCascadeNotebook.getEditorVerifyListener());
 		editor.setText(itemText);
@@ -37,5 +37,7 @@ public class TreeSelectionListener implements Listener {
 		editor.setTreeItem((VCNTreeItem)event.item);
 		
 		vermilionCascadeNotebook.setWrapEditor(((VCNTreeItem)event.item).isWrap());
+
+		vermilionCascadeNotebook.setTopLabel(((VCNTreeItem)event.item).getPath());
 	}
 }
