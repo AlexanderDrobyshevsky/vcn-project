@@ -7,7 +7,8 @@ public class VCNTreeItem extends TreeItem {
 
 	private static int idGenerator = 0;
 	
-	private String content;
+	// null value means empty string
+	private String content = "";
 	
 	private boolean isWrap = true;
 	
@@ -33,11 +34,18 @@ public class VCNTreeItem extends TreeItem {
 	protected void checkSubclass () {
 	}
 
+	// null value means empty string
 	public String getContent() {
+		if (content == null) {
+			content = "";
+		}
+		
 		return content;
 	}
 
 	public void setContent(String content) {
+		assert content != null;
+		
 		this.content = content;
 	}
 

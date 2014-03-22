@@ -361,7 +361,6 @@ public final class VermilionCascadeNotebook {
 	}
 	
 	public void setTopLabel(String text) {
-		System.out.println("set label = " + text);
 		topLabel.setText(text);
 		topLabel.getParent().layout();
 	}

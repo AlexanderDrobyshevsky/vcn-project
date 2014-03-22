@@ -16,6 +16,8 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 	
 	private String lastClipboardText;
 	
+	private String currentClipboardText;
+	
 	private long lastClipboardTime;
 	
 	public EditorAutoSelectedTextCopy(Text text) {
@@ -55,7 +57,11 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 					
 					System.out.println("time delta = " + (System.currentTimeMillis() - lastClipboardTime));
 					Point selection = editor.getSelection();
-					if (System.currentTimeMillis() - lastClipboardTime < 4000 && lastClipboardText != null && selection.x < selection.y) {
+					String currentClipboard = (String)clipboard.getContents(TextTransfer.getInstance());
+					if (System.currentTimeMillis() - lastClipboardTime < 4000 
+							&& lastClipboardText != null && selection.x < selection.y
+							// if not equals => external modification happened; => don't modify clipboard;
+							&& currentClipboardText != null && currentClipboardText.equals(currentClipboard)) {
 						System.out.println("clipboard modification from '" + (String)clipboard.getContents(TextTransfer.getInstance()) + "' -> '" + lastClipboardText + "'");
 					    TextTransfer textTransfer = TextTransfer.getInstance();
 					    clipboard.setContents(new Object[] { lastClipboardText }, new Transfer[] { textTransfer });
@@ -122,8 +128,9 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 			
 			editor.copy();
 			
-			String currClipboard = (String)clipboard.getContents(TextTransfer.getInstance());
-			System.out.println("get clipboard after copy: '" + currClipboard + "'");
+			currentClipboardText =  (String)clipboard.getContents(TextTransfer.getInstance());
+			
+			System.out.println("get clipboard after copy: '" + currentClipboardText + "'");
 		}
 	}
 }
