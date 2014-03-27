@@ -51,7 +51,7 @@ public final class VermilionCascadeNotebook {
 	
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
-	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.3";
+	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.4-SNAPSHOT";
 	
 	private static final String TITLE_MODIFIED = " * " + TITLE_WITH_VERSION;
 	
@@ -85,7 +85,6 @@ public final class VermilionCascadeNotebook {
 		
 		shell.setImage(new Image(display, VermilionCascadeNotebook.class.getResourceAsStream("/images/logo.png")));
 		
-		
 		GridLayout gl = new GridLayout(1, false);
 		gl.horizontalSpacing = 0;
 		gl.verticalSpacing = 1;
@@ -96,22 +95,13 @@ public final class VermilionCascadeNotebook {
 		
 		Composite upComposite = new Composite(shell, SWT.BORDER);
 		gl = new GridLayout(1, false);
-//		gl.horizontalSpacing = 0;
-//		gl.verticalSpacing = 0;
 		gl.marginHeight = 0;
 		gl.marginWidth = 2;
 		upComposite.setLayout(gl);
-		//upComposite.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_RED));
 		upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		topLabel = new Label(upComposite, SWT.BOLD);
 		topLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		topLabel.setText("/");
-		//l.setBackground(upComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		//GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
-		//gd.minimumHeight = 50;
-		//gd.minimumWidth = 200;
-		
-		
 		
 		Composite midComposite = new Composite(shell, SWT.NONE);
 		midComposite.setBackground(midComposite.getDisplay().getSystemColor(SWT.COLOR_GREEN));
@@ -122,7 +112,6 @@ public final class VermilionCascadeNotebook {
 		gl.marginHeight = 0;
 		gl.marginWidth = 4;
 		botComposite.setLayout(gl);
-		//botComposite.setBackground(botComposite.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		statusLabel = new Label(botComposite, SWT.BOLD);
 		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
