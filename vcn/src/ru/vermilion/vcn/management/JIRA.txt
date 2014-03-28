@@ -15,7 +15,10 @@ Project Simple Management
  * + 23. Help
  * + 24. Word wrap for text
  * + 25. Cypher sign
- *   25! Increase/Decrease font size
+ * * 25! Increase/Decrease font size
+   . 25.1 Increase/Descrease editor font size
+   . 25.2 Increase/Descrease tree font size
+   . 25.3 Persist font size both configurations
  * + 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
  * + 29. Search through whole editor

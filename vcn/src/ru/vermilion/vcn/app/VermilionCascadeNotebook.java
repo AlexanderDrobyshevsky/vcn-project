@@ -41,6 +41,7 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  * @author Alexander Drobyshevsky
  */
 
+// TODO Singleton!!!
 public final class VermilionCascadeNotebook {
 
 	private Editor editor = null;

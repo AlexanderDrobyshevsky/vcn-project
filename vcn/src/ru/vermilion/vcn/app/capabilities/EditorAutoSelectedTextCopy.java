@@ -88,6 +88,25 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 					System.out.println("Explicit Ctrl + X");
 				}	
 				
+				// Event e = KeyEvent{Editor {} time=172910384 data=null character='+'=0x2b keyCode=0x100002b keyLocation=0x2 stateMask=0x40000 doit=true}
+				if (e.character == 0x2b && e.keyCode == 0x100002b && e.stateMask == 0x40000) {
+					// Ctrl [+] pressed;
+					
+					System.out.println("Explicit Ctrl [+]");
+				}
+				
+				//Event e = KeyEvent{Editor {} time=172933519 data=null character='-'=0x2d keyCode=0x100002d keyLocation=0x2 stateMask=0x40000 doit=true}
+				if (e.character == 0x2d && e.keyCode == 0x100002d && e.stateMask == 0x40000) {
+					// Ctrl [-] pressed;
+					
+					System.out.println("Explicit Ctrl [-]");
+				}
+				
+				
+
+				// debug: 
+				//System.out.println("Event e = " + e);
+				
 				// TODO Ctrl + Delete functionality
 //				// KeyEvent{Editor {} time=43841569 data=null character=''=0x7f keyCode=0x7f keyLocation=0x0 stateMask=0x20000 doit=true}
 //				if (e.character == 0x18 && e.keyCode == 0x78 && e.stateMask == 0x40000) {
