@@ -12,7 +12,6 @@ import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.capabilities.ApplicationSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
-import ru.vermilion.vcn.app.staff.Editor;
 
 public class ApplicationMenu {
 
@@ -104,9 +103,7 @@ public class ApplicationMenu {
 		item = new MenuItem (submenu, SWT.PUSH);
 		item.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				Editor.setFontSize(Editor.getFontSize() + 1);
-				vermilionCascadeNotebook.getEditor().applyFontSize();
-				vermilionCascadeNotebook.setStatusLabel("Font size has been increased to " + Editor.getFontSize());
+				VermilionCascadeNotebook.getInstance().increaseEditorFontSize();
 			}
 		});
 		item.setText ("&Increase Editor Font Size \tCtrl + (Pud)");
@@ -116,9 +113,7 @@ public class ApplicationMenu {
 		item = new MenuItem(submenu, SWT.PUSH);
 		item.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
-				Editor.setFontSize(Editor.getFontSize() - 1);
-				vermilionCascadeNotebook.getEditor().applyFontSize();
-				vermilionCascadeNotebook.setStatusLabel("Font size has been decreased to " + Editor.getFontSize());
+				VermilionCascadeNotebook.getInstance().decreaseEditorFontSize();
 			}
 		});
 		item.setText ("&Decrease Editor Font Size \tCtrl - (Pud)");

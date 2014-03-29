@@ -8,6 +8,8 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
 
+import ru.vermilion.vcn.app.VermilionCascadeNotebook;
+
 public class EditorAutoSelectedTextCopy implements ICapability {
 	
 	private Text editor;
@@ -90,14 +92,14 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 				
 				// Event e = KeyEvent{Editor {} time=172910384 data=null character='+'=0x2b keyCode=0x100002b keyLocation=0x2 stateMask=0x40000 doit=true}
 				if (e.character == 0x2b && e.keyCode == 0x100002b && e.stateMask == 0x40000) {
-					// Ctrl [+] pressed;
+					VermilionCascadeNotebook.getInstance().increaseEditorFontSize();
 					
 					System.out.println("Explicit Ctrl [+]");
 				}
 				
 				//Event e = KeyEvent{Editor {} time=172933519 data=null character='-'=0x2d keyCode=0x100002d keyLocation=0x2 stateMask=0x40000 doit=true}
 				if (e.character == 0x2d && e.keyCode == 0x100002d && e.stateMask == 0x40000) {
-					// Ctrl [-] pressed;
+					VermilionCascadeNotebook.getInstance().decreaseEditorFontSize();
 					
 					System.out.println("Explicit Ctrl [-]");
 				}

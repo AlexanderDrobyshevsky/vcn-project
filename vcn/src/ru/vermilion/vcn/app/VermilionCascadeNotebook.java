@@ -72,9 +72,15 @@ public final class VermilionCascadeNotebook {
 	
 	private Label statusLabel;
 	
+	private static final VermilionCascadeNotebook vermilionCascadeNotebook = new VermilionCascadeNotebook();
+	
 		
-	VermilionCascadeNotebook() {
+	private VermilionCascadeNotebook() {
 		
+	}
+	
+	public static VermilionCascadeNotebook getInstance() {
+		return vermilionCascadeNotebook;
 	}
 	
 	void init() {
@@ -301,6 +307,18 @@ public final class VermilionCascadeNotebook {
 		}
 	}
 	
+	public void decreaseEditorFontSize() {
+		Editor.setFontSize(Editor.getFontSize() - 1);
+		vermilionCascadeNotebook.getEditor().applyFontSize();
+		vermilionCascadeNotebook.setStatusLabel("Font size has been decreased to " + Editor.getFontSize());
+	}
+	
+	public void increaseEditorFontSize() {
+		Editor.setFontSize(Editor.getFontSize() + 1);
+		vermilionCascadeNotebook.getEditor().applyFontSize();
+		vermilionCascadeNotebook.setStatusLabel("Font size has been increased to " + Editor.getFontSize());
+	}
+
 	public void setWrapEditor(boolean wrap) {
 		setWrapEditor(wrap, true);
 	}

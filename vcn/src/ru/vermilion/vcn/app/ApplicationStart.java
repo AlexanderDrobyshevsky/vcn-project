@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Shell;
 public class ApplicationStart {
 
 	public static void main(String [] args) {
-		VermilionCascadeNotebook vermilionCascadeNotebook = new VermilionCascadeNotebook();
+		VermilionCascadeNotebook vermilionCascadeNotebook = VermilionCascadeNotebook.getInstance();
 		vermilionCascadeNotebook.init();
 
 		Shell vcnShell = vermilionCascadeNotebook.getMainComposite().getShell();
