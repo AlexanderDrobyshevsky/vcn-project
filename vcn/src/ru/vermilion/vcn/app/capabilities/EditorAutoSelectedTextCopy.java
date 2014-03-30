@@ -90,6 +90,7 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 					System.out.println("Explicit Ctrl + X");
 				}	
 				
+				// TODO move it to global key listener (todo global key listener)
 				// Event e = KeyEvent{Editor {} time=172910384 data=null character='+'=0x2b keyCode=0x100002b keyLocation=0x2 stateMask=0x40000 doit=true}
 				if (e.character == 0x2b && e.keyCode == 0x100002b && e.stateMask == 0x40000) {
 					VermilionCascadeNotebook.getInstance().increaseEditorFontSize();

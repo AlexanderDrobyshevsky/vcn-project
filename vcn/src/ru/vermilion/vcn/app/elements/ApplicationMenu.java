@@ -12,6 +12,7 @@ import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.capabilities.ApplicationSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
+import ru.vermilion.vcn.app.staff.Editor;
 
 public class ApplicationMenu {
 
@@ -26,13 +27,13 @@ public class ApplicationMenu {
 	}
 	
 	public void createMenu() {
-		Menu bar = new Menu (shell, SWT.BAR);
+		Menu bar = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(bar);
 		
-		MenuItem fileItem = new MenuItem (bar, SWT.CASCADE);
-		fileItem.setText ("&File");
+		MenuItem fileItem = new MenuItem(bar, SWT.CASCADE);
+		fileItem.setText("&File");
 		
-		Menu submenu = new Menu (shell, SWT.DROP_DOWN);
+		Menu submenu = new Menu(shell, SWT.DROP_DOWN);
 		fileItem.setMenu(submenu);
 
 		//menuItem = new MenuItem(menu, SWT.SEPARATOR);
@@ -47,10 +48,10 @@ public class ApplicationMenu {
 			}
 		});
 		
-        MenuItem exitMenuItem = new MenuItem (submenu, SWT.PUSH);
-		exitMenuItem.setText ("E&xit");
-		exitMenuItem.addListener (SWT.Selection, new Listener () {
-			public void handleEvent (Event e) {
+        MenuItem exitMenuItem = new MenuItem(submenu, SWT.PUSH);
+		exitMenuItem.setText("E&xit");
+		exitMenuItem.addListener(SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
 				vermilionCascadeNotebook.save();
 				vermilionCascadeNotebook.unlockProgrammProcess();
 				System.exit(0);
@@ -58,14 +59,14 @@ public class ApplicationMenu {
 		});
 		
 		
-		MenuItem editorItem = new MenuItem (bar, SWT.CASCADE);
-		editorItem.setText ("&Editor");
+		MenuItem editorItem = new MenuItem(bar, SWT.CASCADE);
+		editorItem.setText("&Editor");
 		
-		submenu = new Menu (shell, SWT.DROP_DOWN);
+		submenu = new Menu(shell, SWT.DROP_DOWN);
 		editorItem.setMenu(submenu);
 		
-		MenuItem item = new MenuItem (submenu, SWT.PUSH);
-		item.addListener (SWT.Selection, new Listener () {
+		MenuItem item = new MenuItem(submenu, SWT.PUSH);
+		item.addListener(SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				vermilionCascadeNotebook.getEditor().selectAll();
 				Point selection = vermilionCascadeNotebook.getEditor().getSelection();
@@ -74,8 +75,8 @@ public class ApplicationMenu {
 				}
 			}
 		});
-		item.setText ("Select &All \tCtrl + A");
-		item.setAccelerator (SWT.MOD1 | 'A');
+		item.setText("Select &All \tCtrl + A");
+		item.setAccelerator(SWT.MOD1 | 'A');
 		
 		///////////////
 		
@@ -87,64 +88,83 @@ public class ApplicationMenu {
 				vermilionCascadeNotebook.setModified();
 			}
 		});
-		wrapItem.setText ("Word Wrap");
+		wrapItem.setText("Word Wrap");
 		
 		vermilionCascadeNotebook.addCapability(new ApplicationSearch(submenu, vermilionCascadeNotebook));
 		
 		/// VIEW ////
 
-		MenuItem viewItem = new MenuItem (bar, SWT.CASCADE);
-		viewItem.setText ("&View");
+		MenuItem viewItem = new MenuItem(bar, SWT.CASCADE);
+		viewItem.setText("&View");
 		
-		submenu = new Menu (shell, SWT.DROP_DOWN);
+		submenu = new Menu(shell, SWT.DROP_DOWN);
 		viewItem.setMenu(submenu);
 		
 		// +
-		item = new MenuItem (submenu, SWT.PUSH);
-		item.addListener (SWT.Selection, new Listener () {
+		item = new MenuItem(submenu, SWT.PUSH);
+		item.addListener(SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				VermilionCascadeNotebook.getInstance().increaseEditorFontSize();
 			}
 		});
-		item.setText ("&Increase Editor Font Size \tCtrl + (Pud)");
+		item.setText("&Increase Editor Font Size \tCtrl + (Pud)");
 		// item.setAccelerator (SWT.MOD1 | '+');
 
 		// -
 		item = new MenuItem(submenu, SWT.PUSH);
-		item.addListener (SWT.Selection, new Listener () {
+		item.addListener(SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				VermilionCascadeNotebook.getInstance().decreaseEditorFontSize();
 			}
 		});
-		item.setText ("&Decrease Editor Font Size \tCtrl - (Pud)");
+		item.setText("&Decrease Editor Font Size \tCtrl - (Pud)");
+		
+		
+		// +
+		item = new MenuItem(submenu, SWT.PUSH);
+		item.addListener(SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+				VermilionCascadeNotebook.getInstance().increaseTreeFontSize();
+			}
+		});
+		item.setText("I&ncrease Tree Font Size");
+		
+		// -
+		item = new MenuItem(submenu, SWT.PUSH);
+		item.addListener(SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+				VermilionCascadeNotebook.getInstance().decreaseTreeFontSize();
+			}
+		});
+		item.setText("D&ecrease Tree Font Size");
 		
 		
 		/// HELP  ///
 		
-		MenuItem helpItem = new MenuItem (bar, SWT.CASCADE);
-		helpItem.setText ("&Help");
+		MenuItem helpItem = new MenuItem(bar, SWT.CASCADE);
+		helpItem.setText("&Help");
 		
-		submenu = new Menu (shell, SWT.DROP_DOWN);
+		submenu = new Menu(shell, SWT.DROP_DOWN);
 		helpItem.setMenu(submenu);
 		
-		MenuItem aboutItem = new MenuItem (submenu, SWT.PUSH);
+		MenuItem aboutItem = new MenuItem(submenu, SWT.PUSH);
 		aboutItem.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				AboutDialog aboutDialog = new AboutDialog(vermilionCascadeNotebook.getMainComposite().getShell());
 				aboutDialog.open();
 			}
 		});
-		aboutItem.setText ("About VCN");
+		aboutItem.setText("About VCN");
 		
-		MenuItem helpSubsectionItem = new MenuItem (submenu, SWT.PUSH);
-		helpSubsectionItem.addListener (SWT.Selection, new Listener () {
+		MenuItem helpSubsectionItem = new MenuItem(submenu, SWT.PUSH);
+		helpSubsectionItem.addListener(SWT.Selection, new Listener () {
 			public void handleEvent(Event e) {
 				new HelpDialog(shell).openHelpDialog();
 			}
 		});
-		helpSubsectionItem.setText ("VCN Help \tF1");
+		helpSubsectionItem.setText("VCN Help \tF1");
 		//helpSubsectionItem.setAccelerator (SWT.MOD1 | 'H');
-		helpSubsectionItem.setAccelerator (SWT.F1);
+		helpSubsectionItem.setAccelerator(SWT.F1);
 	}
 
 	public void setMenuWrapItem(boolean wrap) {

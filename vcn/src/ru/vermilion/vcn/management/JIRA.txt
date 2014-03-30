@@ -17,7 +17,7 @@ Project Simple Management
  * + 25. Cypher sign
  * * 25! Increase/Decrease font size
    + 25.1 Increase/Descrease editor font size
-   . 25.2 Increase/Descrease tree font size
+   + 25.2 Increase/Descrease tree font size
    . 25.3 Persist font size both configurations
  * + 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
@@ -46,6 +46,8 @@ Project Simple Management
  * + 52. Make header composite/line with node path 
  *   53. Save program configuration to xml (window size, sash position, font etc)
  * + 54. Copy paste works incorrectly.
+ *   55. Remove lines in tree
+ *   56. Highlight current tree item (bold)
  * 
  * Bugs:
  * 1. + Press cancel when creating new sub-node - save * appear

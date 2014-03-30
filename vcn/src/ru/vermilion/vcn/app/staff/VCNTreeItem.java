@@ -1,5 +1,6 @@
 package ru.vermilion.vcn.app.staff;
 
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -13,6 +14,22 @@ public class VCNTreeItem extends TreeItem {
 	private boolean isWrap = true;
 	
 	private int id = idGenerator++;
+	
+	private static Integer fontSize = null;
+	{
+		if (fontSize == null) {
+			try {
+				FontData[] fD = this.getFont().getFontData();
+
+				fontSize = fD[0].getHeight();
+				
+				System.out.println("Tree default font size detected = " + fontSize);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				fontSize = 10;
+			}
+		}
+	}
 
 	
 	public VCNTreeItem(Tree parent, int style) {
@@ -73,6 +90,14 @@ public class VCNTreeItem extends TreeItem {
 		}
 		
 		return "/" + path;
+	}
+	
+	public static int getFontSize() {
+		return fontSize;
+	}
+
+	public static void setFontSize(int fontSize) {
+		VCNTreeItem.fontSize = Math.min(210, Math.max(4, fontSize));
 	}
 
 	@Override
