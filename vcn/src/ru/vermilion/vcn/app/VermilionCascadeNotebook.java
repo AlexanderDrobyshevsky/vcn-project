@@ -314,12 +314,14 @@ public final class VermilionCascadeNotebook {
 		Editor.setFontSize(Editor.getFontSize() - 1);
 		vermilionCascadeNotebook.getEditor().applyFontSize();
 		vermilionCascadeNotebook.setStatusLabel("Font size has been decreased to " + Editor.getFontSize());
+		setModified();
 	}
 	
 	public void increaseEditorFontSize() {
 		Editor.setFontSize(Editor.getFontSize() + 1);
 		vermilionCascadeNotebook.getEditor().applyFontSize();
 		vermilionCascadeNotebook.setStatusLabel("Font size has been increased to " + Editor.getFontSize());
+		setModified();
 	}
 	
 	// TREE
@@ -332,6 +334,15 @@ public final class VermilionCascadeNotebook {
 		
 		this.getMainComposite().layout();
 		vermilionCascadeNotebook.setStatusLabel("Tree size has been decreased to " + VCNTreeItem.getFontSize());
+		setModified();
+	}
+
+	public void applyTreeFontSize() {
+		FontData[] fontData = tree.getFont().getFontData();
+		fontData[0].setHeight(VCNTreeItem.getFontSize());
+		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
+		
+		this.getMainComposite().layout();
 	}
 	
 	public void increaseTreeFontSize() {
@@ -343,6 +354,7 @@ public final class VermilionCascadeNotebook {
 		
 		this.getMainComposite().layout();
 		vermilionCascadeNotebook.setStatusLabel("Tree size has been increased to " + VCNTreeItem.getFontSize());
+		setModified();
 	}
 
 	public void setWrapEditor(boolean wrap) {

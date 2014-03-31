@@ -20,4 +20,7 @@ public class VCNConstants {
 	public static final String LOCK_FILE = ".lock";
 	public static final String LOCK_FILE_PATH = WORK_FOLDER + "/" + LOCK_FILE;
 	
+	
+	public static final String TREE_FONT_SIZE = "tree-font-size";
+	public static final String EDITOR_FONT_SIZE = "editor-font-size";
 }

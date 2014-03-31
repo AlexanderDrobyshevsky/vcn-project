@@ -2,6 +2,7 @@ package ru.vermilion.vcn.app;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,6 +22,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import ru.vermilion.vcn.app.staff.Editor;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
 import ru.vermilion.vcn.auxiliar.GeneralUtils;
 import ru.vermilion.vcn.auxiliar.VCNConstants;
@@ -36,6 +38,9 @@ public class XmlHandler {
 	private Document constructXml(Document xml) {
 		Element rootElement = xml.createElement(VCNConstants.ROOT);
 		rootElement.setAttribute(VCNConstants.XML_FORMAT_VERSION_ATTR_NAME, VCNConstants.XML_FORMAT_VERSION);
+		addOption(rootElement, VCNConstants.TREE_FONT_SIZE, VCNTreeItem.getFontSize());
+		addOption(rootElement, VCNConstants.EDITOR_FONT_SIZE, Editor.getFontSize());
+		
 		xml.appendChild(rootElement);
 
 		TreeItem[] treeItems = vermilionCascadeNotebook.getTree().getItems();
@@ -44,6 +49,12 @@ public class XmlHandler {
 		}
 
 		return xml;
+	}
+	
+	private void addOption(Element rootElement, String attrName, Serializable attrValue) {
+		if (attrValue != null) {
+			rootElement.setAttribute(attrName, attrValue.toString());
+		}
 	}
 
 	private void addNode(Element rootElement, TreeItem treeItem, Document xml) {
@@ -124,6 +135,23 @@ public class XmlHandler {
 			saveXml();
 		}
 	}
+	
+	private void handleDocumentOptions(Element root) {
+		try {
+			int editorFontSize = Integer.valueOf(root.getAttribute(VCNConstants.EDITOR_FONT_SIZE));
+			Editor.setFontSize(editorFontSize);
+		} catch (Exception ex) {
+            ex.printStackTrace();			
+		}
+		
+		try {
+			int editorFontSize = Integer.valueOf(root.getAttribute(VCNConstants.TREE_FONT_SIZE));
+			VCNTreeItem.setFontSize(editorFontSize);
+			VermilionCascadeNotebook.getInstance().applyTreeFontSize();
+		} catch (Exception ex) {
+            ex.printStackTrace();			
+		}		
+	}
 
 	public void loadXmlToTree() {
 		Document xml = getDocument();
@@ -133,6 +161,7 @@ public class XmlHandler {
 
 		if (xml != null) {
 			Element root = xml.getDocumentElement();
+			handleDocumentOptions(root);
 
 			NodeList children = root.getChildNodes();
 
@@ -159,6 +188,7 @@ public class XmlHandler {
 			}
 		} else {
 			// TODO Show Error Message;
+			System.out.println("No xml data");
 			System.exit(1);
 		}
 
