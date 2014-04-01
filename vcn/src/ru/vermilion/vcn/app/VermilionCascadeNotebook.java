@@ -216,7 +216,7 @@ public final class VermilionCascadeNotebook {
 		
 		xmlHandler.initXML();
 		
-		addSelectionListeners(tree);
+		// addSelectionListeners(tree);
 		
 		ApplicationTreePopupMenu treePopupMenu = new ApplicationTreePopupMenu(this);
 		treePopupMenu.addTreePopupMenu();
@@ -225,6 +225,8 @@ public final class VermilionCascadeNotebook {
 	    
 		createSashFormContent();
 		xmlHandler.loadXmlToTree();
+		
+		addSelectionListeners(tree);
 		
 		addShellDisposeListener();
 	}

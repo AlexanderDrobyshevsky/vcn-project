@@ -36,7 +36,7 @@ Project Simple Management
  * + 42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
  *   43. Add possibility choose node color!!
  *   44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
- *   45. High Light Current Tree Item (bold)
+ * + 45. High Light Current Tree Item (bold)
  * + 46. Global Search: add option 'Case sensitive'
  * + 47. Global Search: add option 'Handle just node names'
  * + 48. Global Search: add option 'Start over (otherwise starts at current node)'
