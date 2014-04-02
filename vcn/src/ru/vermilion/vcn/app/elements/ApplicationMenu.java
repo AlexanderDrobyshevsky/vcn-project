@@ -8,11 +8,11 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
+import ru.vermilion.vcn.app.VCNConfiguration;
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.capabilities.ApplicationSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
-import ru.vermilion.vcn.app.staff.Editor;
 
 public class ApplicationMenu {
 
@@ -20,6 +20,8 @@ public class ApplicationMenu {
 	private Shell shell;
 	
 	private MenuItem wrapItem;
+	
+	private MenuItem treeLineItem;
 	
 	public ApplicationMenu(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
@@ -138,6 +140,25 @@ public class ApplicationMenu {
 		});
 		item.setText("D&ecrease Tree Font Size");
 		
+		item = new MenuItem(submenu, SWT.SEPARATOR);
+		
+        treeLineItem = new MenuItem(submenu, SWT.CHECK);
+        treeLineItem.setSelection(VCNConfiguration.isTreeLines);
+        treeLineItem.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event e) {
+				VermilionCascadeNotebook.getInstance().getTree()
+						.setLinesVisible(treeLineItem.getSelection());
+				VCNConfiguration.isTreeLines = treeLineItem.getSelection();
+				VermilionCascadeNotebook.getInstance().setModified();
+
+				if (!VCNConfiguration.isTreeLines) {
+					VermilionCascadeNotebook.getInstance().setStatusLabel("Tree lines were hidden");
+				} else {
+					VermilionCascadeNotebook.getInstance().setStatusLabel("Tree lines are shown");
+				}
+			}
+		});
+        treeLineItem.setText("Show Tree Lines");
 		
 		/// HELP  ///
 		
@@ -171,5 +192,7 @@ public class ApplicationMenu {
 		wrapItem.setSelection(wrap);
 	}
 	
-	
+	public void setTreeLineItemSelection(boolean isSelected) {
+		treeLineItem.setSelection(isSelected);
+	}	
 }

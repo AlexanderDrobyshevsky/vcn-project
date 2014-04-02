@@ -40,6 +40,7 @@ public class XmlHandler {
 		rootElement.setAttribute(VCNConstants.XML_FORMAT_VERSION_ATTR_NAME, VCNConstants.XML_FORMAT_VERSION);
 		addOption(rootElement, VCNConstants.TREE_FONT_SIZE, VCNTreeItem.getFontSize());
 		addOption(rootElement, VCNConstants.EDITOR_FONT_SIZE, Editor.getFontSize());
+		addOption(rootElement, VCNConstants.TREE_LINES, VCNConfiguration.isTreeLines);
 		
 		xml.appendChild(rootElement);
 
@@ -151,6 +152,16 @@ public class XmlHandler {
 		} catch (Exception ex) {
             ex.printStackTrace();			
 		}		
+		
+		try {
+			boolean isTreeLines = Boolean.valueOf(root.getAttribute(VCNConstants.TREE_LINES));
+            VCNConfiguration.isTreeLines = isTreeLines;
+            System.out.println("-- config VCNConfiguration.isTreeLines = " + VCNConfiguration.isTreeLines);
+            VermilionCascadeNotebook.getInstance().getTree().setLinesVisible(VCNConfiguration.isTreeLines);
+            VermilionCascadeNotebook.getInstance().getAppMenu().setTreeLineItemSelection(VCNConfiguration.isTreeLines);
+		} catch (Exception ex) {
+            ex.printStackTrace();			
+		}
 	}
 
 	public void loadXmlToTree() {

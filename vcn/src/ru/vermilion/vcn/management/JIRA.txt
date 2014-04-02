@@ -46,7 +46,7 @@ Project Simple Management
  * + 52. Make header composite/line with node path 
  *   53. Save program configuration to xml (window size, sash position, font etc)
  * + 54. Copy paste works incorrectly.
- *   55. Remove lines in tree (choose in view)
+ * + 55. Remove lines in tree (choose in view)
  *   56. Run in separated thread. Remove console. Make console output(out,err) to separated stream.
  *   57. Improve search: make search string for tree elements at the top of tree. 
  * 
@@ -56,3 +56,6 @@ Project Simple Management
  * 3. Opens and closes of node - are not saved
  * 4. + [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
  * 5. + Renaming node - must be renamed path bar
+ * 6.   Selection current node: after search - 1. not selecting current node. 2. Moving node - Exception because unselect disposed element! 
+
+ 

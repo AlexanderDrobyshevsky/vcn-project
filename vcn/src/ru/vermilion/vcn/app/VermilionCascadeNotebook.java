@@ -43,7 +43,6 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
  * @author Alexander Drobyshevsky
  */
 
-// TODO Singleton!!!
 public final class VermilionCascadeNotebook {
 
 	private Editor editor = null;
@@ -211,7 +210,7 @@ public final class VermilionCascadeNotebook {
 		appMenu.createMenu();
 
 		tree = new Tree(mainComposite, SWT.BORDER);
-		tree.setLinesVisible(true);
+		tree.setLinesVisible(VCNConfiguration.isTreeLines);
 		editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
@@ -395,6 +394,10 @@ public final class VermilionCascadeNotebook {
 		return mainComposite;
 	}
 	
+	public ApplicationMenu getAppMenu() {
+		return appMenu;
+	}
+
 	public void save() {
     	xmlHandler.saveXml();
     }
