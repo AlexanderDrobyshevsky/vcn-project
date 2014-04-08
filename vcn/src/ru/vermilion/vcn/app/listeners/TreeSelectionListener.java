@@ -47,14 +47,10 @@ public class TreeSelectionListener implements Listener {
 	}
 	
 	private void unselectItem(VCNTreeItem item) {
-		System.out.println("Unselect item = " + item.getText());
-
 		item.makeTextPlain();
 	}
 	
 	private void selectItem(VCNTreeItem item) {
-		System.out.println("Select item = " + item.getText());
-		
 		item.makeTextBold();
 	}	
 	

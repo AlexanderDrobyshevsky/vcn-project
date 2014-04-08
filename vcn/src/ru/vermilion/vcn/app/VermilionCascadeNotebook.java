@@ -347,7 +347,9 @@ public final class VermilionCascadeNotebook {
 		if (isOwnFont) tree.getFont().dispose();
 		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
 		isOwnFont = true;
-		getEditor().getTreeItem().rebaseTextFont();
+        if (getEditor().getTreeItem() != null) {
+            getEditor().getTreeItem().rebaseTextFont();
+        }
 		this.getMainComposite().layout();
 	}
 

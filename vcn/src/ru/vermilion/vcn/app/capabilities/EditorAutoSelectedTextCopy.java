@@ -144,14 +144,14 @@ public class EditorAutoSelectedTextCopy implements ICapability {
 	        lastClipboardText = (String)clipboard.getContents(TextTransfer.getInstance());
 	        lastClipboardTime = System.currentTimeMillis();
 
-	        System.out.println("get clipboard before copy: '" + lastClipboardText + "'");
-	        System.out.println("save last clipboard time");
+	        //System.out.println("get clipboard before copy: '" + lastClipboardText + "'");
+	        //System.out.println("save last clipboard time");
 			
 			editor.copy();
 			
 			currentClipboardText =  (String)clipboard.getContents(TextTransfer.getInstance());
 			
-			System.out.println("get clipboard after copy: '" + currentClipboardText + "'");
+			//System.out.println("get clipboard after copy: '" + currentClipboardText + "'");
 		}
 	}
 }

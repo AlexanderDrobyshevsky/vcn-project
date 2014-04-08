@@ -28,14 +28,14 @@ Project Simple Management
  *   33. Live Copy Of Nodes (One live node for many parents)
  *   34. Make auto backups
  *   35. Crypto possibilities with password access;
- *   36. Node sharing possibilities (through server)
+ * x 36. Node sharing possibilities (through server)
  * + 37. Document Search Monitor: like "3/16 Found" in the bottom of main window;
  * + 38. Add to the help page search possibilities;
  *   40. Node import/export
  * + 41. Page Search: CTRL-F - must activate page search at tree too;  
  * + 42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
- *   43. Add possibility choose node color!!
- *   44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
+ * * 43. Add possibility choose node color!!
+ * x 44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
  * + 45. High Light Current Tree Item (bold)
  * + 46. Global Search: add option 'Case sensitive'
  * + 47. Global Search: add option 'Handle just node names'
@@ -56,7 +56,7 @@ Project Simple Management
  * 3. Opens and closes of node - are not saved
  * 4. + [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
  * 5. + Renaming node - must be renamed path bar
- * 6.   Selection current node: after search - 1. not selecting current node. 2. Moving node - Exception because unselect disposed element! 
- * 7.   Resizing tree - font of nodes, what were used before, stay unchanged;  
+ * 6. + Selection current node: after search - 1. not selecting current node. 2. Moving node - Exception because unselect disposed element! 
+ * 7. + Resizing tree - font of nodes, what were used before, stay unchanged;  
 
  
