@@ -328,34 +328,27 @@ public final class VermilionCascadeNotebook {
 	// TREE
 	public void decreaseTreeFontSize() {
 		VCNTreeItem.setFontSize(VCNTreeItem.getFontSize() - 1);
-		
-		FontData[] fontData = tree.getFont().getFontData();
-		fontData[0].setHeight(VCNTreeItem.getFontSize());
-		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
-		
-		this.getMainComposite().layout();
+		applyTreeFontSize();
 		vermilionCascadeNotebook.setStatusLabel("Tree size has been decreased to " + VCNTreeItem.getFontSize());
 		setModified();
 	}
 
+	public void increaseTreeFontSize() {
+		VCNTreeItem.setFontSize(VCNTreeItem.getFontSize() + 1);
+		applyTreeFontSize();
+		vermilionCascadeNotebook.setStatusLabel("Tree size has been increased to " + VCNTreeItem.getFontSize());
+		setModified();
+	}
+	
+	boolean isOwnFont = false;
 	public void applyTreeFontSize() {
 		FontData[] fontData = tree.getFont().getFontData();
 		fontData[0].setHeight(VCNTreeItem.getFontSize());
+		if (isOwnFont) tree.getFont().dispose();
 		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
-		
+		isOwnFont = true;
+		getEditor().getTreeItem().rebaseTextFont();
 		this.getMainComposite().layout();
-	}
-	
-	public void increaseTreeFontSize() {
-		VCNTreeItem.setFontSize(VCNTreeItem.getFontSize() + 1);
-		
-		FontData[] fontData = tree.getFont().getFontData();
-		fontData[0].setHeight(VCNTreeItem.getFontSize());
-		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
-		
-		this.getMainComposite().layout();
-		vermilionCascadeNotebook.setStatusLabel("Tree size has been increased to " + VCNTreeItem.getFontSize());
-		setModified();
 	}
 
 	public void setWrapEditor(boolean wrap) {

@@ -1,11 +1,7 @@
 package ru.vermilion.vcn.app.listeners;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.TreeItem;
 
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.staff.Editor;
@@ -47,21 +43,19 @@ public class TreeSelectionListener implements Listener {
 
 		vermilionCascadeNotebook.setTopLabel(((VCNTreeItem)event.item).getPath());
 		
-		selectItem((TreeItem)event.item);
+		selectItem((VCNTreeItem)event.item);
 	}
 	
-	private void unselectItem(TreeItem item) {
+	private void unselectItem(VCNTreeItem item) {
 		System.out.println("Unselect item = " + item.getText());
-		FontData[] fontData = item.getFont().getFontData();
-		fontData[0].setStyle(SWT.NORMAL);
-		item.setFont(new Font(item.getDisplay(), fontData[0]));		
+
+		item.makeTextPlain();
 	}
 	
-	private void selectItem(TreeItem item) {
+	private void selectItem(VCNTreeItem item) {
 		System.out.println("Select item = " + item.getText());
-		FontData[] fontData = item.getFont().getFontData();
-		fontData[0].setStyle(SWT.BOLD);
-		item.setFont(new Font(item.getDisplay(), fontData[0]));
+		
+		item.makeTextBold();
 	}	
 	
 }

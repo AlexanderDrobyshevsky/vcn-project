@@ -1,5 +1,9 @@
 package ru.vermilion.vcn.app.staff;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -15,6 +19,8 @@ public class VCNTreeItem extends TreeItem {
 	
 	private int id = idGenerator++;
 	
+	private Font font;
+	
 	private static Integer fontSize = null;
 	{
 		if (fontSize == null) {
@@ -29,6 +35,17 @@ public class VCNTreeItem extends TreeItem {
 				fontSize = 10;
 			}
 		}
+		
+		addDisposeListener(new DisposeListener() {
+
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+                if (font != null) {
+                	font.dispose();
+                }
+				
+			}
+		});
 	}
 
 	
@@ -47,6 +64,45 @@ public class VCNTreeItem extends TreeItem {
 	public VCNTreeItem(TreeItem parentItem, int style, int index) {
 		super(parentItem, style, index);
 	}
+	
+	public void makeTextBold() {
+		if (this.isDisposed()) {
+			return;
+		}
+		
+		if (font == null) {
+			FontData[] fontData = getFont().getFontData();
+			fontData[0].setStyle(SWT.BOLD);
+			
+			font = new Font(getDisplay(), fontData[0]);
+			setFont(font);
+		} else {
+			FontData[] fontData = font.getFontData();
+			fontData[0].setStyle(SWT.BOLD);
+			setFont(font);
+		}
+	}
+	
+	public void makeTextPlain() {
+		if (this.isDisposed()) {
+			return;
+		}
+		
+		if (font != null) {
+			font.dispose();
+		}
+		
+		font = null;
+		
+		setFont(null);
+	}
+	
+	public void rebaseTextFont() {
+		makeTextPlain();
+		makeTextBold();
+	}
+	
+	
 	
 	protected void checkSubclass () {
 	}
