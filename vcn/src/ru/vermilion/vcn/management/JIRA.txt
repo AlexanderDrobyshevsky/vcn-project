@@ -14,10 +14,10 @@ Project Simple Management
  * + 22. Dialog windows all adjustment, center main win, open on last.
  * + 23. Help
  * + 24. Word wrap for text
- * + 25. Cypher sign
+ * + 25. Cipher sign
  * + 25! Increase/Decrease font size
-   + 25.1 Increase/Descrease editor font size
-   + 25.2 Increase/Descrease tree font size
+   + 25.1 Increase/Decrease editor font size
+   + 25.2 Increase/Decrease tree font size
    + 25.3 Persist font size both configurations
  * + 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
@@ -49,6 +49,14 @@ Project Simple Management
  * + 55. Remove lines in tree (choose in view)
  *   56. Run in separated thread. Remove console. Make console output(out,err) to separated stream.
  *   57. Improve search: make search string for tree elements at the top of tree. 
+ *   58. Save active window proportions and position and restore on starting
+ *   59. Save active item position and select on starting
+ *   60. Make Favorite Menu Item with hot keys
+ *   61. Copy-catcher with new/without line
+ *   62. Set focus on element under mouse cursor (tree and editor)
+ *   63. Move output stream to error stream. Eliminate console
+ *   64. Text selection reset after t seconds option
+ *    
  * 
  * Bugs:
  * 1. + Press cancel when creating new sub-node - save * appear
