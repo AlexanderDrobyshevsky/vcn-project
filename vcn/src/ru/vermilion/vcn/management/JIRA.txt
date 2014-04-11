@@ -27,7 +27,7 @@ Project Simple Management
  * + 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboard - but have selected text (in clipboard) instead of text your really want to put 
  *   33. Live Copy Of Nodes (One live node for many parents)
  *   34. Make auto backups
- *   35. Crypto possibilities with password access;
+ *   35. Cryptography possibilities with password access;
  * x 36. Node sharing possibilities (through server)
  * + 37. Document Search Monitor: like "3/16 Found" in the bottom of main window;
  * + 38. Add to the help page search possibilities;
