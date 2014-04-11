@@ -7,10 +7,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -211,6 +214,64 @@ public final class VermilionCascadeNotebook {
 
 		tree = new Tree(mainComposite, SWT.BORDER);
 		tree.setLinesVisible(VCNConfiguration.isTreeLines);
+
+		// One more case without background selection gradient
+//		tree.addListener(SWT.EraseItem, new Listener() {
+//			@Override
+//			public void handleEvent(Event event) {
+//				System.out.println("Event..." + event.item);
+//				event.detail &= ~SWT.HOT;
+//				if ((event.detail & SWT.SELECTED) != 0) {
+//					GC gc = event.gc;
+//
+//					VCNTreeItem treeItem = (VCNTreeItem)event.item;
+//					
+//					gc.setForeground(treeItem.getForegroundColor());
+//					
+//					event.detail &= ~SWT.SELECTED;					
+//				}	
+//				
+//				//System.out.println("..End");
+//			}
+//		});	
+		
+		
+		tree.addListener(SWT.EraseItem, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				event.detail &= ~SWT.HOT;
+				if ((event.detail & SWT.SELECTED) != 0) {
+					GC gc = event.gc;
+					Rectangle area = tree.getClientArea();
+
+					int width = area.x + area.width - event.x;
+					if (width > 0) {
+						Region region = new Region();
+						gc.getClipping(region);
+						region.add(event.x, event.y, width, event.height);
+						gc.setClipping(region);
+						region.dispose();
+					}
+					gc.setAdvanced(true);
+					if (gc.getAdvanced()) {
+						gc.setAlpha(127);
+					}
+					Rectangle rect = event.getBounds();
+					Color background = gc.getBackground();
+					gc.setForeground(event.display.getSystemColor(SWT.COLOR_BLUE));
+					gc.setBackground(event.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
+					gc.fillGradientRectangle(0, rect.y, 450, rect.height, false);
+					gc.setBackground(background);
+
+					VCNTreeItem treeItem = (VCNTreeItem) event.item;
+					gc.setForeground(treeItem.getForeground());
+
+					event.detail &= ~SWT.SELECTED;
+				}
+			}
+		});		
+		
+		
 		editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
@@ -344,6 +405,7 @@ public final class VermilionCascadeNotebook {
 	public void applyTreeFontSize() {
 		FontData[] fontData = tree.getFont().getFontData();
 		fontData[0].setHeight(VCNTreeItem.getFontSize());
+		//fontData[0].setStyle(SWT.BOLD);
 		if (isOwnFont) tree.getFont().dispose();
 		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
 		isOwnFont = true;
@@ -379,6 +441,14 @@ public final class VermilionCascadeNotebook {
 	
 	public Editor getEditor() {
 		return editor;
+	}
+	
+	public VCNTreeItem getCurrentTreeItem() {
+		if (editor == null) {
+			return null;
+		}
+		
+		return editor.getTreeItem();
 	}
 	
 	public void setEditor(Editor newEditor) {

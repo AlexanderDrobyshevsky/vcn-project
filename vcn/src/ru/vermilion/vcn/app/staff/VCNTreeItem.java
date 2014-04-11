@@ -3,6 +3,7 @@ package ru.vermilion.vcn.app.staff;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Tree;
@@ -21,6 +22,12 @@ public class VCNTreeItem extends TreeItem {
 	
 	private Font font;
 	
+	private Color foregroundColor;
+	
+	private static Color defaultForeground;
+	
+	// TODO Bold font should be created once and it is used all items
+	
 	private static Integer fontSize = null;
 	{
 		if (fontSize == null) {
@@ -37,15 +44,21 @@ public class VCNTreeItem extends TreeItem {
 		}
 		
 		addDisposeListener(new DisposeListener() {
-
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
-                if (font != null) {
+                if (font != null && !font.isDisposed()) {
                 	font.dispose();
                 }
-				
+                
+        		if (foregroundColor != null && !foregroundColor.isDisposed()) {
+        			foregroundColor.dispose();
+        		}
 			}
 		});
+		
+		if (defaultForeground == null) {
+			defaultForeground = super.getForeground();
+		}
 	}
 
 	
@@ -77,6 +90,8 @@ public class VCNTreeItem extends TreeItem {
 			font = new Font(getDisplay(), fontData[0]);
 			setFont(font);
 		} else {
+			// code_7 Remake it because it is a wrong code
+			if (1==1) throw new RuntimeException("Unreachable stupid code");
 			FontData[] fontData = font.getFontData();
 			fontData[0].setStyle(SWT.BOLD);
 			setFont(font);
@@ -84,7 +99,7 @@ public class VCNTreeItem extends TreeItem {
 	}
 	
 	public void makeTextPlain() {
-		if (this.isDisposed()) {
+		if (this.isDisposed()) { //|| foregroundColor != null) {
 			return;
 		}
 		
@@ -154,6 +169,41 @@ public class VCNTreeItem extends TreeItem {
 
 	public static void setFontSize(int fontSize) {
 		VCNTreeItem.fontSize = Math.min(210, Math.max(4, fontSize));
+	}
+	
+	@Override
+	public Color getForeground() {
+		if (foregroundColor == null) {
+			return super.getForeground();
+		}
+		
+		return foregroundColor;
+	}
+
+	@Override
+	public void setForeground(Color foregroundColor) {
+		assert foregroundColor != null; 
+		if (this.foregroundColor != null && this.foregroundColor.getRGB().equals(foregroundColor.getRGB())) {
+			return;
+		}
+		
+		super.setForeground(foregroundColor);
+		
+		this.foregroundColor = foregroundColor;
+	}
+	
+	public void resetForeground() {
+		if (foregroundColor == null) {
+			return;
+		}
+		
+		if (foregroundColor != null && !foregroundColor.isDisposed()) {
+			foregroundColor.dispose();
+		}
+		
+		foregroundColor = null;
+		
+		super.setForeground(defaultForeground);
 	}
 
 	@Override

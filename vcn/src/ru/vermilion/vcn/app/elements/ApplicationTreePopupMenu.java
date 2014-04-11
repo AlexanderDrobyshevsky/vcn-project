@@ -3,6 +3,9 @@ package ru.vermilion.vcn.app.elements;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -150,6 +153,33 @@ public class ApplicationTreePopupMenu {
 				}
 	    	}
 	    });
+	    
+	    new MenuItem(popupMenu, SWT.SEPARATOR);
+	    
+		final MenuItem chooseColorItem = new MenuItem(popupMenu, SWT.NONE);
+		chooseColorItem.setText("Choose item color..");
+		chooseColorItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				ColorDialog colorDialog = new ColorDialog(VermilionCascadeNotebook.getInstance().getMainComposite().getShell());
+				colorDialog.setText("Choose Item Color");
+				colorDialog.setRGB(new RGB(255, 0, 0));
+				RGB chosenRGB = colorDialog.open();
+				if (chosenRGB == null) {
+					return;
+				}
+
+				Color color = new Color(VermilionCascadeNotebook.getInstance().getMainComposite().getDisplay(), chosenRGB);
+				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().setForeground(color);
+			}
+		});    
+		
+		final MenuItem resetColorColorItem = new MenuItem(popupMenu, SWT.NONE);
+		resetColorColorItem.setText("Reset item color..");
+		resetColorColorItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().resetForeground();
+			}
+		});  
 	    
 
 //	    Menu newMenu = new Menu(popupMenu);

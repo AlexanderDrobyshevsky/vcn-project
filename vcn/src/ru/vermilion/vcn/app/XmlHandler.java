@@ -146,8 +146,8 @@ public class XmlHandler {
 		}
 		
 		try {
-			int editorFontSize = Integer.valueOf(root.getAttribute(VCNConstants.TREE_FONT_SIZE));
-			VCNTreeItem.setFontSize(editorFontSize);
+			int treeFontSize = Integer.valueOf(root.getAttribute(VCNConstants.TREE_FONT_SIZE));
+			VCNTreeItem.setFontSize(treeFontSize);
 			VermilionCascadeNotebook.getInstance().applyTreeFontSize();
 		} catch (Exception ex) {
             ex.printStackTrace();			
