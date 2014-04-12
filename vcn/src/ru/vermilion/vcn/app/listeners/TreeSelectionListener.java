@@ -14,7 +14,7 @@ public class TreeSelectionListener implements Listener {
 	public TreeSelectionListener(VermilionCascadeNotebook vermilionCascadeNotebook) {
 		this.vermilionCascadeNotebook = vermilionCascadeNotebook;
 		
-		selectItem(vermilionCascadeNotebook.getEditor().getTreeItem());
+		//selectItem(vermilionCascadeNotebook.getEditor().getTreeItem());
 	}
 	
 	// Self-made Events are possible. Just event.item may be set! 
@@ -27,7 +27,7 @@ public class TreeSelectionListener implements Listener {
 		
 		VCNTreeItem item = editor.getTreeItem();
 		System.out.println("editor item = " + item);
-		unselectItem(item);
+		//unselectItem(item);
 		if (!item.isDisposed()) {
 			item.setContent(editor.getText());
 		}
@@ -39,19 +39,22 @@ public class TreeSelectionListener implements Listener {
 		editor.addVerifyListener(vermilionCascadeNotebook.getEditorVerifyListener());
 		editor.setTreeItem((VCNTreeItem)event.item);
 		
+		vermilionCascadeNotebook.getTreePopupMenu().setBoldSelection(((VCNTreeItem)event.item).isBold());
+		
 		vermilionCascadeNotebook.setWrapEditor(((VCNTreeItem)event.item).isWrap());
 
 		vermilionCascadeNotebook.setTopLabel(((VCNTreeItem)event.item).getPath());
 		
-		selectItem((VCNTreeItem)event.item);
+		//selectItem((VCNTreeItem)event.item);
 	}
 	
-	private void unselectItem(VCNTreeItem item) {
-		item.makeTextPlain();
-	}
-	
-	private void selectItem(VCNTreeItem item) {
-		item.makeTextBold();
-	}	
+	// code_7
+//	private void unselectItem(VCNTreeItem item) {
+//		item.makeTextPlain();
+//	}
+//	
+//	private void selectItem(VCNTreeItem item) {
+//		item.makeTextBold();
+//	}	
 	
 }

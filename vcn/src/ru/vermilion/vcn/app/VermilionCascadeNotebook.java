@@ -35,6 +35,7 @@ import ru.vermilion.vcn.app.capabilities.TreeDragAndDrop;
 import ru.vermilion.vcn.app.elements.ApplicationMenu;
 import ru.vermilion.vcn.app.elements.ApplicationTreePopupMenu;
 import ru.vermilion.vcn.app.listeners.EditorVerifyListener;
+import ru.vermilion.vcn.app.listeners.PaintSelectionSelectionListener;
 import ru.vermilion.vcn.app.listeners.TreeSelectionListener;
 import ru.vermilion.vcn.app.staff.Editor;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
@@ -69,6 +70,8 @@ public final class VermilionCascadeNotebook {
     private XmlHandler xmlHandler = new XmlHandler(this);
     
     private ApplicationMenu appMenu;
+    
+    private ApplicationTreePopupMenu treePopupMenu;
     
 	public Sash sash;
 	
@@ -215,70 +218,13 @@ public final class VermilionCascadeNotebook {
 		tree = new Tree(mainComposite, SWT.BORDER);
 		tree.setLinesVisible(VCNConfiguration.isTreeLines);
 
-		// One more case without background selection gradient
-//		tree.addListener(SWT.EraseItem, new Listener() {
-//			@Override
-//			public void handleEvent(Event event) {
-//				System.out.println("Event..." + event.item);
-//				event.detail &= ~SWT.HOT;
-//				if ((event.detail & SWT.SELECTED) != 0) {
-//					GC gc = event.gc;
-//
-//					VCNTreeItem treeItem = (VCNTreeItem)event.item;
-//					
-//					gc.setForeground(treeItem.getForegroundColor());
-//					
-//					event.detail &= ~SWT.SELECTED;					
-//				}	
-//				
-//				//System.out.println("..End");
-//			}
-//		});	
-		
-		
-		tree.addListener(SWT.EraseItem, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) != 0) {
-					GC gc = event.gc;
-					Rectangle area = tree.getClientArea();
-
-					int width = area.x + area.width - event.x;
-					if (width > 0) {
-						Region region = new Region();
-						gc.getClipping(region);
-						region.add(event.x, event.y, width, event.height);
-						gc.setClipping(region);
-						region.dispose();
-					}
-					gc.setAdvanced(true);
-					if (gc.getAdvanced()) {
-						gc.setAlpha(127);
-					}
-					Rectangle rect = event.getBounds();
-					Color background = gc.getBackground();
-					gc.setForeground(event.display.getSystemColor(SWT.COLOR_BLUE));
-					gc.setBackground(event.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
-					gc.fillGradientRectangle(0, rect.y, 450, rect.height, false);
-					gc.setBackground(background);
-
-					VCNTreeItem treeItem = (VCNTreeItem) event.item;
-					gc.setForeground(treeItem.getForeground());
-
-					event.detail &= ~SWT.SELECTED;
-				}
-			}
-		});		
-		
-		
 		editor = new Editor(mainComposite, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		
 		xmlHandler.initXML();
 		
 		// addSelectionListeners(tree);
 		
-		ApplicationTreePopupMenu treePopupMenu = new ApplicationTreePopupMenu(this);
+		treePopupMenu = new ApplicationTreePopupMenu(this);
 		treePopupMenu.addTreePopupMenu();
 		
 		addEditorListeners(editor);
@@ -410,9 +356,11 @@ public final class VermilionCascadeNotebook {
 		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
 		isOwnFont = true;
         if (getEditor().getTreeItem() != null) {
-            getEditor().getTreeItem().rebaseTextFont();
+        	VCNTreeItem.applyNewFontSize(tree);
         }
-		this.getMainComposite().layout();
+        
+        // code_7
+		//this.getMainComposite().layout();
 	}
 
 	public void setWrapEditor(boolean wrap) {
@@ -462,6 +410,10 @@ public final class VermilionCascadeNotebook {
 	public ApplicationMenu getAppMenu() {
 		return appMenu;
 	}
+	
+	public ApplicationTreePopupMenu getTreePopupMenu() {
+		return treePopupMenu;
+	}
 
 	public void save() {
     	xmlHandler.saveXml();
@@ -501,6 +453,7 @@ public final class VermilionCascadeNotebook {
 	
 	private void addSelectionListeners(Tree tree) {
 		tree.addListener(SWT.Selection, new TreeSelectionListener(this));
+		tree.addListener(SWT.EraseItem, new PaintSelectionSelectionListener());
 	}
 	
 	public VerifyListener getEditorVerifyListener() {

@@ -173,13 +173,22 @@ public class ApplicationTreePopupMenu {
 			}
 		});    
 		
-		final MenuItem resetColorColorItem = new MenuItem(popupMenu, SWT.NONE);
-		resetColorColorItem.setText("Reset item color..");
-		resetColorColorItem.addSelectionListener(new SelectionAdapter() {
+		final MenuItem resetColorItem = new MenuItem(popupMenu, SWT.NONE);
+		resetColorItem.setText("Reset item color..");
+		resetColorItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().resetForeground();
 			}
 		});  
+		
+		boldItem = new MenuItem(popupMenu, SWT.CHECK);
+		//boldItem.setSelection(VermilionCascadeNotebook.getInstance().getCurrentTreeItem().isBold());
+		boldItem.setText("Bold item");
+		boldItem.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().revertBold();
+			}
+		});
 	    
 
 //	    Menu newMenu = new Menu(popupMenu);
@@ -191,6 +200,12 @@ public class ApplicationTreePopupMenu {
 //	    iconItem.setText("Icon");
 	    
 	    tree.setMenu(popupMenu);
+	}
+	
+	private MenuItem boldItem;
+	
+	public void setBoldSelection(boolean isBold) {
+		boldItem.setSelection(isBold);
 	}
 	
 	
