@@ -170,34 +170,27 @@ public class ApplicationTreePopupMenu {
 
 				Color color = new Color(VermilionCascadeNotebook.getInstance().getMainComposite().getDisplay(), chosenRGB);
 				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().setForeground(color);
+				vermilionCascadeNotebook.setModified();
 			}
 		});    
 		
 		final MenuItem resetColorItem = new MenuItem(popupMenu, SWT.NONE);
-		resetColorItem.setText("Reset item color..");
+		resetColorItem.setText("Reset item color");
 		resetColorItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().resetForeground();
+				vermilionCascadeNotebook.setModified();
 			}
 		});  
 		
 		boldItem = new MenuItem(popupMenu, SWT.CHECK);
-		//boldItem.setSelection(VermilionCascadeNotebook.getInstance().getCurrentTreeItem().isBold());
 		boldItem.setText("Bold item");
 		boldItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				VermilionCascadeNotebook.getInstance().getCurrentTreeItem().revertBold();
+				vermilionCascadeNotebook.setModified();
 			}
 		});
-	    
-
-//	    Menu newMenu = new Menu(popupMenu);
-//	    newItem.setMenu(newMenu);
-
-//	    MenuItem shortcutItem = new MenuItem(newMenu, SWT.NONE);
-//	    shortcutItem.setText("Shortcut");
-//	    MenuItem iconItem = new MenuItem(newMenu, SWT.NONE);
-//	    iconItem.setText("Icon");
 	    
 	    tree.setMenu(popupMenu);
 	}

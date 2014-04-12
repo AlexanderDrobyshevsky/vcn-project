@@ -20,8 +20,6 @@ public class VCNTreeItem extends TreeItem {
 	
 	private int id = idGenerator++;
 	
-	//private Font font;
-	
 	private Color foregroundColor;
 	
 	private boolean isBold = false; 
@@ -31,10 +29,6 @@ public class VCNTreeItem extends TreeItem {
 	private static Font boldFont;
 	
 	private static Font newBoldFont;
-	
-	//private static Font plainFont;
-	
-	// TODO Bold font should be created once and it is used all items
 	
 	private static Integer fontSize = null;
 	{
@@ -54,16 +48,10 @@ public class VCNTreeItem extends TreeItem {
 		FontData[] fD = this.getFont().getFontData();
 		fD[0].setStyle(SWT.BOLD);
 		boldFont = new Font(this.getDisplay(), fD);
-//		fD[0].setStyle(SWT.NORMAL);
-//		plainFont= new Font(this.getDisplay(), fD);
 		
 		addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
-//                if (font != null && !font.isDisposed()) {
-//                	font.dispose();
-//                }
-                
         		if (foregroundColor != null && !foregroundColor.isDisposed()) {
         			foregroundColor.dispose();
         		}
@@ -92,7 +80,7 @@ public class VCNTreeItem extends TreeItem {
 		super(parentItem, style, index);
 	}
 	
-	public void copyItemFields(VCNTreeItem sourceItem) {
+	public void buildItemAgainstSource(VCNTreeItem sourceItem) {
 		this.setText(sourceItem.getText());
 		
 		this.content = sourceItem.getContent();
@@ -100,32 +88,10 @@ public class VCNTreeItem extends TreeItem {
 		
 		if (sourceItem.foregroundColor != null) {
 			setForeground(new Color(this.getDisplay(), sourceItem.foregroundColor.getRGB()));
-			//this.foregroundColor = new Color(this.getDisplay(), sourceItem.foregroundColor.getRGB());
 		}
 		
 		setBold(sourceItem.isBold);
-		//this.isBold = ;
 	}
-	
-//	public void makeTextBold() {
-//		if (this.isDisposed()) {
-//			return;
-//		}
-//		
-//		if (font == null) {
-//			FontData[] fontData = getFont().getFontData();
-//			fontData[0].setStyle(SWT.BOLD);
-//			
-//			font = new Font(getDisplay(), fontData[0]);
-//			setFont(font);
-//		} else {
-//			// code_7 Remake it because it is a wrong code
-//			if (1==1) throw new RuntimeException("Unreachable stupid code");
-//			FontData[] fontData = font.getFontData();
-//			fontData[0].setStyle(SWT.BOLD);
-//			setFont(font);
-//		}
-//	}
 	
 	public void makeBold() {
 		if (this.isDisposed()) {
@@ -144,27 +110,6 @@ public class VCNTreeItem extends TreeItem {
         isBold = false;		
 		setFont(null);
 	}
-	
-//	public void makeTextPlain() {
-//		if (this.isDisposed()) { //|| foregroundColor != null) {
-//			return;
-//		}
-//		
-//		if (font != null) {
-//			font.dispose();
-//		}
-//		
-//		font = null;
-//		
-//		setFont(null);
-//	}
-	
-//	public void rebaseTextFont() {
-//		makeTextPlain();
-//		makeTextBold();
-//	}
-	
-	
 	
 	protected void checkSubclass () {
 	}
@@ -216,13 +161,6 @@ public class VCNTreeItem extends TreeItem {
 
 	public static void setFontSize(int fontSize) {
 		VCNTreeItem.fontSize = Math.min(210, Math.max(4, fontSize));
-		
-//		FontData[] fD = boldFont.getFontData();
-//		fD[0].setStyle(SWT.BOLD);
-//		fD[0].setHeight(fontSize);
-//		newBoldFont = new Font(this.getDisplay(), fD);
-		
-		// TODO code_7 Traverse Tree and update bold!
 	}
 	
 	public static void applyNewFontSize(Tree tree) {
@@ -290,7 +228,9 @@ public class VCNTreeItem extends TreeItem {
 		super.setForeground(defaultForeground);
 	}
 	
-	
+    public boolean isOwnForeground() {
+    	return foregroundColor != null;
+    }	
 
 	public boolean isBold() {
 		return isBold;

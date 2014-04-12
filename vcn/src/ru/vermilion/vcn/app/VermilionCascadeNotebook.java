@@ -7,13 +7,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -57,7 +54,7 @@ public final class VermilionCascadeNotebook {
 	
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
-	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.4-SNAPSHOT";
+	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.4.5-SNAPSHOT";
 	
 	private static final String TITLE_MODIFIED = " * " + TITLE_WITH_VERSION;
 	
@@ -222,8 +219,6 @@ public final class VermilionCascadeNotebook {
 		
 		xmlHandler.initXML();
 		
-		// addSelectionListeners(tree);
-		
 		treePopupMenu = new ApplicationTreePopupMenu(this);
 		treePopupMenu.addTreePopupMenu();
 		
@@ -231,10 +226,16 @@ public final class VermilionCascadeNotebook {
 	    
 		createSashFormContent();
 		xmlHandler.loadXmlToTree();
+		restoreSelection();
 		
 		addSelectionListeners(tree);
 		
 		addShellDisposeListener();
+	}
+	
+	// TODO find item by saved path and select them
+	private void restoreSelection() {
+		
 	}
 
 	private void addEditorListeners(Editor editor) {
@@ -351,7 +352,7 @@ public final class VermilionCascadeNotebook {
 	public void applyTreeFontSize() {
 		FontData[] fontData = tree.getFont().getFontData();
 		fontData[0].setHeight(VCNTreeItem.getFontSize());
-		//fontData[0].setStyle(SWT.BOLD);
+
 		if (isOwnFont) tree.getFont().dispose();
 		tree.setFont(new Font(tree.getDisplay(), fontData[0]));
 		isOwnFont = true;

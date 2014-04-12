@@ -12,6 +12,9 @@ public class VCNConstants {
 	public static final String EXPANDED = "expanded";
 	public static final String CONTENT = "content";
 	public static final String WRAP = "wrap";
+	public static final String IS_BOLD_ITEM_NAME = "is-bold-item-name";
+	public static final String ITEM_NAME_COLOR = "item-color";
+	
 	
 	public static final String WORK_FOLDER = "data";
 	public static final String WORK_FILE = "data.xml";

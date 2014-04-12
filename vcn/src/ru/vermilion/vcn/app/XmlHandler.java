@@ -13,6 +13,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TreeItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -64,8 +67,15 @@ public class XmlHandler {
 		childElement.setAttribute(VCNConstants.EXPANDED, treeItem.getExpanded() + "");
 
 		Element textElement = xml.createElement(VCNConstants.TEXT);
+		VCNTreeItem item = (VCNTreeItem)treeItem;
 		textElement.setAttribute(VCNConstants.CONTENT, (String) ((VCNTreeItem)treeItem).getContent());
 		textElement.setAttribute(VCNConstants.WRAP, ((VCNTreeItem)treeItem).isWrap() + "");
+		textElement.setAttribute(VCNConstants.IS_BOLD_ITEM_NAME, ((VCNTreeItem)treeItem).isBold() + "");
+		
+		if (item.isOwnForeground()) {
+			Color color = item.getForeground();
+			textElement.setAttribute(VCNConstants.ITEM_NAME_COLOR, color.getRed() + "-" + color.getGreen() + "-" + color.getBlue());
+		}
 		childElement.appendChild(textElement);
 
 		rootElement.appendChild(childElement);
@@ -242,9 +252,13 @@ public class XmlHandler {
 					item.setExpanded(isExpanded);
 				}
 
+				// no attr => empty string (not null)
 				if (nodeName.equals(VCNConstants.TEXT)) {
 					String content = childElement.getAttribute(VCNConstants.CONTENT);
 					String wrapAttr = childElement.getAttribute(VCNConstants.WRAP);
+					String isBoldStr = childElement.getAttribute(VCNConstants.IS_BOLD_ITEM_NAME);
+					String colorStr = childElement.getAttribute(VCNConstants.ITEM_NAME_COLOR);
+					System.out.println("isBoldStr = '" + isBoldStr + "' => " + getBoolean(isBoldStr));
 					
 					boolean wrap = new Boolean(wrapAttr);
 					if (wrapAttr == null || wrapAttr.trim().isEmpty()) {
@@ -253,9 +267,39 @@ public class XmlHandler {
 					
 					parentItem.setContent(content);
 					parentItem.setWrap(wrap);
+					
+					if (getBoolean(isBoldStr) != null) {
+						parentItem.setBold(getBoolean(isBoldStr));
+					}
+					
+					Color color = getColor(colorStr, parentItem.getDisplay());
+					if (color != null) {
+						parentItem.setForeground(color);
+					}
 				}
 			}
 		}
+	}
+	
+	private Boolean getBoolean(String value) {
+		if (value == null || value.trim().isEmpty()) {
+			return null;
+		}
+		
+		return new Boolean(value);
+	}
+	
+	private Color getColor(String value, Display display) {
+		if (value == null || value.trim().isEmpty()) {
+			return null;
+		}
+		
+		String rgb[] = value.split("-");
+		if (rgb.length != 3) {
+			return null;
+		}
+		
+		return new Color(display, new RGB(Integer.valueOf(rgb[0]), Integer.valueOf(rgb[1]), Integer.valueOf(rgb[2])));
 	}
 
 	public void saveXml() {
