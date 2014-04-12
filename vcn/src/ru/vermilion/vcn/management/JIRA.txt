@@ -36,8 +36,9 @@ Project Simple Management
  * + 42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
  * * 43. Add possibility choose node color!!
    + 43.1 Choose color for node
-     43.2 Persist color
-   * 43.3 Retain bold font for colored nodes
+   * 43.2 Persist color; Clean Code
+   + 43.3 Add Feature: Bold Node Font
+     43.4 Add Feature: Choose Color Of Selection Gradient
  * x 44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
  * + 45. High Light Current Tree Item (bold)
  * + 46. Global Search: add option 'Case sensitive'

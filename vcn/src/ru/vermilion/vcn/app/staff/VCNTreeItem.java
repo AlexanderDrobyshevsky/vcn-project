@@ -99,10 +99,12 @@ public class VCNTreeItem extends TreeItem {
 		this.isWrap = sourceItem.isWrap;
 		
 		if (sourceItem.foregroundColor != null) {
-			this.foregroundColor = new Color(this.getDisplay(), sourceItem.foregroundColor.getRGB());
+			setForeground(new Color(this.getDisplay(), sourceItem.foregroundColor.getRGB()));
+			//this.foregroundColor = new Color(this.getDisplay(), sourceItem.foregroundColor.getRGB());
 		}
 		
-		this.isBold = sourceItem.isBold;
+		setBold(sourceItem.isBold);
+		//this.isBold = ;
 	}
 	
 //	public void makeTextBold() {

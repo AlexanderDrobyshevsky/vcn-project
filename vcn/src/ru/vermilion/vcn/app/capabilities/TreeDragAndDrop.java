@@ -189,8 +189,9 @@ public class TreeDragAndDrop implements ICapability {
 				newItem = new VCNTreeItem((TreeItem) destinationItem, SWT.NONE);
 			}			
 		}
-		newItem.setText(sourceItem.getText());
-		newItem.setContent(sourceItem.getContent());
+//		newItem.setText(sourceItem.getText());
+//		newItem.setContent(sourceItem.getContent());
+		newItem.copyItemFields(sourceItem);
 		
 		for (TreeItem childItem : sourceItem.getItems()) {
 			copyTree((VCNTreeItem)childItem, newItem, null);
