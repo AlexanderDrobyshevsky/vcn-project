@@ -1,7 +1,10 @@
 package ru.vermilion.vcn.app.elements;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -13,6 +16,7 @@ import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.capabilities.ApplicationSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
+import ru.vermilion.vcn.app.listeners.PaintSelectionSelectionListener;
 
 public class ApplicationMenu {
 
@@ -159,6 +163,24 @@ public class ApplicationMenu {
 			}
 		});
         treeLineItem.setText("Show Tree Lines");
+        
+        // Choose selection color
+		item = new MenuItem(submenu, SWT.PUSH);
+		item.addListener(SWT.Selection, new Listener () {
+			public void handleEvent(Event e) {
+				ColorDialog colorDialog = new ColorDialog(VermilionCascadeNotebook.getInstance().getMainComposite().getShell());
+				colorDialog.setText("Choose Selection Color");
+				colorDialog.setRGB(new RGB(0, 0, 255));
+				RGB chosenRGB = colorDialog.open();
+				if (chosenRGB == null) {
+					return;
+				}
+
+				Color color = new Color(VermilionCascadeNotebook.getInstance().getMainComposite().getDisplay(), chosenRGB);
+				PaintSelectionSelectionListener.gradientColor = color;
+			}
+		});
+		item.setText("Change selection color..");
 		
 		/// HELP  ///
 		

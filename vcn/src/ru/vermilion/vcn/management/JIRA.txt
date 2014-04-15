@@ -38,7 +38,8 @@ Project Simple Management
    + 43.1 Choose color for node
    + 43.2 Persist color; Clean Code
    + 43.3 Add Feature: Bold Node Font
-   * 43.4 Add Feature: Choose Color Of Selection Gradient
+   + 43.4 Add Feature: Choose Color Of Selection Gradient
+   * 43.5 Persist selected gradient color
  * x 44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
  * + 45. High Light Current Tree Item (bold)
  * + 46. Global Search: add option 'Case sensitive'
