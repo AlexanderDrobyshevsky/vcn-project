@@ -8,12 +8,13 @@ import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+import ru.vermilion.vcn.app.VCNConfiguration;
 import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
 
 public class PaintSelectionSelectionListener implements Listener {
 
-	public static Color gradientColor;
+	
 			
 	@Override
 	public void handleEvent(Event event) {
@@ -36,12 +37,13 @@ public class PaintSelectionSelectionListener implements Listener {
 			}
 			Rectangle rect = event.getBounds();
 			Color background = gc.getBackground();
-			if (gradientColor == null) {
-				gradientColor = event.display.getSystemColor(SWT.COLOR_BLUE);
+			if (VCNConfiguration.getGradientSelectionColor() == null) {
+				Color gradientSelectionColor = event.display.getSystemColor(SWT.COLOR_BLUE);
+				VCNConfiguration.setGradientSelectionColor(gradientSelectionColor);
 				
-				System.out.println("gradientColor rgb = " + gradientColor.getRGB());
+				System.out.println("gradientColor rgb = " + gradientSelectionColor.getRGB());
 			}
-			gc.setForeground(gradientColor);
+			gc.setForeground(VCNConfiguration.getGradientSelectionColor());
 			gc.setBackground(event.display.getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 			gc.fillGradientRectangle(0, rect.y, 450, rect.height, false);
 			gc.setBackground(background);

@@ -16,7 +16,6 @@ import ru.vermilion.vcn.app.VermilionCascadeNotebook;
 import ru.vermilion.vcn.app.capabilities.ApplicationSearch;
 import ru.vermilion.vcn.app.dialogs.AboutDialog;
 import ru.vermilion.vcn.app.dialogs.HelpDialog;
-import ru.vermilion.vcn.app.listeners.PaintSelectionSelectionListener;
 
 public class ApplicationMenu {
 
@@ -177,7 +176,8 @@ public class ApplicationMenu {
 				}
 
 				Color color = new Color(VermilionCascadeNotebook.getInstance().getMainComposite().getDisplay(), chosenRGB);
-				PaintSelectionSelectionListener.gradientColor = color;
+				VCNConfiguration.setGradientSelectionColor(color);
+				VermilionCascadeNotebook.getInstance().setModified();
 			}
 		});
 		item.setText("Change selection color..");

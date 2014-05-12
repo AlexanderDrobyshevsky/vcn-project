@@ -31,15 +31,15 @@ Project Simple Management
  * x 36. Node sharing possibilities (through server)
  * + 37. Document Search Monitor: like "3/16 Found" in the bottom of main window;
  * + 38. Add to the help page search possibilities;
- *   40. Node import/export
+ *   40. Node import/export (under investigation)
  * + 41. Page Search: CTRL-F - must activate page search at tree too;  
  * + 42. Add to menu local search and global search (menu hot keys is general for program, but should be tested on other OS)
- * * 43. Add possibility choose node color
-   + 43.1 Choose color for node
-   + 43.2 Persist color; Clean Code
-   + 43.3 Add Feature: Bold Node Font
-   + 43.4 Add Feature: Choose Color Of Selection Gradient
-   * 43.5 Persist selected gradient color
+ * + 43. Add possibility choose node color
+ * + 43.1 Choose color for node
+ * + 43.2 Persist color; Clean Code
+ * + 43.3 Add Feature: Bold Node Font
+ * + 43.4 Add Feature: Choose Color Of Selection Gradient
+ * + 43.5 Persist selected gradient color
  * x 44. Add possibility choose node size (however inappropriate view with SWT Tree component :<).
  * + 45. High Light Current Tree Item (bold)
  * + 46. Global Search: add option 'Case sensitive'
@@ -52,7 +52,7 @@ Project Simple Management
  *   53. Save program configuration to xml (window size, sash position, font etc)
  * + 54. Copy paste works incorrectly.
  * + 55. Remove lines in tree (choose in view)
- *   56. Run in separated thread. Remove console. Make console output(out,err) to separated stream.
+ * * 56. Run in separated thread. Remove console. Make console output(out,err) to separated stream.
  *   57. Improve search: make search string for tree elements at the top of tree. 
  *   58. Save active window proportions and position and restore on starting
  *   59. Save active item position and select on starting

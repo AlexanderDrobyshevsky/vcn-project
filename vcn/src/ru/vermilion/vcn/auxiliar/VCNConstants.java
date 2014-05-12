@@ -27,5 +27,6 @@ public class VCNConstants {
 	public static final String TREE_FONT_SIZE = "tree-font-size";
 	public static final String EDITOR_FONT_SIZE = "editor-font-size";
 	public static final String TREE_LINES = "tree-lines";
+	public static final String TREE_SELECTION_COLOR = "tree-selection-color";
 	
 }

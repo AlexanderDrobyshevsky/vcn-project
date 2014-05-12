@@ -44,6 +44,8 @@ public class XmlHandler {
 		addOption(rootElement, VCNConstants.TREE_FONT_SIZE, VCNTreeItem.getFontSize());
 		addOption(rootElement, VCNConstants.EDITOR_FONT_SIZE, Editor.getFontSize());
 		addOption(rootElement, VCNConstants.TREE_LINES, VCNConfiguration.isTreeLines);
+		Color sc = VCNConfiguration.getGradientSelectionColor();
+		addOption(rootElement, VCNConstants.TREE_SELECTION_COLOR, sc.getRed() + "-" + sc.getGreen() + "-" + sc.getBlue());
 		
 		xml.appendChild(rootElement);
 
@@ -172,6 +174,12 @@ public class XmlHandler {
 		} catch (Exception ex) {
             ex.printStackTrace();			
 		}
+		
+		String selectionColorStr = root.getAttribute(VCNConstants.TREE_SELECTION_COLOR);
+		Color color = getColor(selectionColorStr, VermilionCascadeNotebook.getInstance().getMainComposite().getDisplay());
+		if (color != null) {
+			VCNConfiguration.setGradientSelectionColor(color);
+		}
 	}
 
 	public void loadXmlToTree() {
@@ -257,7 +265,7 @@ public class XmlHandler {
 					String content = childElement.getAttribute(VCNConstants.CONTENT);
 					String wrapAttr = childElement.getAttribute(VCNConstants.WRAP);
 					String isBoldStr = childElement.getAttribute(VCNConstants.IS_BOLD_ITEM_NAME);
-					String colorStr = childElement.getAttribute(VCNConstants.ITEM_NAME_COLOR);
+					String nodeColorStr = childElement.getAttribute(VCNConstants.ITEM_NAME_COLOR);
 					System.out.println("isBoldStr = '" + isBoldStr + "' => " + getBoolean(isBoldStr));
 					
 					boolean wrap = new Boolean(wrapAttr);
@@ -272,7 +280,7 @@ public class XmlHandler {
 						parentItem.setBold(getBoolean(isBoldStr));
 					}
 					
-					Color color = getColor(colorStr, parentItem.getDisplay());
+					Color color = getColor(nodeColorStr, parentItem.getDisplay());
 					if (color != null) {
 						parentItem.setForeground(color);
 					}

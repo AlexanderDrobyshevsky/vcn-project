@@ -54,7 +54,8 @@ public final class VermilionCascadeNotebook {
 	
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
-	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, v. 1.4.5-SNAPSHOT";
+	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, "
+			+ "v. 1.4.6-SNAPSHOT (" + new File("").getAbsolutePath() + ")";
 	
 	private static final String TITLE_MODIFIED = " * " + TITLE_WITH_VERSION;
 	
