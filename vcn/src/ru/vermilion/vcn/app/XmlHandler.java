@@ -30,6 +30,24 @@ import ru.vermilion.vcn.app.staff.VCNTreeItem;
 import ru.vermilion.vcn.auxiliar.GeneralUtils;
 import ru.vermilion.vcn.auxiliar.VCNConstants;
 
+/**
+ * Try to get program lock
+Got program lock
+Editor default font size detected = 9
+Tree default font size detected = 9
+set modified
+Exception in thread "main" java.lang.NullPointerException
+        at ru.vermilion.vcn.app.XmlHandler.constructXml(XmlHandler.java:48)
+        at ru.vermilion.vcn.app.XmlHandler.saveXml(XmlHandler.java:334)
+        at ru.vermilion.vcn.app.XmlHandler.initXML(XmlHandler.java:148)
+        at ru.vermilion.vcn.app.VermilionCascadeNotebook.createContent(Vermilion
+CascadeNotebook.java:221)
+        at ru.vermilion.vcn.app.VermilionCascadeNotebook.init(VermilionCascadeNo
+tebook.java:135)
+        at ru.vermilion.vcn.app.ApplicationStart.main(ApplicationStart.java:9)
+
+ *
+ */
 public class XmlHandler {
 
 	private VermilionCascadeNotebook vermilionCascadeNotebook;
@@ -45,7 +63,10 @@ public class XmlHandler {
 		addOption(rootElement, VCNConstants.EDITOR_FONT_SIZE, Editor.getFontSize());
 		addOption(rootElement, VCNConstants.TREE_LINES, VCNConfiguration.isTreeLines);
 		Color sc = VCNConfiguration.getGradientSelectionColor();
-		addOption(rootElement, VCNConstants.TREE_SELECTION_COLOR, sc.getRed() + "-" + sc.getGreen() + "-" + sc.getBlue());
+		// see bug
+		if (sc != null) {
+			addOption(rootElement, VCNConstants.TREE_SELECTION_COLOR, sc.getRed() + "-" + sc.getGreen() + "-" + sc.getBlue());
+		}
 		
 		xml.appendChild(rootElement);
 
