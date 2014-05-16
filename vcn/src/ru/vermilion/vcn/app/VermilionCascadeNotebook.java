@@ -36,6 +36,7 @@ import ru.vermilion.vcn.app.listeners.PaintSelectionSelectionListener;
 import ru.vermilion.vcn.app.listeners.TreeSelectionListener;
 import ru.vermilion.vcn.app.staff.Editor;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
+import ru.vermilion.vcn.auxiliar.GeneralUtils;
 import ru.vermilion.vcn.auxiliar.MessageOKDialog;
 import ru.vermilion.vcn.auxiliar.UI;
 import ru.vermilion.vcn.auxiliar.VCNConstants;
@@ -46,6 +47,10 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
 
 public final class VermilionCascadeNotebook {
 
+	private Display display = null;
+	
+	private Shell shell = null;
+	
 	private Editor editor = null;
 	
 	private Tree tree = null;
@@ -89,61 +94,67 @@ public final class VermilionCascadeNotebook {
 	}
 	
 	void init() {
-		Display display = new Display();
-		Shell shell = new Shell (display);
+		display = new Display();
+		shell = new Shell(display);
 		shell.setText(TITLE_WITH_VERSION);
-		
-		lockProgrammProcess(shell);
-		
-		shell.setImage(new Image(display, VermilionCascadeNotebook.class.getResourceAsStream("/images/logo.png")));
-		
-		GridLayout gl = new GridLayout(1, false);
-		gl.horizontalSpacing = 0;
-		gl.verticalSpacing = 1;
-		gl.marginHeight = 0;
-		gl.marginWidth = 1;
 
-		shell.setLayout(gl);
-		
-		Composite upComposite = new Composite(shell, SWT.BORDER);
-		gl = new GridLayout(1, false);
-		gl.marginHeight = 0;
-		gl.marginWidth = 2;
-		upComposite.setLayout(gl);
-		upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		topLabel = new Label(upComposite, SWT.BOLD);
-		topLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		topLabel.setText("/");
-		
-		Composite midComposite = new Composite(shell, SWT.NONE);
-		midComposite.setBackground(midComposite.getDisplay().getSystemColor(SWT.COLOR_GREEN));
-		midComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
-		Composite botComposite = new Composite(shell, SWT.BORDER);
-		gl = new GridLayout(1, false);
-		gl.marginHeight = 0;
-		gl.marginWidth = 4;
-		botComposite.setLayout(gl);
-		botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		statusLabel = new Label(botComposite, SWT.BOLD);
-		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		statusLabel.setText("Status Line");
-		
-		
-		this.mainComposite = midComposite;
-		
-		createContent();
-		
-		addCapability(new ProgramAutoSave(this));
-		addCapability(new TreeDragAndDrop(this));
-		
-		upComposite.pack();
-		botComposite.pack();
-		
-		shell.pack();
-		shell.setSize (700, 500);
-		
-		UI.centerShell(shell);
+		lockProgrammProcess(shell);
+
+		try {
+			shell.setImage(new Image(display, VermilionCascadeNotebook.class.getResourceAsStream("/images/logo.png")));
+
+			GridLayout gl = new GridLayout(1, false);
+			gl.horizontalSpacing = 0;
+			gl.verticalSpacing = 1;
+			gl.marginHeight = 0;
+			gl.marginWidth = 1;
+
+			shell.setLayout(gl);
+
+			Composite upComposite = new Composite(shell, SWT.BORDER);
+			gl = new GridLayout(1, false);
+			gl.marginHeight = 0;
+			gl.marginWidth = 2;
+			upComposite.setLayout(gl);
+			upComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			topLabel = new Label(upComposite, SWT.BOLD);
+			topLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			topLabel.setText("/");
+
+			Composite midComposite = new Composite(shell, SWT.NONE);
+			midComposite.setBackground(midComposite.getDisplay().getSystemColor(SWT.COLOR_GREEN));
+			midComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+			Composite botComposite = new Composite(shell, SWT.BORDER);
+			gl = new GridLayout(1, false);
+			gl.marginHeight = 0;
+			gl.marginWidth = 4;
+			botComposite.setLayout(gl);
+			botComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			statusLabel = new Label(botComposite, SWT.BOLD);
+			statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			statusLabel.setText("Status Line");
+
+			this.mainComposite = midComposite;
+
+			createContent();
+
+			addCapability(new ProgramAutoSave(this));
+			addCapability(new TreeDragAndDrop(this));
+
+			upComposite.pack();
+			botComposite.pack();
+
+			shell.pack();
+			shell.setSize(700, 500);
+
+			UI.centerShell(shell);
+		} catch (Exception ex) {
+			UI.messageDialog(VermilionCascadeNotebook.getInstance().getShell(), "Error of program initialization (" + ex + ")", 
+					"Program initialization error: " + ex +"\r\nError stack: \r\n\r\n" + GeneralUtils.getStackTrace(ex));
+			
+			ex.printStackTrace();
+		}
 	}
 
 	private void lockProgrammProcess(Shell shell) {
@@ -160,7 +171,7 @@ public final class VermilionCascadeNotebook {
     		MessageOKDialog md = new MessageOKDialog(shell, 
     				"VCN: Program already running",
     				"Program locked by other instance.\r\n" +
-    				"Just one program instance can be executed from same directory.");
+    				"Just one program instance can be executed from a same directory.");
     		md.open(); 
     		
         	System.out.println("Program locked by other instance");
@@ -172,12 +183,10 @@ public final class VermilionCascadeNotebook {
 			
 			programLocker = new FileOutputStream(locker);			
 		} catch (Exception ex) {
-    		MessageOKDialog md = new MessageOKDialog(shell, 
-    				"VCN: Error loading program",
-    				"Can't create required files. \r\n" +
+			UI.messageDialog(shell, "VCN: Error loading program", 
+					"Can't create required files. \r\n" +
     				"Failed to work with the file system.\r\n" +
     				"Can't get program lock.");
-    		md.open();
     		
 			System.out.println("Can not get program lock");
 			ex.printStackTrace();
@@ -415,6 +424,14 @@ public final class VermilionCascadeNotebook {
 	
 	public ApplicationTreePopupMenu getTreePopupMenu() {
 		return treePopupMenu;
+	}
+	
+	public Display getDisplay() {
+		return display;
+	}
+	
+	public Shell getShell() {
+		return shell;
 	}
 
 	public void save() {

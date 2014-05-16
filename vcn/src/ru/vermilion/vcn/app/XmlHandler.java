@@ -3,6 +3,7 @@ package ru.vermilion.vcn.app;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +29,7 @@ import org.xml.sax.SAXParseException;
 import ru.vermilion.vcn.app.staff.Editor;
 import ru.vermilion.vcn.app.staff.VCNTreeItem;
 import ru.vermilion.vcn.auxiliar.GeneralUtils;
+import ru.vermilion.vcn.auxiliar.UI;
 import ru.vermilion.vcn.auxiliar.VCNConstants;
 
 /**
@@ -331,6 +333,7 @@ public class XmlHandler {
 		return new Color(display, new RGB(Integer.valueOf(rgb[0]), Integer.valueOf(rgb[1]), Integer.valueOf(rgb[2])));
 	}
 
+	// Can be invoked to create initial data.xml
 	public void saveXml() {
 		if (!vermilionCascadeNotebook.getModified()) {
 			return;
@@ -343,18 +346,13 @@ public class XmlHandler {
 
 		try {
 			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			// TODO message window
-			e.printStackTrace();
-		}
 
-		Document xml = builder.newDocument();
+			Document xml = builder.newDocument();
 
-		vermilionCascadeNotebook.flushEditor();
+			vermilionCascadeNotebook.flushEditor();
 
-		constructXml(xml);
-
-		try {
+			constructXml(xml);
+			
 			System.out.println("Write data.xml..");
 			Transformer t = TransformerFactory.newInstance().newTransformer();
 
@@ -375,9 +373,14 @@ public class XmlHandler {
 
 			System.out.println("Write data.xml.");
 		} catch (Exception ex) {
+			VermilionCascadeNotebook.getInstance().setInModified();
+			UI.messageDialog(VermilionCascadeNotebook.getInstance().getShell(), "Error writing user data '" + ex + 
+					"'\r\nRecent modifictions were not saved\r\n", 
+					"Writing user data process has caused an error: " + ex +"\r\nError stack: \r\n\r\n" + GeneralUtils.getStackTrace(ex));
+			
 			ex.printStackTrace();
 		}
 
-		vermilionCascadeNotebook.setInModified();
+		VermilionCascadeNotebook.getInstance().setInModified();
 	}
 }

@@ -47,4 +47,11 @@ public class UI {
 	public static Color getGeneralBackgroudColor(Shell shell) {
 		return shell.getDisplay().getSystemColor(SWT.COLOR_WHITE);
 	}
+	
+	public static void messageDialog(Shell shell, String title, String body) {
+		MessageOKDialog md = new MessageOKDialog(shell, title, body);
+		
+		md.open();
+	}
+	
 }

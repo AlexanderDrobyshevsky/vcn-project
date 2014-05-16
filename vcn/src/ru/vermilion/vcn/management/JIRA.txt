@@ -22,7 +22,7 @@ Project Simple Management
  * + 26. Search in current document/page
  * + 28. Put version of xml to file for new versions
  * + 29. Search through whole editor
- *   30? Comb listeners with exceptions
+ * + 30. Message Dialogs with exceptions
  *   31. ~Copy qualified name
  * + 32. Feature: Clipboard has copied text-> Select in app text to replace with clipboard - but have selected text (in clipboard) instead of text your really want to put 
  *   33. Live Copy Of Nodes (One live node for many parents)

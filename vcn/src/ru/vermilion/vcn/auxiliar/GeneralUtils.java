@@ -14,4 +14,22 @@ public class GeneralUtils {
 			ti.dispose();
 		}
 	}
+	
+	public static String getStackTrace(Exception ex) {
+		if (ex == null) {
+			return "";
+		}
+		
+		Object [] traces = ex.getStackTrace();
+		if (traces == null) {
+			return "";
+		}
+		
+		String s = "";
+		for (Object trace : traces) {
+			s += "    " + trace.toString() + "\r\n";
+		}
+		
+		return s + "\r\n";
+	}
 }
