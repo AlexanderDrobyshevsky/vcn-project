@@ -66,7 +66,7 @@ Project Simple Management
  * Bugs:
  * 1. + Press cancel when creating new sub-node - save * appear
  * 2. + Empty node possible
- * 3. Opens and closes of node - are not saved
+ * 3. + Opens and closes of node are not saved
  * 4. + [Fatal Error] data.xml:4:9333: Character reference "&#6" is an invalid XML character (handle correctly such exception!).
  * 5. + Renaming node - must be renamed path bar
  * 6. + Selection current node: after search - 1. not selecting current node. 2. Moving node - Exception because unselect disposed element! 

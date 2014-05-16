@@ -473,6 +473,18 @@ public final class VermilionCascadeNotebook {
 	private void addSelectionListeners(Tree tree) {
 		tree.addListener(SWT.Selection, new TreeSelectionListener(this));
 		tree.addListener(SWT.EraseItem, new PaintSelectionSelectionListener());
+		
+		tree.addListener(SWT.Expand, new Listener() {
+			public void handleEvent(Event event) {
+				setModified();
+			}
+		});
+		
+		tree.addListener(SWT.Collapse, new Listener() {
+			public void handleEvent(Event event) {
+                setModified();
+			}
+		});
 	}
 	
 	public VerifyListener getEditorVerifyListener() {
