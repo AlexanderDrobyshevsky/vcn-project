@@ -52,7 +52,7 @@ Project Simple Management
  *   53. Save program configuration to xml (window size, sash position, font etc)
  * + 54. Copy paste works incorrectly.
  * + 55. Remove lines in tree (choose in view)
- * * 56. Run in separated thread. Remove console. Make console output(out,err) to separated stream.
+ * x 56. Run in separated thread. Remove console. Make console output(out,err) to separated stream (after investigation the way was found - run with another command line)
  *   57. Improve search: make search string for tree elements at the top of tree. 
  *   58. Save active window proportions and position and restore on starting
  *   59. Save active item position and select on starting
@@ -61,6 +61,7 @@ Project Simple Management
  *   62. Set focus on element under mouse cursor (tree and editor)
  *   63. Move output stream to error stream. Eliminate console
  *   64. Text selection reset after t seconds option
+ * + 65. Add global fault message for case program global fatal errors (like cannot load 64-bit SWT libraries on 32-bit JVM)  
  *    
  * 
  * Bugs:
