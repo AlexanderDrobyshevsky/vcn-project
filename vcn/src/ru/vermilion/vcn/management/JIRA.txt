@@ -47,7 +47,7 @@ Project Simple Management
  * + 48. Global Search: add option 'Start over (otherwise starts at current node)'
  * + 49. Local Search: add option 'Case sensitive'
  * + 50. Local Search: add option 'Search start over the page'
- *   51. Prepare Git README Project
+ * * 51. Prepare Git README Project
  * + 52. Make header composite/line with node path 
  *   53. Save program configuration to xml (window size, sash position, font etc)
  * + 54. Copy paste works incorrectly.
@@ -61,7 +61,7 @@ Project Simple Management
  *   62. Set focus on element under mouse cursor (tree and editor)
  *   63. Move output stream to error stream. Eliminate console
  *   64. Text selection reset after t seconds option
- * + 65. Add global fault message for case program global fatal errors (like cannot load 64-bit SWT libraries on 32-bit JVM)  
+ * + 65. Add global fault message for case of program global fatal errors (like cannot load 64-bit SWT libraries on 32-bit JVM)  
  *    
  * 
  * Bugs:
