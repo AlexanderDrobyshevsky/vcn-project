@@ -44,7 +44,6 @@ import ru.vermilion.vcn.auxiliar.VCNConstants;
 /**
  * @author Alexander Drobyshevsky
  */
-
 public final class VermilionCascadeNotebook {
 
 	private Display display = null;
@@ -60,7 +59,10 @@ public final class VermilionCascadeNotebook {
 	public static final String TITLE = "Vermilion Cascade Notebook";
 	
 	public static final String TITLE_WITH_VERSION = "Vermilion Cascade Notebook, "
-			+ "v. 1.5 (" + new File("").getAbsolutePath() + ")";
+			+ "v. 1.5";
+	
+	public static final String TITLE_WITH_VERSION_AND_PATH = TITLE_WITH_VERSION + 
+			" (" + new File("").getAbsolutePath() + ")";	
 	
 	private static final String TITLE_MODIFIED = " * " + TITLE_WITH_VERSION;
 	
@@ -96,7 +98,7 @@ public final class VermilionCascadeNotebook {
 	void init() {
 		display = new Display();
 		shell = new Shell(display);
-		shell.setText(TITLE_WITH_VERSION);
+		shell.setText(TITLE_WITH_VERSION_AND_PATH);
 
 		lockProgrammProcess(shell);
 
@@ -387,7 +389,7 @@ public final class VermilionCascadeNotebook {
 	// clears modified status
 	public void setInModified() {
 		isModified = false;
-		mainComposite.getShell().setText(TITLE_WITH_VERSION);
+		mainComposite.getShell().setText(TITLE_WITH_VERSION_AND_PATH);
 	}
 	
 	public boolean getModified() {
