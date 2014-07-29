@@ -24,10 +24,14 @@ The main features:
  
  
  
-##Screenshots.
+####Screenshots
  
 Context menu with options for a section
+
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/sub-menu.png)
+
+
+
 
 
 
