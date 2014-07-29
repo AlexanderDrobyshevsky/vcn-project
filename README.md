@@ -23,9 +23,12 @@ The main features:
  * High speed of work - the program is optimized to work very fast
  
  
-Screenshots.
  
-![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/sub-menu.png)
+##Screenshots.
+ 
 Context menu with options for a section
+![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/sub-menu.png)
+
+
 
 
