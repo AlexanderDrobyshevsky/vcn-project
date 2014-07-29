@@ -2,12 +2,11 @@
 ===
 This program is intended for keeping and maintaining a large number of textual records in convenient and easy way with the ability to organize them hierarchically: creating sections and subsections. Each section keeps it own content. The name of the section is a header for that content.
 
-
 Next screenshot depicts this key feature.
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/the-main.png)
 
 **Recognized experience. This is the best way to store, create and organize large amount of information.**
-
+- - - 
 
 The main traits:
  * Total Unicode support;
@@ -22,37 +21,40 @@ The main features:
  * Full search
  * High speed of work - the program is optimized to work very fast
  
- 
+- - - 
  
  
 ####Screenshots
- 
+
+- - - 
+
 Context menu with options for a section
 
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/sub-menu.png)
 
+- - - 
+
 #####Drag and Drop Features
+
+- - - 
 
 Dragging a node under another node
 
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/drag.png)
 
-
+- - - 
 
 After drop. Result of dragging and dropping (please, forgive me fans of rock :) )
 
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/drop.png)
 
-
-
-
-
+- - - 
 
 **The program is being developed.
 There are a lot of other useful features will appear in the new versions soon.**
 
 
-
-
+Sincerely yours,
+Alexander Drobyshevsky
 
 
