@@ -8,11 +8,11 @@ Next screenshot depicts this key feature.
 **Recognized experience. This is the best way to store, create and organize large amount of information.**
 - - - 
 
-The main traits:
+**The main traits:**
  * Total Unicode support;
  * Program works on the Windows, Linux, MacOS;
 
-The main features:
+**The main features:**
  * Drag-and-drop support - you can sort elements of your tree exactly as you want
  * Adjust font proportions for tree and content
  * Selected text are copied to clipboard automaticaly
@@ -21,7 +21,7 @@ The main features:
  * Full search
  * High speed of work - the program is optimized to work very fast
  
-- - - 
+*****
  
  
 ####Screenshots
@@ -54,7 +54,7 @@ After drop. Result of dragging and dropping (please, forgive me fans of rock :) 
 There are a lot of other useful features will appear in the new versions soon.**
 
 
-Sincerely yours,
+Sincerely yours,  
 Alexander Drobyshevsky
 
 
