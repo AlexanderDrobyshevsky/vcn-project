@@ -4,11 +4,10 @@ This program is intended for keeping and maintaining a large number of textual r
 
 
 Next screenshot depicts this key feature.
-```
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/the-main.png)
-```
 
-Recognized experience. This is the best way to store, create and organize large amount of information.
+**Recognized experience. This is the best way to store, create and organize large amount of information.**
+
 
 The main traits:
  * Total Unicode support;
@@ -24,4 +23,9 @@ The main features:
  * High speed of work - the program is optimized to work very fast
  
  
+Screenshots.
  
+![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/sub-menu.png)
+Context menu with options for a section
+
+
