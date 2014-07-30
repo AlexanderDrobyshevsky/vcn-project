@@ -42,7 +42,7 @@ Dragging a node under another node
 
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/drag.png)
 
-- - - 
+![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/arrow-down.png)
 
 After drop. Result of dragging and dropping (please, forgive me fans of rock :) )
 
@@ -50,9 +50,12 @@ After drop. Result of dragging and dropping (please, forgive me fans of rock :) 
 
 - - - 
 
-**The program is being developed.
-There are a lot of other useful features will appear in the new versions soon.**
+**The program is being developed.  
+There are a lot of other useful features will appear in the new versions soon.**  
 
+Program final release download page:
+https://github.com/AlexanderDrobyshevsky/vcn-project/releases
+    
 
 Sincerely yours,  
 Alexander Drobyshevsky
