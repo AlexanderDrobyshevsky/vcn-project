@@ -1,6 +1,6 @@
 ![Logo](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/logo-s2.png) Vermilion Cascade Notebook (VCN)
 ===
-This program is intended for keeping and maintaining a large number of textual records in convenient and easy way with the ability to organize them hierarchically: creating sections and subsections. Each section keeps it own content. The name of the section is a header for that content.
+This program intended for keeping and maintaining a large number of textual records in convenient and easy way with the ability to organize them hierarchically: creating sections and subsections. Each section keeps own content. The name of the section is a header for that content.
 
 Next screenshot depicts this key feature.
 ![Main](https://raw.githubusercontent.com/AlexanderDrobyshevsky/vcn-project/master/git-images/the-main.png)
@@ -15,7 +15,7 @@ Next screenshot depicts this key feature.
 **The main features:**
  * Drag-and-drop support - you can sort elements of your tree exactly as you want
  * Adjust font proportions for tree and content
- * Selected text are copied to clipboard automaticaly
+ * Selected text are copied to clipboard automatically
  * Color picker for tree sections
  * Autosave
  * Full search
